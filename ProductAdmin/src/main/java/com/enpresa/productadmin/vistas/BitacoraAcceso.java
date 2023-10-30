@@ -68,7 +68,7 @@ public class BitacoraAcceso extends javax.swing.JPanel {
         jTable1.setPreferredSize(new java.awt.Dimension(578, 448));
         jScrollPane1.setViewportView(jTable1);
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null));
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("¿Filtrar?"));
 
         jTextField6.setPreferredSize(new java.awt.Dimension(30, 22));
 
