@@ -30,48 +30,292 @@ public class MenuPrincipal extends javax.swing.JPanel {
         jLabelUsusario = new javax.swing.JLabel();
         btnCambiarPass = new javax.swing.JButton();
         btnCerrarSesion = new javax.swing.JButton();
+        btnSalir = new javax.swing.JButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTextArea1 = new javax.swing.JTextArea();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        btnAdministrarProductos = new javax.swing.JButton();
+        btnRegistrarCompraVenta = new javax.swing.JButton();
+        jLabel5 = new javax.swing.JLabel();
+        btnAdministrarUsuarios = new javax.swing.JButton();
+        btnAdministrarRoles = new javax.swing.JButton();
+        jSeparator1 = new javax.swing.JSeparator();
+        jSeparator2 = new javax.swing.JSeparator();
+        jSeparator3 = new javax.swing.JSeparator();
+        btnConsultarBitacoraTransacciones = new javax.swing.JButton();
+        btnConsultarBitacoraAcceso = new javax.swing.JButton();
+        jLabel6 = new javax.swing.JLabel();
+        btnReporteInventario = new javax.swing.JButton();
+        btnReporteInventarioDetallado = new javax.swing.JButton();
+        btnReporteGastosGanacias = new javax.swing.JButton();
+        jSeparator4 = new javax.swing.JSeparator();
+        jLabel7 = new javax.swing.JLabel();
+        btnAcercaDe = new javax.swing.JButton();
+        btnManualUsuario = new javax.swing.JButton();
+
+        setBorder(javax.swing.BorderFactory.createTitledBorder(""));
+        setMaximumSize(new java.awt.Dimension(921, 527));
+        setMinimumSize(new java.awt.Dimension(921, 527));
+        setPreferredSize(new java.awt.Dimension(921, 527));
 
         jLabel1.setText("Bienvenido,");
+        jLabel1.setPreferredSize(new java.awt.Dimension(68, 21));
 
         jLabelUsusario.setText("Usuario");
+        jLabelUsusario.setPreferredSize(new java.awt.Dimension(68, 21));
 
         btnCambiarPass.setText("Cambiar Contraseña");
+        btnCambiarPass.setPreferredSize(new java.awt.Dimension(160, 30));
 
         btnCerrarSesion.setText("Cerrar Sesión");
+        btnCerrarSesion.setPreferredSize(new java.awt.Dimension(150, 30));
+
+        btnSalir.setText("Salir de la Aplicación");
+        btnSalir.setPreferredSize(new java.awt.Dimension(150, 30));
+        btnSalir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalirActionPerformed(evt);
+            }
+        });
+
+        jTextArea1.setColumns(20);
+        jTextArea1.setRows(5);
+        jTextArea1.setMaximumSize(new java.awt.Dimension(100, 100));
+        jTextArea1.setMinimumSize(new java.awt.Dimension(100, 100));
+        jTextArea1.setPreferredSize(new java.awt.Dimension(100, 100));
+        jScrollPane2.setViewportView(jTextArea1);
+
+        jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 9)); // NOI18N
+        jLabel3.setText("Reservados todos los derechos");
+        jLabel3.setPreferredSize(new java.awt.Dimension(129, 17));
+
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 10)); // NOI18N
+        jLabel2.setText("© en presa, 2023");
+        jLabel2.setMinimumSize(new java.awt.Dimension(72, 17));
+
+        jLabel4.setText("Productos");
+        jLabel4.setPreferredSize(new java.awt.Dimension(60, 21));
+
+        btnAdministrarProductos.setText("Administrar Productos");
+        btnAdministrarProductos.setPreferredSize(new java.awt.Dimension(160, 50));
+
+        btnRegistrarCompraVenta.setText("Registrar Compra/Venta");
+        btnRegistrarCompraVenta.setMaximumSize(new java.awt.Dimension(160, 50));
+        btnRegistrarCompraVenta.setMinimumSize(new java.awt.Dimension(160, 50));
+        btnRegistrarCompraVenta.setPreferredSize(new java.awt.Dimension(160, 50));
+
+        jLabel5.setText("Usuarios");
+        jLabel5.setPreferredSize(new java.awt.Dimension(60, 21));
+
+        btnAdministrarUsuarios.setText("Administrar Usuarios");
+        btnAdministrarUsuarios.setPreferredSize(new java.awt.Dimension(160, 50));
+
+        btnAdministrarRoles.setText("Administrar Roles");
+        btnAdministrarRoles.setPreferredSize(new java.awt.Dimension(160, 50));
+
+        jSeparator1.setOrientation(javax.swing.SwingConstants.VERTICAL);
+        jSeparator1.setPreferredSize(new java.awt.Dimension(10, 501));
+
+        jSeparator2.setMaximumSize(new java.awt.Dimension(688, 10));
+        jSeparator2.setMinimumSize(new java.awt.Dimension(688, 10));
+        jSeparator2.setPreferredSize(new java.awt.Dimension(688, 10));
+
+        jSeparator3.setMaximumSize(new java.awt.Dimension(688, 10));
+        jSeparator3.setMinimumSize(new java.awt.Dimension(688, 10));
+        jSeparator3.setPreferredSize(new java.awt.Dimension(688, 10));
+
+        btnConsultarBitacoraTransacciones.setText("Consultar Bitácora de Transacciones");
+        btnConsultarBitacoraTransacciones.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnConsultarBitacoraTransacciones.setPreferredSize(new java.awt.Dimension(160, 50));
+
+        btnConsultarBitacoraAcceso.setText("Consultar Bitácora de Acceso");
+        btnConsultarBitacoraAcceso.setMaximumSize(new java.awt.Dimension(160, 50));
+        btnConsultarBitacoraAcceso.setMinimumSize(new java.awt.Dimension(160, 50));
+        btnConsultarBitacoraAcceso.setPreferredSize(new java.awt.Dimension(160, 50));
+
+        jLabel6.setText("Reportes");
+        jLabel6.setPreferredSize(new java.awt.Dimension(60, 21));
+
+        btnReporteInventario.setText("Reportes de Inventario");
+        btnReporteInventario.setMaximumSize(new java.awt.Dimension(160, 50));
+        btnReporteInventario.setMinimumSize(new java.awt.Dimension(160, 50));
+        btnReporteInventario.setPreferredSize(new java.awt.Dimension(160, 50));
+
+        btnReporteInventarioDetallado.setText("Reportes de Inventario Detallado");
+        btnReporteInventarioDetallado.setMaximumSize(new java.awt.Dimension(160, 50));
+        btnReporteInventarioDetallado.setMinimumSize(new java.awt.Dimension(160, 50));
+        btnReporteInventarioDetallado.setPreferredSize(new java.awt.Dimension(160, 50));
+
+        btnReporteGastosGanacias.setText("Reportes de Gastos y Ganancias");
+        btnReporteGastosGanacias.setMaximumSize(new java.awt.Dimension(160, 50));
+        btnReporteGastosGanacias.setMinimumSize(new java.awt.Dimension(160, 50));
+        btnReporteGastosGanacias.setPreferredSize(new java.awt.Dimension(160, 50));
+
+        jSeparator4.setMaximumSize(new java.awt.Dimension(688, 10));
+        jSeparator4.setMinimumSize(new java.awt.Dimension(688, 10));
+        jSeparator4.setPreferredSize(new java.awt.Dimension(688, 10));
+
+        jLabel7.setText("Ayuda");
+
+        btnAcercaDe.setText("Acerca de");
+        btnAcercaDe.setMaximumSize(new java.awt.Dimension(160, 50));
+        btnAcercaDe.setMinimumSize(new java.awt.Dimension(160, 50));
+        btnAcercaDe.setPreferredSize(new java.awt.Dimension(160, 50));
+
+        btnManualUsuario.setText("Manual de Usuario");
+        btnManualUsuario.setMaximumSize(new java.awt.Dimension(160, 50));
+        btnManualUsuario.setMinimumSize(new java.awt.Dimension(160, 50));
+        btnManualUsuario.setPreferredSize(new java.awt.Dimension(160, 50));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(45, 45, 45)
+                .addGap(6, 6, 6)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnCerrarSesion)
-                    .addComponent(btnCambiarPass)
-                    .addComponent(jLabelUsusario)
-                    .addComponent(jLabel1))
-                .addContainerGap(441, Short.MAX_VALUE))
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabelUsusario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnCambiarPass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnCerrarSesion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnSalir, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(19, 19, 19)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(33, 33, 33)
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(8, 8, 8)
+                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(5, 5, 5)
+                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(12, 12, 12)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(btnAdministrarProductos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnRegistrarCompraVenta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(btnAdministrarUsuarios, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnAdministrarRoles, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnConsultarBitacoraTransacciones, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnConsultarBitacoraAcceso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(btnReporteInventario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnReporteInventarioDetallado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnReporteGastosGanacias, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel7)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(btnAcercaDe, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnManualUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(24, 24, 24)
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabelUsusario)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(6, 6, 6)
+                .addComponent(jLabelUsusario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(btnCambiarPass)
+                .addComponent(btnCambiarPass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(29, 29, 29)
+                .addComponent(btnCerrarSesion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(btnCerrarSesion)
-                .addContainerGap(305, Short.MAX_VALUE))
+                .addComponent(btnSalir, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(143, 143, 143)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(12, 12, 12)
+                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(6, 6, 6)
+                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(6, 6, 6)
+                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 513, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(23, 23, 23)
+                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(23, 23, 23)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnAdministrarProductos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnRegistrarCompraVenta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(12, 12, 12)
+                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(26, 26, 26)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnAdministrarUsuarios, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnAdministrarRoles, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnConsultarBitacoraTransacciones, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnConsultarBitacoraAcceso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(12, 12, 12)
+                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnReporteInventario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnReporteInventarioDetallado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnReporteGastosGanacias, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(12, 12, 12)
+                .addComponent(jLabel7)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnAcercaDe, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnManualUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnSalirActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAcercaDe;
+    private javax.swing.JButton btnAdministrarProductos;
+    private javax.swing.JButton btnAdministrarRoles;
+    private javax.swing.JButton btnAdministrarUsuarios;
     private javax.swing.JButton btnCambiarPass;
     private javax.swing.JButton btnCerrarSesion;
+    private javax.swing.JButton btnConsultarBitacoraAcceso;
+    private javax.swing.JButton btnConsultarBitacoraTransacciones;
+    private javax.swing.JButton btnManualUsuario;
+    private javax.swing.JButton btnRegistrarCompraVenta;
+    private javax.swing.JButton btnReporteGastosGanacias;
+    private javax.swing.JButton btnReporteInventario;
+    private javax.swing.JButton btnReporteInventarioDetallado;
+    private javax.swing.JButton btnSalir;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabelUsusario;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JSeparator jSeparator2;
+    private javax.swing.JSeparator jSeparator3;
+    private javax.swing.JSeparator jSeparator4;
+    private javax.swing.JTextArea jTextArea1;
     // End of variables declaration//GEN-END:variables
 }
