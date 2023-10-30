@@ -62,13 +62,13 @@ public class BitacoraTransacciones extends javax.swing.JPanel {
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null}
             },
             new String [] {
-                "ID", "Fecha", "Hora", "Usuario"
+                "ID", "Fecha", "Hora", "Objeto", "Usuario", "Acción", "Módulo"
             }
         ));
         jTable1.setToolTipText("");
