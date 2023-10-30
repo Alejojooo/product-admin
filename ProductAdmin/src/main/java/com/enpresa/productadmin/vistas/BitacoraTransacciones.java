@@ -82,7 +82,7 @@ public class BitacoraTransacciones extends javax.swing.JPanel {
 
         jTextField6.setPreferredSize(new java.awt.Dimension(30, 22));
         jPanel1.add(jTextField6);
-        jTextField6.setBounds(70, 105, 30, 22);
+        jTextField6.setBounds(70, 105, 30, 27);
 
         jLabel1.setText("De:");
         jPanel1.add(jLabel1);
@@ -90,7 +90,7 @@ public class BitacoraTransacciones extends javax.swing.JPanel {
 
         jTextField7.setPreferredSize(new java.awt.Dimension(30, 22));
         jPanel1.add(jTextField7);
-        jTextField7.setBounds(106, 105, 30, 22);
+        jTextField7.setBounds(106, 105, 30, 27);
 
         jLabel2.setText("Hasta:");
         jPanel1.add(jLabel2);
@@ -102,7 +102,7 @@ public class BitacoraTransacciones extends javax.swing.JPanel {
 
         jTextField2.setPreferredSize(new java.awt.Dimension(30, 22));
         jPanel1.add(jTextField2);
-        jTextField2.setBounds(71, 62, 30, 22);
+        jTextField2.setBounds(71, 62, 30, 27);
 
         jLabel8.setText("Hasta:");
         jPanel1.add(jLabel8);
@@ -110,19 +110,19 @@ public class BitacoraTransacciones extends javax.swing.JPanel {
 
         jTextField3.setPreferredSize(new java.awt.Dimension(30, 22));
         jPanel1.add(jTextField3);
-        jTextField3.setBounds(107, 62, 30, 22);
+        jTextField3.setBounds(107, 62, 30, 27);
 
         jTextField8.setPreferredSize(new java.awt.Dimension(50, 22));
         jPanel1.add(jTextField8);
-        jTextField8.setBounds(288, 62, 50, 22);
+        jTextField8.setBounds(288, 62, 50, 27);
 
         jTextField4.setPreferredSize(new java.awt.Dimension(50, 22));
         jPanel1.add(jTextField4);
-        jTextField4.setBounds(143, 62, 50, 22);
+        jTextField4.setBounds(143, 62, 50, 27);
 
         jTextField9.setPreferredSize(new java.awt.Dimension(50, 22));
         jPanel1.add(jTextField9);
-        jTextField9.setBounds(288, 105, 50, 22);
+        jTextField9.setBounds(288, 105, 50, 27);
 
         jLabel3.setText("/");
         jPanel1.add(jLabel3);
@@ -140,7 +140,7 @@ public class BitacoraTransacciones extends javax.swing.JPanel {
 
         jTextField5.setPreferredSize(new java.awt.Dimension(50, 22));
         jPanel1.add(jTextField5);
-        jTextField5.setBounds(142, 105, 50, 22);
+        jTextField5.setBounds(142, 105, 50, 27);
 
         jCheckBox2.setText("Hora");
         jPanel1.add(jCheckBox2);
@@ -157,12 +157,12 @@ public class BitacoraTransacciones extends javax.swing.JPanel {
         jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         jComboBox2.setPreferredSize(new java.awt.Dimension(150, 22));
         jPanel1.add(jComboBox2);
-        jComboBox2.setBounds(153, 305, 150, 22);
+        jComboBox2.setBounds(153, 305, 150, 27);
 
         jComboBox3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         jComboBox3.setPreferredSize(new java.awt.Dimension(150, 22));
         jPanel1.add(jComboBox3);
-        jComboBox3.setBounds(153, 262, 150, 22);
+        jComboBox3.setBounds(153, 262, 150, 27);
 
         jCheckBox4.setText("Objeto");
         jPanel1.add(jCheckBox4);
@@ -170,7 +170,7 @@ public class BitacoraTransacciones extends javax.swing.JPanel {
 
         jTextField10.setPreferredSize(new java.awt.Dimension(150, 22));
         jPanel1.add(jTextField10);
-        jTextField10.setBounds(153, 219, 150, 22);
+        jTextField10.setBounds(153, 219, 150, 27);
 
         jCheckBox5.setText("Usuario");
         jPanel1.add(jCheckBox5);
@@ -186,7 +186,7 @@ public class BitacoraTransacciones extends javax.swing.JPanel {
 
         jTextField11.setPreferredSize(new java.awt.Dimension(150, 22));
         jPanel1.add(jTextField11);
-        jTextField11.setBounds(153, 174, 150, 22);
+        jTextField11.setBounds(153, 174, 150, 27);
 
         add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 41, 354, 448));
     }// </editor-fold>//GEN-END:initComponents
