@@ -96,7 +96,7 @@ public class BitacoraAcceso extends javax.swing.JPanel {
 
         jTextField2.setPreferredSize(new java.awt.Dimension(30, 22));
         jPanel1.add(jTextField2);
-        jTextField2.setBounds(71, 62, 30, 22);
+        jTextField2.setBounds(71, 62, 30, 27);
 
         jLabel8.setText("Hasta:");
         jPanel1.add(jLabel8);
@@ -104,19 +104,19 @@ public class BitacoraAcceso extends javax.swing.JPanel {
 
         jTextField3.setPreferredSize(new java.awt.Dimension(30, 22));
         jPanel1.add(jTextField3);
-        jTextField3.setBounds(107, 62, 30, 22);
+        jTextField3.setBounds(107, 62, 30, 27);
 
         jTextField8.setPreferredSize(new java.awt.Dimension(50, 22));
         jPanel1.add(jTextField8);
-        jTextField8.setBounds(288, 62, 50, 22);
+        jTextField8.setBounds(288, 62, 50, 27);
 
         jTextField4.setPreferredSize(new java.awt.Dimension(50, 22));
         jPanel1.add(jTextField4);
-        jTextField4.setBounds(143, 62, 50, 22);
+        jTextField4.setBounds(143, 62, 50, 27);
 
         jTextField9.setPreferredSize(new java.awt.Dimension(50, 22));
         jPanel1.add(jTextField9);
-        jTextField9.setBounds(288, 105, 50, 22);
+        jTextField9.setBounds(288, 105, 50, 27);
 
         jLabel3.setText("/");
         jPanel1.add(jLabel3);
@@ -144,9 +144,9 @@ public class BitacoraAcceso extends javax.swing.JPanel {
         jPanel1.add(jLabel5);
         jLabel5.setBounds(100, 108, 5, 16);
 
-        jCheckBox3.setText("Usuario:");
+        jCheckBox3.setText("Usuario");
         jPanel1.add(jCheckBox3);
-        jCheckBox3.setBounds(51, 174, 66, 20);
+        jCheckBox3.setBounds(51, 176, 63, 20);
 
         jLabel6.setText("/");
         jPanel1.add(jLabel6);
@@ -154,7 +154,7 @@ public class BitacoraAcceso extends javax.swing.JPanel {
 
         jTextField1.setPreferredSize(new java.awt.Dimension(150, 22));
         jPanel1.add(jTextField1);
-        jTextField1.setBounds(153, 174, 150, 22);
+        jTextField1.setBounds(153, 174, 150, 27);
 
         add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 41, 354, 448));
     }// </editor-fold>//GEN-END:initComponents
