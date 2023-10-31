@@ -68,6 +68,13 @@ GO
 
 
 -- FUNCIONES
+CREATE FUNCTION fHash (@String VARCHAR(MAX))
+RETURNS BINARY(64)
+AS BEGIN
+	RETURN HASHBYTES('SHA2_256', @String)
+END
+GO
+
 CREATE FUNCTION fLogin (@Usuario VARCHAR(100), @Clave VARCHAR(MAX))
 RETURNS INT
 AS BEGIN
@@ -75,7 +82,7 @@ AS BEGIN
 	SET @IDUsuario = (SELECT idUsuario
 					  FROM tbUsuario
 					  WHERE usuario = @Usuario
-					  AND clave = HASHBYTES('SHA2_256', @Clave))
+					  AND clave = dbo.fHash(@Clave))
 	RETURN @IDUsuario
 END
 GO
@@ -88,7 +95,7 @@ AS BEGIN
 	SET @ClaveBD = (SELECT clave
 					FROM tbUsuario
 					WHERE idUsuario = @IDUsuario)
-	IF @ClaveBD = HASHBYTES('SHA2_256', @Clave)
+	IF @ClaveBD = dbo.fHash(@Clave)
 		SET @ReturnState = 1
 	ELSE
 		SET @ReturnState = 0
@@ -109,7 +116,7 @@ CREATE PROCEDURE pCrearUsuario
 	@Rol NCHAR(30)
 AS BEGIN
 	INSERT INTO tbUsuario (usuario, clave, nombres, apellidos, rol)
-	VALUES (@Usuario, HASHBYTES('SHA2_256', @Clave), @Nombres, @Apellidos, @Rol)
+	VALUES (@Usuario, dbo.fHash(@Clave), @Nombres, @Apellidos, @Rol)
 END
 GO
 
@@ -145,7 +152,7 @@ AS BEGIN
 	IF (SELECT dbo.fComprobarClave(@IDUsuario, @ClaveVieja)) > 0
 	BEGIN
 		UPDATE tbUsuario SET
-			clave = HASHBYTES('SHA2_256', @ClaveNueva)
+			clave = dbo.fHash(@ClaveNueva)
 		WHERE idUsuario = @IDUsuario
 	END
 END
@@ -219,7 +226,7 @@ GO
 -- VISTAS
 CREATE VIEW vUsuarios
 AS
-	SELECT idUsuario AS [IDUsuario],
+	SELECT idUsuario AS [ID Usuario],
 		   usuario AS [Usuario],
 		   nombres AS [Nombres],
 		   apellidos AS [Apellidos],
@@ -229,11 +236,51 @@ GO
 
 CREATE VIEW vProductos
 AS
-	SELECT idProducto AS [IDProducto],
+	SELECT idProducto AS [ID Producto],
 		   nombreProducto AS [Nombre],
 		   cantidad AS [Cantidad],
 		   precioCompra AS [Precio Compra],
 		   precioVenta AS [Precio Venta],
-		   descripcion AS [Descripcion]
+		   descripcion AS [Descripción]
 	FROM tbProducto
 GO
+
+
+
+
+
+-- INSERT VALUES
+BEGIN TRY
+	BEGIN TRANSACTION TranUsuarios
+		INSERT INTO tbUsuario (usuario, clave, nombres, apellidos, rol)
+		VALUES ('admin', dbo.fHash('admin'), N'admin', N'admin', 'ADMINISTRADOR')
+	COMMIT TRANSACTION TranUsuarios
+	PRINT 'Ingresados usuarios.'
+END TRY
+BEGIN CATCH 
+	IF (@@TRANCOUNT > 0)
+	BEGIN
+		ROLLBACK TRANSACTION TranUsuarios
+		PRINT 'Error detectado al momento de ingresar usuarios.'
+	END
+END CATCH
+
+
+BEGIN TRY
+	BEGIN TRANSACTION TranProductos
+		INSERT INTO tbProducto (nombreProducto, cantidad, precioCompra, precioVenta, descripcion)
+		VALUES (N'Cubo Rubik', 42, 5.00, 25.00, N'Cubo de Rubik')
+		INSERT INTO tbProducto (nombreProducto, cantidad, precioCompra, precioVenta, descripcion)
+		VALUES (N'Pelota', 100, 5.00, 25.00, N'Pelota antiestrés')
+		INSERT INTO tbProducto (nombreProducto, cantidad, precioCompra, precioVenta, descripcion)
+		VALUES (N'Pulsera', 0, 1.00, 3.00, '')
+	COMMIT TRANSACTION TranProductos
+	PRINT 'Ingresados productos.'
+END TRY
+BEGIN CATCH 
+	IF (@@TRANCOUNT > 0)
+	BEGIN
+		ROLLBACK TRANSACTION TranProductos
+		PRINT 'Error detectado al momento de ingresar productos.'
+	END
+END CATCH
