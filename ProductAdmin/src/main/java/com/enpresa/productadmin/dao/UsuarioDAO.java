@@ -1,10 +1,14 @@
 package com.enpresa.productadmin.dao;
 
+import com.enpresa.productadmin.modelo.Producto;
 import com.enpresa.productadmin.modelo.Usuario;
 import com.enpresa.productadmin.utils.Conexion;
 import java.sql.CallableStatement;
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -70,7 +74,26 @@ public class UsuarioDAO implements DAO<Usuario> {
 
     @Override
     public List<Usuario> consultarTodos() {
-        return null;
+        List<Usuario> usuarios = new ArrayList<>();
+        String sql = "SELECT * FROM vUsuarios";
+
+        try (Connection conexion = new Conexion().establecerConexion(); Statement st = conexion.createStatement()) {
+            ResultSet rs = st.executeQuery(sql);
+            Usuario usuario;
+            while (rs.next()) {
+                usuario = new Usuario();
+                usuario.setId(rs.getInt(1));
+                usuario.setUsuario(rs.getString(2));
+                usuario.setNombres(rs.getString(3));
+                usuario.setApellidos(rs.getString(4));
+                usuario.setRol().;
+                usuarios.add(usuario);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return usuarios;
     }
 
     public void buscar() {
