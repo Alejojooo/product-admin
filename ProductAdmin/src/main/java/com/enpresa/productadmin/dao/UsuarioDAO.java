@@ -1,6 +1,7 @@
 package com.enpresa.productadmin.dao;
 
 import com.enpresa.productadmin.modelo.Producto;
+import com.enpresa.productadmin.modelo.Rol;
 import com.enpresa.productadmin.modelo.Usuario;
 import com.enpresa.productadmin.utils.Conexion;
 import java.sql.CallableStatement;
@@ -86,7 +87,7 @@ public class UsuarioDAO implements DAO<Usuario> {
                 usuario.setUsuario(rs.getString(2));
                 usuario.setNombres(rs.getString(3));
                 usuario.setApellidos(rs.getString(4));
-                usuario.setRol().;
+                usuario.setRol(Rol.valueOf(rs.getString(5)));
                 usuarios.add(usuario);
             }
         } catch (SQLException e) {
