@@ -130,30 +130,44 @@ END
 GO
 
 
-CREATE FUNCTION fBuscarUsuario (@Busqueda VARCHAR(MAX))
+
+/*
+CREATE FUNCTION fBuscarUsuario (
+	@IDUsuario INT,
+	@Usuario VARCHAR(100),
+	@Nombres NVARCHAR(100),
+	@Apellidos NVARCHAR(100),
+	@Rol NCHAR(30))
 RETURNS TABLE
 AS RETURN
 	SELECT *
 	FROM vUsuarios
-	WHERE [ID Usuario] LIKE '%' + @Busqueda + '%'
-	OR [Usuario] LIKE '%' + @Busqueda + '%'
-	OR [Nombres] LIKE '%' + @Busqueda + '%'
-	OR [Apellidos] LIKE '%' + @Busqueda + '%'
-	OR [Rol] LIKE '%' + @Busqueda + '%'
+	WHERE [ID Usuario] LIKE '%' + @IDUsuario + '%'
+	OR [Usuario] LIKE '%' + @Usuario + '%'
+	OR [Nombres] LIKE '%' + @Nombres + '%'
+	OR [Apellidos] LIKE '%' + @Apellidos + '%'
+	OR [Rol] LIKE '%' + @Rol + '%'
 GO
 
-CREATE FUNCTION fBuscarProducto (@Busqueda VARCHAR(MAX))
+CREATE FUNCTION fBuscarProducto (
+	@IDProducto INT,
+	@Nombre NVARCHAR(100),
+	@Cantidad INT,
+	@PrecioCompra DECIMAL(10, 2),
+	@PrecioVenta DECIMAL(10, 2),
+	@Descripcion NVARCHAR(250))
 RETURNS TABLE
 AS RETURN
 	SELECT *
 	FROM vProductos
-	WHERE [ID Producto] LIKE '%' + @Busqueda + '%'
-	OR [Nombre] LIKE '%' + @Busqueda + '%'
-	OR [Cantidad] LIKE '%' + @Busqueda + '%'
-	OR [Precio Compra] LIKE '%' + @Busqueda + '%'
-	OR [Precio Venta] LIKE '%' + @Busqueda + '%'
-	OR [Descripción] LIKE '%' + @Busqueda + '%'
+	WHERE [ID Producto] LIKE '%' + @IDProducto + '%'
+	OR [Nombre] LIKE '%' + @Nombre + '%'
+	OR [Cantidad] LIKE '%' + @Cantidad + '%'
+	OR [Precio Compra] LIKE '%' + @PrecioCompra + '%'
+	OR [Precio Venta] LIKE '%' + @PrecioVenta + '%'
+	OR [Descripción] LIKE '%' + @Descripcion + '%'
 GO
+*/
 
 
 
