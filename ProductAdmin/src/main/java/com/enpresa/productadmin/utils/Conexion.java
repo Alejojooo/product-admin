@@ -10,16 +10,14 @@ import javax.swing.JOptionPane;
  * @author Alejo
  */
 public class Conexion {
-    //Conectarse a la base de datos
-    //Remplazar nombre servidor, usuario, y contraseña.
 
     Connection conexion = null;
 
     String ip = "localhost";
     String puerto = "1433";
     String baseDatos = "";
-    String usuario = "usuario";
-    String clave = "pass";
+    String usuario = "productadmin";
+    String clave = "productadmin";
 
     public Connection establecerConexion() {
 
