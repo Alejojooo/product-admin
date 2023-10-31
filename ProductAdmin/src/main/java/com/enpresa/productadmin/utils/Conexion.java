@@ -15,7 +15,7 @@ public class Conexion {
 
     String ip = "localhost";
     String puerto = "1433";
-    String baseDatos = "";
+    String baseDatos = "bdProductAdmin";
     String usuario = "productadmin";
     String clave = "productadmin";
 
@@ -26,6 +26,8 @@ public class Conexion {
             sb.append("jdbc:sqlserver://").append(ip).append(":").append(puerto).append(";");
             sb.append("databaseName=").append(baseDatos).append(";");
             sb.append("encrypt=true;trustServerCertificate=true");
+            
+            System.out.println(sb.toString());
 
             conexion = DriverManager.getConnection(sb.toString(), usuario, clave);
             JOptionPane.showMessageDialog(null, "Se conectó correctamente");
