@@ -28,9 +28,8 @@ public class Conexion {
             sb.append("encrypt=true;trustServerCertificate=true");
 
             conexion = DriverManager.getConnection(sb.toString(), usuario, clave);
-            JOptionPane.showMessageDialog(null, "Se conectó correctamente");
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "No se conectó correctamente");
+            e.printStackTrace();
         }
         return conexion;
     }
