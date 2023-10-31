@@ -52,7 +52,7 @@ public class BitacoraAcceso extends javax.swing.JPanel {
         jTextField1 = new javax.swing.JTextField();
 
         setPreferredSize(new java.awt.Dimension(980, 505));
-        setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        setLayout(null);
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -69,7 +69,8 @@ public class BitacoraAcceso extends javax.swing.JPanel {
         jTable1.setPreferredSize(new java.awt.Dimension(578, 448));
         jScrollPane1.setViewportView(jTable1);
 
-        add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(16, 41, 578, 448));
+        add(jScrollPane1);
+        jScrollPane1.setBounds(16, 41, 578, 448);
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("¿Filtrar?"));
         jPanel1.setLayout(null);
@@ -156,7 +157,8 @@ public class BitacoraAcceso extends javax.swing.JPanel {
         jPanel1.add(jTextField1);
         jTextField1.setBounds(153, 174, 150, 27);
 
-        add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 41, 354, 448));
+        add(jPanel1);
+        jPanel1.setBounds(610, 41, 354, 448);
     }// </editor-fold>//GEN-END:initComponents
 
 
