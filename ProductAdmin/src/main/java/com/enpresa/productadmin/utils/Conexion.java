@@ -37,12 +37,11 @@ public class Conexion {
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "No se conectó correctamente");
         }
-        
+
         return conectar;
 
     }
 
-    
     /*
     public static void main(String[] args) {
         String connectionUrl
