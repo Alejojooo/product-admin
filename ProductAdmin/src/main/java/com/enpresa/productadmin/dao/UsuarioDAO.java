@@ -20,8 +20,7 @@ public class UsuarioDAO {
             cs.setString(2, usuario.getPassword());
             cs.setString(3, usuario.getNombres());
             cs.setString(4, usuario.getApellidos());
-            cs.;
-            
+            cs.setString(5, usuario.getRol().toString());
             
         } catch (SQLException e) {
             e.printStackTrace();
