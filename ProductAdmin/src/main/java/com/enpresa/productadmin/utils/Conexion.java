@@ -3,7 +3,6 @@ package com.enpresa.productadmin.utils;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.sql.Statement;
 import javax.swing.JOptionPane;
 
 /**
@@ -14,31 +13,28 @@ public class Conexion {
     //Conectarse a la base de datos
     //Remplazar nombre servidor, usuario, y contraseña.
 
-    Connection conectar = null;
+    Connection conexion = null;
 
-    String usuario = "usuario";
-    String pass = "pass";
-    String bd = "";
     String ip = "localhost";
     String puerto = "1433";
+    String baseDatos = "";
+    String usuario = "usuario";
+    String clave = "pass";
 
     public Connection establecerConexion() {
 
         try {
-            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+            StringBuilder sb = new StringBuilder();
+            sb.append("jdbc:sqlserver://").append(ip).append(":").append(puerto).append(";");
+            sb.append("databaseName=").append(baseDatos).append(";");
+            sb.append("encrypt=true;trustServerCertificate=true");
 
-            String cadena = "jdbc:sqlserver://" + ip + ":" + puerto + ";"
-                    + "databaseName=" + bd + ";"
-                    + "encrypt=true;trustServerCertificate=true";
-
-            conectar = DriverManager.getConnection(cadena, usuario, pass);
+            conexion = DriverManager.getConnection(sb.toString(), usuario, clave);
             JOptionPane.showMessageDialog(null, "Se conectó correctamente");
 
-        } catch (Exception e) {
+        } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "No se conectó correctamente");
         }
-
-        return conectar;
-
+        return conexion;
     }
 }
