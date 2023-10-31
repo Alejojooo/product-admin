@@ -210,6 +210,16 @@ GO
 
 
 
+-- TRIGGERS
+CREATE TRIGGER 
+
+
+
+
+
+
+
+
 -- VISTAS
 CREATE VIEW vUsuarios
 AS
