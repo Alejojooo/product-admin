@@ -25,7 +25,7 @@ CREATE TABLE tbUsuario (
 	clave BINARY(64) NOT NULL,
 	nombres NVARCHAR(100) NOT NULL,
 	apellidos NVARCHAR(100) NOT NULL,
-	rol NCHAR(30) NOT NULL
+	rol VARCHAR(30) NOT NULL
 )
 
 CREATE TABLE tbProducto (
@@ -40,7 +40,7 @@ CREATE TABLE tbProducto (
 CREATE TABLE tbOperacion (
 	idOperacion INT PRIMARY KEY IDENTITY(1, 1),
 	nombreProducto NVARCHAR(100) NOT NULL,
-	tipoOperacion CHAR(10) NOT NULL,
+	tipoOperacion VARCHAR(10) NOT NULL,
 	cantidad INT NOT NULL,
 	precio DECIMAL(10, 2) NOT NULL
 )
@@ -51,8 +51,8 @@ CREATE TABLE tbBitacoraTransacciones (
 	hora TIME NOT NULL,
 	objeto NVARCHAR(100) NOT NULL,
 	usuario VARCHAR(100) NOT NULL,
-	accion CHAR(20) NOT NULL,
-	modulo CHAR(20) NOT NULL,
+	accion VARCHAR(20) NOT NULL,
+	modulo VARCHAR(20) NOT NULL,
 )
 
 CREATE TABLE tbBitacoraAcceso (
@@ -137,7 +137,7 @@ CREATE FUNCTION fBuscarUsuario (
 	@Usuario VARCHAR(100),
 	@Nombres NVARCHAR(100),
 	@Apellidos NVARCHAR(100),
-	@Rol NCHAR(30))
+	@Rol NVARCHAR(30))
 RETURNS TABLE
 AS RETURN
 	SELECT *
@@ -179,7 +179,7 @@ CREATE PROCEDURE pCrearUsuario
 	@Clave VARCHAR(MAX),
 	@Nombres NVARCHAR(100),
 	@Apellidos NVARCHAR(100),
-	@Rol NCHAR(30)
+	@Rol VARCHAR(30)
 AS BEGIN
 	INSERT INTO tbUsuario (usuario, clave, nombres, apellidos, rol)
 	VALUES (@Usuario, dbo.fHash(@Clave), @Nombres, @Apellidos, @Rol)
@@ -191,7 +191,7 @@ CREATE PROCEDURE pModificarUsuario
 	@Usuario VARCHAR(100),
 	@Nombres NVARCHAR(100),
 	@Apellidos NVARCHAR(100),
-	@Rol NCHAR(30)
+	@Rol VARCHAR(30)
 AS BEGIN
 	UPDATE tbUsuario SET
 	usuario = @Usuario,
@@ -266,7 +266,7 @@ GO
 
 CREATE PROCEDURE pRegistrarOperacion
 	@NombreProducto NVARCHAR(100),
-	@TipoOperacion CHAR(10),
+	@TipoOperacion VARCHAR(10),
 	@Cantidad INT,
 	@Precio DECIMAL(10, 2)
 AS BEGIN
