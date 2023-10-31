@@ -211,7 +211,7 @@ GO
 
 
 -- TRIGGERS
-CREATE TRIGGER 
+
 
 
 
