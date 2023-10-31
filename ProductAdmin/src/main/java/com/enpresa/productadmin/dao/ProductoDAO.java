@@ -14,8 +14,9 @@ import java.util.List;
  *
  * @author Alejo
  */
-public class ProductoDAO {
+public class ProductoDAO implements DAO<Producto> {
 
+    @Override
     public void crear(Producto producto) {
         String sql = "{CALL dbo.pCrearProducto(?, ?, ?, ?, ?)}";
 
@@ -34,6 +35,7 @@ public class ProductoDAO {
         }
     }
 
+    @Override
     public void modificar(Producto producto) {
         String sql = "{CALL dbo.pModificarProducto(?, ?, ?, ?, ?, ?)}";
 
@@ -53,6 +55,7 @@ public class ProductoDAO {
         }
     }
 
+    @Override
     public void eliminar(Producto producto) {
         String sql = "{CALL dbo.pEliminarProducto(?)}";
 
@@ -67,6 +70,7 @@ public class ProductoDAO {
         }
     }
 
+    @Override
     public List<Producto> consultarTodos() {
         List<Producto> productos = new ArrayList<>();
         String sql = "SELECT * FROM vProductos";
@@ -87,7 +91,7 @@ public class ProductoDAO {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        
+
         return productos;
     }
 
