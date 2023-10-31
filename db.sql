@@ -219,6 +219,21 @@ GO
 -- VISTAS
 CREATE VIEW vUsuarios
 AS
-	SELECT idUsuario, usuario, nombres, apellidos, rol
+	SELECT idUsuario AS [IDUsuario],
+		   usuario AS [Usuario],
+		   nombres AS [Nombres],
+		   apellidos AS [Apellidos],
+		   rol AS [Rol]
 	FROM tbUsuario
+GO
+
+CREATE VIEW vProductos
+AS
+	SELECT idProducto AS [IDProducto],
+		   nombreProducto AS [Nombre],
+		   cantidad AS [Cantidad],
+		   precioCompra AS [Precio Compra],
+		   precioVenta AS [Precio Venta],
+		   descripcion AS [Descripcion]
+	FROM tbProducto
 GO
