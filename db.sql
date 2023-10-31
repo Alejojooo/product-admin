@@ -67,6 +67,32 @@ GO
 
 
 
+-- VISTAS
+CREATE VIEW vUsuarios
+AS
+	SELECT idUsuario AS [ID Usuario],
+		   usuario AS [Usuario],
+		   nombres AS [Nombres],
+		   apellidos AS [Apellidos],
+		   rol AS [Rol]
+	FROM tbUsuario
+GO
+
+CREATE VIEW vProductos
+AS
+	SELECT idProducto AS [ID Producto],
+		   nombreProducto AS [Nombre],
+		   cantidad AS [Cantidad],
+		   precioCompra AS [Precio Compra],
+		   precioVenta AS [Precio Venta],
+		   descripcion AS [Descripción]
+	FROM tbProducto
+GO
+
+
+
+
+
 -- FUNCIONES
 CREATE FUNCTION fHash (@String VARCHAR(MAX))
 RETURNS BINARY(64)
@@ -101,6 +127,32 @@ AS BEGIN
 		SET @ReturnState = 0
 	RETURN @ReturnState
 END
+GO
+
+
+CREATE FUNCTION fBuscarUsuario (@Busqueda VARCHAR(MAX))
+RETURNS TABLE
+AS RETURN
+	SELECT *
+	FROM vUsuarios
+	WHERE [ID Usuario] LIKE '%' + @Busqueda + '%'
+	OR [Usuario] LIKE '%' + @Busqueda + '%'
+	OR [Nombres] LIKE '%' + @Busqueda + '%'
+	OR [Apellidos] LIKE '%' + @Busqueda + '%'
+	OR [Rol] LIKE '%' + @Busqueda + '%'
+GO
+
+CREATE FUNCTION fBuscarProducto (@Busqueda VARCHAR(MAX))
+RETURNS TABLE
+AS RETURN
+	SELECT *
+	FROM vProductos
+	WHERE [ID Producto] LIKE '%' + @Busqueda + '%'
+	OR [Nombre] LIKE '%' + @Busqueda + '%'
+	OR [Cantidad] LIKE '%' + @Busqueda + '%'
+	OR [Precio Compra] LIKE '%' + @Busqueda + '%'
+	OR [Precio Venta] LIKE '%' + @Busqueda + '%'
+	OR [Descripción] LIKE '%' + @Busqueda + '%'
 GO
 
 
@@ -215,35 +267,6 @@ GO
 
 -- TRIGGERS
 
-
-
-
-
-
-
-
-
--- VISTAS
-CREATE VIEW vUsuarios
-AS
-	SELECT idUsuario AS [ID Usuario],
-		   usuario AS [Usuario],
-		   nombres AS [Nombres],
-		   apellidos AS [Apellidos],
-		   rol AS [Rol]
-	FROM tbUsuario
-GO
-
-CREATE VIEW vProductos
-AS
-	SELECT idProducto AS [ID Producto],
-		   nombreProducto AS [Nombre],
-		   cantidad AS [Cantidad],
-		   precioCompra AS [Precio Compra],
-		   precioVenta AS [Precio Venta],
-		   descripcion AS [Descripción]
-	FROM tbProducto
-GO
 
 
 
