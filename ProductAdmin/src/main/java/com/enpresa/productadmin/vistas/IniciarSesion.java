@@ -29,7 +29,7 @@ public class IniciarSesion extends javax.swing.JPanel {
         jLabel1 = new javax.swing.JLabel();
         txtUsuario = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
-        txtContraseña = new javax.swing.JTextField();
+        txtClave = new javax.swing.JTextField();
         btnIniciarSesion = new javax.swing.JButton();
 
         setBorder(javax.swing.BorderFactory.createTitledBorder(""));
@@ -52,9 +52,9 @@ public class IniciarSesion extends javax.swing.JPanel {
         jLabel2.setMinimumSize(new java.awt.Dimension(72, 21));
         jLabel2.setPreferredSize(new java.awt.Dimension(72, 21));
 
-        txtContraseña.setMaximumSize(new java.awt.Dimension(150, 27));
-        txtContraseña.setMinimumSize(new java.awt.Dimension(150, 27));
-        txtContraseña.setPreferredSize(new java.awt.Dimension(150, 27));
+        txtClave.setMaximumSize(new java.awt.Dimension(150, 27));
+        txtClave.setMinimumSize(new java.awt.Dimension(150, 27));
+        txtClave.setPreferredSize(new java.awt.Dimension(150, 27));
 
         btnIniciarSesion.setText("Iniciar Sesión");
         btnIniciarSesion.setMaximumSize(new java.awt.Dimension(104, 27));
@@ -76,7 +76,7 @@ public class IniciarSesion extends javax.swing.JPanel {
                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addGroup(layout.createSequentialGroup()
                 .addGap(15, 15, 15)
-                .addComponent(txtContraseña, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(txtClave, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addGroup(layout.createSequentialGroup()
                 .addGap(34, 34, 34)
                 .addComponent(btnIniciarSesion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -91,7 +91,7 @@ public class IniciarSesion extends javax.swing.JPanel {
                 .addGap(18, 18, 18)
                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(6, 6, 6)
-                .addComponent(txtContraseña, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtClave, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btnIniciarSesion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
@@ -102,7 +102,7 @@ public class IniciarSesion extends javax.swing.JPanel {
     private javax.swing.JButton btnIniciarSesion;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JTextField txtContraseña;
+    private javax.swing.JTextField txtClave;
     private javax.swing.JTextField txtUsuario;
     // End of variables declaration//GEN-END:variables
 }
