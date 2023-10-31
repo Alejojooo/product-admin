@@ -126,7 +126,7 @@ public class RegistrarCompraVenta extends javax.swing.JPanel {
         jLabel6.setText("Cantidad:");
 
         jButton5.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/cheque.png"))); // NOI18N
+        jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/enpresa/productadmin/icons/cheque.png"))); // NOI18N
         jButton5.setText("Confirmar");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
