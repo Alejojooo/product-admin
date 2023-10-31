@@ -1,21 +1,17 @@
 -- BORRAR Y VOLVER A CREAR LA BASE DE DATOS
-USE master
+USE master;
 GO
 
-IF EXISTS (
-		SELECT *
-		FROM sys.databases
-		WHERE name = 'bdProductAdmin'
-		)
-BEGIN
-	DROP DATABASE [bdProductAdmin]
-END
+ALTER DATABASE [bdProductAdmin] SET SINGLE_USER WITH ROLLBACK IMMEDIATE;
 GO
 
-CREATE DATABASE [bdProductAdmin]
+DROP DATABASE IF EXISTS [bdProductAdmin];
 GO
 
-USE [bdProductAdmin]
+CREATE DATABASE [bdProductAdmin];
+GO
+
+USE [bdProductAdmin];
 GO
 
 

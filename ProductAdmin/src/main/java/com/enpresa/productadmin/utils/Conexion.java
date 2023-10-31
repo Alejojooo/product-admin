@@ -26,12 +26,9 @@ public class Conexion {
             sb.append("jdbc:sqlserver://").append(ip).append(":").append(puerto).append(";");
             sb.append("databaseName=").append(baseDatos).append(";");
             sb.append("encrypt=true;trustServerCertificate=true");
-            
-            System.out.println(sb.toString());
 
             conexion = DriverManager.getConnection(sb.toString(), usuario, clave);
             JOptionPane.showMessageDialog(null, "Se conectó correctamente");
-
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "No se conectó correctamente");
         }

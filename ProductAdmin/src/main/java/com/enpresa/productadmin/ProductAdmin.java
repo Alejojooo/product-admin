@@ -14,7 +14,7 @@ public class ProductAdmin {
         System.out.println("Hello World!");
 
         Producto producto = new Producto();
-        producto.setNombre("CocaCola");
+        producto.setNombre("Fanta");
         producto.setCantidad(5);
         producto.setPrecioCompra(new BigDecimal(2.00));
         producto.setPrecioVenta(new BigDecimal(8.00));
