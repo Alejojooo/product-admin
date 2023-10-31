@@ -149,7 +149,7 @@ AS BEGIN
 	IF (SELECT dbo.fComprobarClave(@IDUsuario, @ClaveVieja)) > 0
 	BEGIN
 		UPDATE tbUsuario SET
-			clave = @ClaveNueva
+			clave = HASHBYTES('SHA2_256', @ClaveNueva)
 		WHERE idUsuario = @IDUsuario
 	END
 END
