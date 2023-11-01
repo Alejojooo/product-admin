@@ -39,7 +39,7 @@ public class InicioDeSesionController {
     private void login() {
         int id = modelo.login(vista.getUsuario(), vista.getClave());
         if (id < 1) {
-            JOptionPane.showMessageDialog(frame, "Usuario o contraseña incorrectos", "Aviso", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(frame, "Usuario o contraseña incorrectos", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
         JOptionPane.showMessageDialog(frame, "Inicio de sesión correcto.", "Información", JOptionPane.INFORMATION_MESSAGE);
