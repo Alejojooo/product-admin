@@ -16,6 +16,7 @@ public class MenuPrincipalController {
 
     public MenuPrincipalController(MenuPrincipal vista) {
         this.vista = vista;
+        this.vista.getLabelUsuario().setText(ProductAdmin.usuarioActivo.getNombres());
 
         frame = new JFrame();
         frame.setContentPane(vista);
