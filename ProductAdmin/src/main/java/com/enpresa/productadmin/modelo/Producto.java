@@ -17,7 +17,7 @@ public class Producto {
 
     public Producto() {
     }
-
+    
     public Producto(int id, String nombre, int cantidad, BigDecimal precioCompra, BigDecimal precioVenta, String descripcion) {
         this.id = id;
         this.nombre = nombre;
@@ -25,6 +25,10 @@ public class Producto {
         this.precioCompra = precioCompra;
         this.precioVenta = precioVenta;
         this.descripcion = descripcion;
+    }
+    
+    public Producto(String nombre, int cantidad, BigDecimal precioCompra, BigDecimal precioVenta, String descripcion) {
+        this(0, nombre, cantidad, precioCompra, precioVenta, descripcion);
     }
 
     public int getId() {

@@ -4,6 +4,10 @@
  */
 package com.enpresa.productadmin.vistas;
 
+import javax.swing.JButton;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
+
 /**
  *
  * @author Oscar
@@ -17,6 +21,46 @@ public class AdministrarProductos extends javax.swing.JPanel {
         initComponents();
     }
 
+    public JButton getBtnAgregar() {
+        return btnAgregar;
+    }
+
+    public JButton getBtnBuscar() {
+        return btnBuscar;
+    }
+
+    public JButton getBtnEditar() {
+        return btnEditar;
+    }
+
+    public JButton getBtnEliminar() {
+        return btnEliminar;
+    }
+
+    public String getBuscar() {
+        return txtBuscar.getText();
+    }
+
+    public String getCantidad() {
+        return txtCantidad.getText();
+    }
+
+    public String getDescripcion() {
+        return txtDescripcion.getText();
+    }
+
+    public String getNombre() {
+        return txtNombre.getText();
+    }
+
+    public String getPrecioCompra() {
+        return txtPrecioCompra.getText();
+    }
+
+    public String getPrecioVenta() {
+        return txtPrecioVenta.getText();
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
