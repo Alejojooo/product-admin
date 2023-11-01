@@ -5,6 +5,7 @@
 package com.enpresa.productadmin.vistas;
 
 import javax.swing.JButton;
+import javax.swing.JLabel;
 
 /**
  *
@@ -74,6 +75,10 @@ public class MenuPrincipal extends javax.swing.JPanel {
     public JButton getBtnSalir() {
         return btnSalir;
     }
+
+    public JLabel getLabelUsuario() {
+        return labelUsuario;
+    }
     
     /**
      * This method is called from within the constructor to initialize the form.
@@ -85,7 +90,7 @@ public class MenuPrincipal extends javax.swing.JPanel {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        jLabelUsusario = new javax.swing.JLabel();
+        labelUsuario = new javax.swing.JLabel();
         btnCambiarClave = new javax.swing.JButton();
         btnCerrarSesion = new javax.swing.JButton();
         btnSalir = new javax.swing.JButton();
@@ -121,8 +126,8 @@ public class MenuPrincipal extends javax.swing.JPanel {
         jLabel1.setText("Bienvenido,");
         jLabel1.setPreferredSize(new java.awt.Dimension(68, 21));
 
-        jLabelUsusario.setText("Usuario");
-        jLabelUsusario.setPreferredSize(new java.awt.Dimension(68, 21));
+        labelUsuario.setText("Usuario");
+        labelUsuario.setPreferredSize(new java.awt.Dimension(68, 21));
 
         btnCambiarClave.setText("Cambiar Contraseña");
         btnCambiarClave.setPreferredSize(new java.awt.Dimension(160, 30));
@@ -235,7 +240,7 @@ public class MenuPrincipal extends javax.swing.JPanel {
                 .addGap(6, 6, 6)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabelUsusario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(labelUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnCambiarClave, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnCerrarSesion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnSalir, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -288,7 +293,7 @@ public class MenuPrincipal extends javax.swing.JPanel {
                 .addGap(24, 24, 24)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(6, 6, 6)
-                .addComponent(jLabelUsusario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(labelUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btnCambiarClave, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(29, 29, 29)
@@ -368,12 +373,12 @@ public class MenuPrincipal extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabelUsusario;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JSeparator jSeparator4;
     private javax.swing.JTextArea jTextArea1;
+    private javax.swing.JLabel labelUsuario;
     // End of variables declaration//GEN-END:variables
 }
