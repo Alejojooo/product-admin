@@ -5,8 +5,10 @@ import com.enpresa.productadmin.modelo.Producto;
 import com.enpresa.productadmin.vistas.AdministrarProductos;
 import java.awt.event.ActionEvent;
 import java.math.BigDecimal;
+import java.util.List;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -27,8 +29,11 @@ public class AdministrarProductosController {
         frame.pack();
         frame.setResizable(false);
         frame.setVisible(true);
+        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
         addActionListeners();
+
+        mostrarProductos();
     }
 
     private void addActionListeners() {
@@ -40,12 +45,44 @@ public class AdministrarProductosController {
         });
     }
 
+    private void mostrarProductos() {
+        DefaultTableModel tabla = new DefaultTableModel();
+
+        tabla.addColumn("ID Producto");
+        tabla.addColumn("Nombre");
+        tabla.addColumn("Cantidad");
+        tabla.addColumn("Precio Compra");
+        tabla.addColumn("Precio Venta");
+        tabla.addColumn("Descripcion");
+
+        List<Producto> productos = modelo.consultarTodos();
+        for (Producto producto : productos) {
+            String[] row = {
+                String.valueOf(producto.getId()),
+                producto.getNombre(),
+                String.valueOf(producto.getNombre()),
+                producto.getPrecioCompra().toString(),
+                producto.getPrecioVenta().toString(),
+                producto.getDescripcion()
+            };
+            tabla.addRow(row);
+        }
+
+        vista.getTbProductos().setModel(tabla);
+    }
+
     private void agregarProducto() {
-        String nombre = vista.getNombre();
+        String nombre;
         int cantidad;
         BigDecimal precioCompra;
         BigDecimal precioVenta;
         String descripcion = vista.getDescripcion();
+
+        nombre = vista.getNombre();
+        if ("".equals(nombre)) {
+            JOptionPane.showMessageDialog(frame, "Ingrese un nombre.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
 
         try {
             cantidad = Integer.parseInt(vista.getCantidad());
@@ -69,6 +106,10 @@ public class AdministrarProductosController {
 
         Producto producto = new Producto(nombre, cantidad, precioCompra, precioVenta, descripcion);
         modelo.crear(producto);
+        
+        JOptionPane.showMessageDialog(frame, "Se ha creado un nuevo producto.", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+        
+        mostrarProductos();
     }
 
     private void modificarProducto() {
