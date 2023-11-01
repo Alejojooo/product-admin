@@ -22,6 +22,7 @@ public class MenuPrincipalController {
         frame.pack();
         frame.setResizable(false);
         frame.setVisible(true);
+        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
         addActionListeners();
     }
