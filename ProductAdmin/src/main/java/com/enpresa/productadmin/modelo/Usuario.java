@@ -8,7 +8,7 @@ public class Usuario {
 
     private int id;
     private String usuario;
-    private String password;
+    private String clave;
     private String nombres;
     private String apellidos;
     private Rol rol;
@@ -19,7 +19,7 @@ public class Usuario {
     public Usuario(int id, String usuario, String password, String nombres, String apellidos, Rol rol) {
         this.id = id;
         this.usuario = usuario;
-        this.password = password;
+        this.clave = password;
         this.nombres = nombres;
         this.apellidos = apellidos;
         this.rol = rol;
@@ -41,12 +41,12 @@ public class Usuario {
         this.usuario = usuario;
     }
 
-    public String getPassword() {
-        return password;
+    public String getClave() {
+        return clave;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setClave(String password) {
+        this.clave = password;
     }
 
     public String getNombres() {
