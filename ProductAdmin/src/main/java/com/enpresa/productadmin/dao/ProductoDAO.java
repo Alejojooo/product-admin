@@ -20,7 +20,7 @@ public class ProductoDAO implements DAO<Producto> {
     public void crear(Producto producto) {
         String sql = "{CALL dbo.pCrearProducto(?, ?, ?, ?, ?)}";
 
-        try (Connection conexion = new Conexion().establecerConexion(); CallableStatement cs = conexion.prepareCall(sql)) {
+        try (Connection c = new Conexion().establecerConexion(); CallableStatement cs = c.prepareCall(sql)) {
 
             cs.setString(1, producto.getNombre());
             cs.setInt(2, producto.getCantidad());
@@ -39,7 +39,7 @@ public class ProductoDAO implements DAO<Producto> {
     public void modificar(Producto producto) {
         String sql = "{CALL dbo.pModificarProducto(?, ?, ?, ?, ?, ?)}";
 
-        try (Connection conexion = new Conexion().establecerConexion(); CallableStatement cs = conexion.prepareCall(sql)) {
+        try (Connection c = new Conexion().establecerConexion(); CallableStatement cs = c.prepareCall(sql)) {
 
             cs.setInt(1, producto.getId());
             cs.setString(2, producto.getNombre());
@@ -59,7 +59,7 @@ public class ProductoDAO implements DAO<Producto> {
     public void eliminar(Producto producto) {
         String sql = "{CALL dbo.pEliminarProducto(?)}";
 
-        try (Connection conexion = new Conexion().establecerConexion(); CallableStatement cs = conexion.prepareCall(sql)) {
+        try (Connection c = new Conexion().establecerConexion(); CallableStatement cs = c.prepareCall(sql)) {
 
             cs.setInt(1, producto.getId());
 
@@ -75,7 +75,7 @@ public class ProductoDAO implements DAO<Producto> {
         List<Producto> productos = new ArrayList<>();
         String sql = "SELECT * FROM vProductos";
 
-        try (Connection conexion = new Conexion().establecerConexion(); Statement st = conexion.createStatement()) {
+        try (Connection c = new Conexion().establecerConexion(); Statement st = c.createStatement()) {
             ResultSet rs = st.executeQuery(sql);
             Producto producto;
             while (rs.next()) {
