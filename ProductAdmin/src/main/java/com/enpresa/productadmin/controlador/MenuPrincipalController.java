@@ -27,8 +27,41 @@ public class MenuPrincipalController {
     }
 
     private void addActionListeners() {
+        //Productos
         vista.getBtnAdministrarProductos().addActionListener((ActionEvent e) -> {
             ProductAdmin.goToAdministrarProductos();
         });
+        
+        vista.getBtnRegistrarCompraVenta().addActionListener((ActionEvent e) -> {
+            ProductAdmin.goToRegistrarCompraVenta();
+        });
+        
+        //Usuarios
+        vista.getBtnAdministrarUsuarios().addActionListener((ActionEvent e) -> {
+            ProductAdmin.goToAdministrarUsuarios();
+        });
+        
+        vista.getBtnConsultarBitacoraTransacciones().addActionListener((ActionEvent e) -> {
+            ProductAdmin.goToConsultarBitacoraTransacciones();
+        });
+        
+        vista.getBtnConsultarBitacoraAcceso().addActionListener((ActionEvent e) -> {
+            ProductAdmin.goToConsultarBitacoraAcceso();
+        });
+        
+        //Reportes
+        vista.getBtnReporteInventario().addActionListener((ActionEvent e) -> {
+            ProductAdmin.goToReporteInventario();
+        });
+        
+        vista.getBtnReporteGastosGanacias().addActionListener((ActionEvent e) -> {
+            ProductAdmin.goToReporteGastosGanacias();
+        });
+        
+        //Ayuda
+        vista.getBtnAcercaDe().addActionListener((ActionEvent e) -> {
+            ProductAdmin.goToAcercaDe();
+        });
+        
     }
 }
