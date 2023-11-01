@@ -23,7 +23,7 @@ public class MenuPrincipalController {
         frame.setResizable(false);
         frame.setVisible(true);
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-
+        frame.setLocationRelativeTo(null);
         addActionListeners();
     }
 
@@ -64,5 +64,5 @@ public class MenuPrincipalController {
             ProductAdmin.goToAcercaDe();
         });
         
-    }
+    }    
 }
