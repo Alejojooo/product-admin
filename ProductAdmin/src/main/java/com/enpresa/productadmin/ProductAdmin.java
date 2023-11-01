@@ -31,7 +31,7 @@ public class ProductAdmin {
     
     public static void goToMenuPrincipal() {
         MenuPrincipal vista = new MenuPrincipal();
-        MenuPrincipalController controller = new MenuPrincipalController(null, vista);
+        MenuPrincipalController controller = new MenuPrincipalController(vista);
     }
 
     public static void goToAdministrarProductos() {
