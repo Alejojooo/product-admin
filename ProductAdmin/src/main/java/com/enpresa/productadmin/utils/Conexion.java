@@ -28,6 +28,7 @@ public class Conexion {
             sb.append("encrypt=true;trustServerCertificate=true");
 
             conexion = DriverManager.getConnection(sb.toString(), usuario, clave);
+            System.out.println("Conexión hecha.");
         } catch (SQLException e) {
             e.printStackTrace();
         }
