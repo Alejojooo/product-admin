@@ -5,8 +5,7 @@
 package com.enpresa.productadmin.vistas;
 
 import javax.swing.JButton;
-import javax.swing.JTextArea;
-import javax.swing.JTextField;
+import javax.swing.JTable;
 
 /**
  *
@@ -21,6 +20,14 @@ public class AdministrarProductos extends javax.swing.JPanel {
         initComponents();
     }
 
+    public JTable getTbProductos() {
+        return tbProductos;
+    }
+
+    public void setTbProductos(JTable tbProductos) {
+        this.tbProductos = tbProductos;
+    }
+    
     public JButton getBtnAgregar() {
         return btnAgregar;
     }
@@ -71,7 +78,7 @@ public class AdministrarProductos extends javax.swing.JPanel {
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        tbAdminProductos = new javax.swing.JTable();
+        tbProductos = new javax.swing.JTable();
         jPanel1 = new javax.swing.JPanel();
         btnAgregar = new javax.swing.JButton();
         btnEditar = new javax.swing.JButton();
@@ -90,55 +97,31 @@ public class AdministrarProductos extends javax.swing.JPanel {
         jScrollPane2 = new javax.swing.JScrollPane();
         txtDescripcion = new javax.swing.JTextArea();
 
-        tbAdminProductos.setModel(new javax.swing.table.DefaultTableModel(
+        tbProductos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
+                {},
+                {},
+                {},
+                {}
             },
             new String [] {
-                "ID", "Nombre", "Cantidad", "Precio compra", "Precio venta", "Descripción"
+
             }
         ));
-        jScrollPane1.setViewportView(tbAdminProductos);
-        if (tbAdminProductos.getColumnModel().getColumnCount() > 0) {
-            tbAdminProductos.getColumnModel().getColumn(0).setMinWidth(50);
-            tbAdminProductos.getColumnModel().getColumn(0).setPreferredWidth(50);
-            tbAdminProductos.getColumnModel().getColumn(0).setMaxWidth(50);
-            tbAdminProductos.getColumnModel().getColumn(1).setMinWidth(120);
-            tbAdminProductos.getColumnModel().getColumn(1).setPreferredWidth(120);
-            tbAdminProductos.getColumnModel().getColumn(1).setMaxWidth(120);
-            tbAdminProductos.getColumnModel().getColumn(2).setMinWidth(100);
-            tbAdminProductos.getColumnModel().getColumn(2).setPreferredWidth(100);
-            tbAdminProductos.getColumnModel().getColumn(2).setMaxWidth(100);
-            tbAdminProductos.getColumnModel().getColumn(3).setMinWidth(100);
-            tbAdminProductos.getColumnModel().getColumn(3).setPreferredWidth(100);
-            tbAdminProductos.getColumnModel().getColumn(3).setMaxWidth(100);
-            tbAdminProductos.getColumnModel().getColumn(4).setMinWidth(100);
-            tbAdminProductos.getColumnModel().getColumn(4).setPreferredWidth(100);
-            tbAdminProductos.getColumnModel().getColumn(4).setMaxWidth(100);
-            tbAdminProductos.getColumnModel().getColumn(5).setMinWidth(200);
-            tbAdminProductos.getColumnModel().getColumn(5).setPreferredWidth(200);
-            tbAdminProductos.getColumnModel().getColumn(5).setMaxWidth(200);
-        }
+        jScrollPane1.setViewportView(tbProductos);
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Comandos"));
 
         btnAgregar.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        btnAgregar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/enpresa/productadmin/icons/boton-agregar.png"))); // NOI18N
         btnAgregar.setText("Agregar");
 
         btnEditar.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        btnEditar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/enpresa/productadmin/icons/editar.png"))); // NOI18N
         btnEditar.setText("Editar");
 
         btnEliminar.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        btnEliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/enpresa/productadmin/icons/eliminar.png"))); // NOI18N
         btnEliminar.setText("Eliminar");
 
         btnBuscar.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        btnBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/enpresa/productadmin/icons/buscar.png"))); // NOI18N
         btnBuscar.setText("Buscar");
 
         txtBuscar.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
@@ -297,7 +280,7 @@ public class AdministrarProductos extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable tbAdminProductos;
+    private javax.swing.JTable tbProductos;
     private javax.swing.JTextField txtBuscar;
     private javax.swing.JTextField txtCantidad;
     private javax.swing.JTextArea txtDescripcion;
