@@ -6,68 +6,103 @@ package com.enpresa.productadmin.vistas;
 
 import javax.swing.JButton;
 import javax.swing.JTable;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
  * @author Oscar
  */
 public class AdministrarProductos extends javax.swing.JPanel {
+    
+    private DefaultTableModel modelo;
 
     /**
      * Creates new form AdministrarProductos
      */
     public AdministrarProductos() {
         initComponents();
+        initTable();
     }
-
+    
+    private void initTable() {
+        modelo = new DefaultTableModel(
+                new Object[][]{},
+                new String[]{
+                    "ID Producto", "Nombre", "Cantidad", "Precio Compra", "Precio Venta", "Descripción"
+                }
+        ) {
+            boolean[] canEdit = new boolean[]{
+                false, false, false, false, false, false
+            };
+            
+            @Override
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit[columnIndex];
+            }
+        };
+        
+        tbProductos.setModel(modelo);
+        
+        if (tbProductos.getColumnModel().getColumnCount() > 0) {
+            tbProductos.getColumnModel().getColumn(0).setResizable(false);
+            tbProductos.getColumnModel().getColumn(1).setResizable(false);
+            tbProductos.getColumnModel().getColumn(2).setResizable(false);
+            tbProductos.getColumnModel().getColumn(3).setResizable(false);
+            tbProductos.getColumnModel().getColumn(4).setResizable(false);
+            tbProductos.getColumnModel().getColumn(5).setResizable(false);
+        }
+    }
+    
     public JTable getTbProductos() {
         return tbProductos;
     }
-
-    public void setTbProductos(JTable tbProductos) {
-        this.tbProductos = tbProductos;
+    
+    public DefaultTableModel getModelo() {
+        return modelo;
     }
     
     public JButton getBtnAgregar() {
         return btnAgregar;
     }
-
+    
     public JButton getBtnBuscar() {
         return btnBuscar;
     }
-
+    
     public JButton getBtnEditar() {
         return btnEditar;
     }
-
+    
     public JButton getBtnEliminar() {
         return btnEliminar;
     }
-
-    public String getBuscar() {
-        return txtBuscar.getText();
-    }
-
-    public String getCantidad() {
-        return txtCantidad.getText();
-    }
-
-    public String getDescripcion() {
-        return txtDescripcion.getText();
-    }
-
-    public String getNombre() {
-        return txtNombre.getText();
-    }
-
-    public String getPrecioCompra() {
-        return txtPrecioCompra.getText();
-    }
-
-    public String getPrecioVenta() {
-        return txtPrecioVenta.getText();
+    
+    public JTextField getTxtBuscar() {
+        return txtBuscar;
     }
     
+    public JTextField getTxtCantidad() {
+        return txtCantidad;
+    }
+    
+    public JTextArea getTxtDescripcion() {
+        return txtDescripcion;
+    }
+    
+    public JTextField getTxtNombre() {
+        return txtNombre;
+    }
+    
+    public JTextField getTxtPrecioCompra() {
+        return txtPrecioCompra;
+    }
+    
+    public JTextField getTxtPrecioVenta() {
+        return txtPrecioVenta;
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -97,17 +132,8 @@ public class AdministrarProductos extends javax.swing.JPanel {
         jScrollPane2 = new javax.swing.JScrollPane();
         txtDescripcion = new javax.swing.JTextArea();
 
-        tbProductos.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {},
-                {},
-                {},
-                {}
-            },
-            new String [] {
-
-            }
-        ));
+        tbProductos.setModel(tbProductos.getModel());
+        tbProductos.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(tbProductos);
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Comandos"));
