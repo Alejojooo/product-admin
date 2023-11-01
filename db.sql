@@ -109,6 +109,7 @@ AS BEGIN
 					  FROM tbUsuario
 					  WHERE usuario = @Usuario
 					  AND clave = dbo.fHash(@Clave))
+	IF @IDUsuario IS NULL SET @IDUsuario = 0
 	RETURN @IDUsuario
 END
 GO
@@ -207,6 +208,15 @@ CREATE PROCEDURE pEliminarUsuario
 AS BEGIN
 	DELETE FROM tbUsuario
 	WHERE idUsuario = @IDUsuario
+END
+GO
+
+CREATE PROCEDURE pConsultarUsuario
+	@IDUsuario INT
+AS BEGIN
+	SELECT *
+	FROM vUsuarios
+	WHERE [ID Usuario] = @IDUsuario
 END
 GO
 
