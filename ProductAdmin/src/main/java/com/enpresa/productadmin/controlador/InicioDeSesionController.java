@@ -15,20 +15,22 @@ public class InicioDeSesionController {
 
     private final UsuarioDAO modelo;
     private final IniciarSesion vista;
-    private JFrame frame;
+    private final JFrame frame;
 
     public InicioDeSesionController(UsuarioDAO modelo, IniciarSesion vista) {
         this.modelo = modelo;
         this.vista = vista;
-        mostrarVista();
-    }
-
-    private void mostrarVista() {
+        
         frame = new JFrame();
         frame.setContentPane(vista);
         frame.pack();
         frame.setResizable(false);
         frame.setVisible(true);
+        
+        addActionListeners();
+    }
+
+    private void addActionListeners() {
         vista.getBtnIniciarSesion().addActionListener((ActionEvent e) -> {
             login();
         });
