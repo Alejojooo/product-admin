@@ -1,8 +1,6 @@
 package com.enpresa.productadmin.controlador;
 
 import com.enpresa.productadmin.dao.DAO;
-import com.enpresa.productadmin.dao.UsuarioDAO;
-import com.enpresa.productadmin.vistas.IniciarSesion;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
