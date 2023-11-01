@@ -7,5 +7,6 @@ package com.enpresa.productadmin.modelo;
 public enum Rol {
     ADMINISTRADOR,
     GERENTE,
-    EMPLEADO
+    EMPLEADO,
+    NINGUNO
 }
