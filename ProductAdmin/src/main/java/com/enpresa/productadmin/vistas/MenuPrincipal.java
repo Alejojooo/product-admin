@@ -4,6 +4,8 @@
  */
 package com.enpresa.productadmin.vistas;
 
+import javax.swing.JButton;
+
 /**
  *
  * @author jmdub
@@ -17,6 +19,62 @@ public class MenuPrincipal extends javax.swing.JPanel {
         initComponents();
     }
 
+    public JButton getBtnAcercaDe() {
+        return btnAcercaDe;
+    }
+
+    public JButton getBtnAdministrarProductos() {
+        return btnAdministrarProductos;
+    }
+
+    public JButton getBtnAdministrarRoles() {
+        return btnAdministrarRoles;
+    }
+
+    public JButton getBtnAdministrarUsuarios() {
+        return btnAdministrarUsuarios;
+    }
+
+    public JButton getBtnCambiarClave() {
+        return btnCambiarClave;
+    }
+
+    public JButton getBtnCerrarSesion() {
+        return btnCerrarSesion;
+    }
+
+    public JButton getBtnConsultarBitacoraAcceso() {
+        return btnConsultarBitacoraAcceso;
+    }
+
+    public JButton getBtnConsultarBitacoraTransacciones() {
+        return btnConsultarBitacoraTransacciones;
+    }
+
+    public JButton getBtnManualUsuario() {
+        return btnManualUsuario;
+    }
+
+    public JButton getBtnRegistrarCompraVenta() {
+        return btnRegistrarCompraVenta;
+    }
+
+    public JButton getBtnReporteGastosGanacias() {
+        return btnReporteGastosGanacias;
+    }
+
+    public JButton getBtnReporteInventario() {
+        return btnReporteInventario;
+    }
+
+    public JButton getBtnReporteInventarioDetallado() {
+        return btnReporteInventarioDetallado;
+    }
+
+    public JButton getBtnSalir() {
+        return btnSalir;
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -28,7 +86,7 @@ public class MenuPrincipal extends javax.swing.JPanel {
 
         jLabel1 = new javax.swing.JLabel();
         jLabelUsusario = new javax.swing.JLabel();
-        btnCambiarPass = new javax.swing.JButton();
+        btnCambiarClave = new javax.swing.JButton();
         btnCerrarSesion = new javax.swing.JButton();
         btnSalir = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
@@ -66,8 +124,8 @@ public class MenuPrincipal extends javax.swing.JPanel {
         jLabelUsusario.setText("Usuario");
         jLabelUsusario.setPreferredSize(new java.awt.Dimension(68, 21));
 
-        btnCambiarPass.setText("Cambiar Contraseña");
-        btnCambiarPass.setPreferredSize(new java.awt.Dimension(160, 30));
+        btnCambiarClave.setText("Cambiar Contraseña");
+        btnCambiarClave.setPreferredSize(new java.awt.Dimension(160, 30));
 
         btnCerrarSesion.setText("Cerrar Sesión");
         btnCerrarSesion.setPreferredSize(new java.awt.Dimension(150, 30));
@@ -178,7 +236,7 @@ public class MenuPrincipal extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabelUsusario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnCambiarPass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnCambiarClave, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnCerrarSesion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnSalir, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
@@ -232,7 +290,7 @@ public class MenuPrincipal extends javax.swing.JPanel {
                 .addGap(6, 6, 6)
                 .addComponent(jLabelUsusario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(btnCambiarPass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnCambiarClave, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(29, 29, 29)
                 .addComponent(btnCerrarSesion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -293,7 +351,7 @@ public class MenuPrincipal extends javax.swing.JPanel {
     private javax.swing.JButton btnAdministrarProductos;
     private javax.swing.JButton btnAdministrarRoles;
     private javax.swing.JButton btnAdministrarUsuarios;
-    private javax.swing.JButton btnCambiarPass;
+    private javax.swing.JButton btnCambiarClave;
     private javax.swing.JButton btnCerrarSesion;
     private javax.swing.JButton btnConsultarBitacoraAcceso;
     private javax.swing.JButton btnConsultarBitacoraTransacciones;
