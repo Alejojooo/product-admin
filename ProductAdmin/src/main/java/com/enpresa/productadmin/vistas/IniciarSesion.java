@@ -4,6 +4,8 @@
  */
 package com.enpresa.productadmin.vistas;
 
+import javax.swing.JButton;
+
 /**
  *
  * @author jmdub
@@ -15,6 +17,26 @@ public class IniciarSesion extends javax.swing.JPanel {
      */
     public IniciarSesion() {
         initComponents();
+    }
+
+    public String getUsuario() {
+        return txtUsuario.getText();
+    }
+
+    public String getClave() {
+        return txtClave.getText();
+    }
+
+    public void setUsuario(String usuario) {
+        this.txtUsuario.setText(usuario);
+    }
+
+    public void setClave(String clave) {
+        this.txtClave.setText(clave);
+    }
+
+    public JButton getBtnIniciarSesion() {
+        return btnIniciarSesion;
     }
 
     /**
