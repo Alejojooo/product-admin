@@ -1,6 +1,5 @@
 package com.enpresa.productadmin.dao;
 
-import com.enpresa.productadmin.modelo.Producto;
 import com.enpresa.productadmin.modelo.Rol;
 import com.enpresa.productadmin.modelo.Usuario;
 import com.enpresa.productadmin.utils.Conexion;
