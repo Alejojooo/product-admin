@@ -67,20 +67,16 @@
                   <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
                   <Group type="102" attributes="0">
                       <Component id="btnAdministrarUsuarios" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="18" pref="18" max="-2" attributes="0"/>
-                      <Component id="btnAdministrarRoles" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="18" pref="18" max="-2" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="btnConsultarBitacoraTransacciones" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="18" pref="18" max="-2" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="btnConsultarBitacoraAcceso" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <Component id="jSeparator3" min="-2" max="-2" attributes="0"/>
                   <Component id="jLabel6" min="-2" max="-2" attributes="0"/>
                   <Group type="102" attributes="0">
                       <Component id="btnReporteInventario" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="18" pref="18" max="-2" attributes="0"/>
-                      <Component id="btnReporteInventarioDetallado" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="18" pref="18" max="-2" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="btnReporteGastosGanacias" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <Component id="jSeparator4" min="-2" max="-2" attributes="0"/>
@@ -91,6 +87,7 @@
                       <Component id="btnManualUsuario" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
+              <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -131,21 +128,19 @@
               <EmptySpace min="12" pref="12" max="-2" attributes="0"/>
               <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="26" pref="26" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="btnAdministrarUsuarios" min="-2" max="-2" attributes="0"/>
-                  <Component id="btnAdministrarRoles" min="-2" max="-2" attributes="0"/>
-                  <Component id="btnConsultarBitacoraTransacciones" min="-2" max="-2" attributes="0"/>
-                  <Component id="btnConsultarBitacoraAcceso" min="-2" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="btnAdministrarUsuarios" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="btnConsultarBitacoraTransacciones" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="btnConsultarBitacoraAcceso" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="18" pref="18" max="-2" attributes="0"/>
               <Component id="jSeparator3" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="12" pref="12" max="-2" attributes="0"/>
               <Component id="jLabel6" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="18" pref="18" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="btnReporteInventario" min="-2" max="-2" attributes="0"/>
-                  <Component id="btnReporteInventarioDetallado" min="-2" max="-2" attributes="0"/>
-                  <Component id="btnReporteGastosGanacias" min="-2" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="btnReporteInventario" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="btnReporteGastosGanacias" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="18" pref="18" max="-2" attributes="0"/>
               <Component id="jSeparator4" min="-2" max="-2" attributes="0"/>
@@ -296,14 +291,6 @@
         </Property>
       </Properties>
     </Component>
-    <Component class="javax.swing.JButton" name="btnAdministrarRoles">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Administrar Roles"/>
-        <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-          <Dimension value="[160, 50]"/>
-        </Property>
-      </Properties>
-    </Component>
     <Component class="javax.swing.JSeparator" name="jSeparator1">
       <Properties>
         <Property name="orientation" type="int" value="1"/>
@@ -372,20 +359,6 @@
     <Component class="javax.swing.JButton" name="btnReporteInventario">
       <Properties>
         <Property name="text" type="java.lang.String" value="Reportes de Inventario"/>
-        <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-          <Dimension value="[160, 50]"/>
-        </Property>
-        <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-          <Dimension value="[160, 50]"/>
-        </Property>
-        <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-          <Dimension value="[160, 50]"/>
-        </Property>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JButton" name="btnReporteInventarioDetallado">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Reportes de Inventario Detallado"/>
         <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
           <Dimension value="[160, 50]"/>
         </Property>

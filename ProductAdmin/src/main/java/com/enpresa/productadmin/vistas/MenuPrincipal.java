@@ -103,7 +103,6 @@ public class MenuPrincipal extends javax.swing.JPanel {
         btnRegistrarCompraVenta = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
         btnAdministrarUsuarios = new javax.swing.JButton();
-        btnAdministrarRoles = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
         jSeparator2 = new javax.swing.JSeparator();
         jSeparator3 = new javax.swing.JSeparator();
@@ -111,7 +110,6 @@ public class MenuPrincipal extends javax.swing.JPanel {
         btnConsultarBitacoraAcceso = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
         btnReporteInventario = new javax.swing.JButton();
-        btnReporteInventarioDetallado = new javax.swing.JButton();
         btnReporteGastosGanacias = new javax.swing.JButton();
         jSeparator4 = new javax.swing.JSeparator();
         jLabel7 = new javax.swing.JLabel();
@@ -175,9 +173,6 @@ public class MenuPrincipal extends javax.swing.JPanel {
         btnAdministrarUsuarios.setText("Administrar Usuarios");
         btnAdministrarUsuarios.setPreferredSize(new java.awt.Dimension(160, 50));
 
-        btnAdministrarRoles.setText("Administrar Roles");
-        btnAdministrarRoles.setPreferredSize(new java.awt.Dimension(160, 50));
-
         jSeparator1.setOrientation(javax.swing.SwingConstants.VERTICAL);
         jSeparator1.setPreferredSize(new java.awt.Dimension(10, 501));
 
@@ -205,11 +200,6 @@ public class MenuPrincipal extends javax.swing.JPanel {
         btnReporteInventario.setMaximumSize(new java.awt.Dimension(160, 50));
         btnReporteInventario.setMinimumSize(new java.awt.Dimension(160, 50));
         btnReporteInventario.setPreferredSize(new java.awt.Dimension(160, 50));
-
-        btnReporteInventarioDetallado.setText("Reportes de Inventario Detallado");
-        btnReporteInventarioDetallado.setMaximumSize(new java.awt.Dimension(160, 50));
-        btnReporteInventarioDetallado.setMinimumSize(new java.awt.Dimension(160, 50));
-        btnReporteInventarioDetallado.setPreferredSize(new java.awt.Dimension(160, 50));
 
         btnReporteGastosGanacias.setText("Reportes de Gastos y Ganancias");
         btnReporteGastosGanacias.setMaximumSize(new java.awt.Dimension(160, 50));
@@ -267,8 +257,6 @@ public class MenuPrincipal extends javax.swing.JPanel {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(btnAdministrarUsuarios, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(btnAdministrarRoles, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
                         .addComponent(btnConsultarBitacoraTransacciones, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(btnConsultarBitacoraAcceso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -277,15 +265,14 @@ public class MenuPrincipal extends javax.swing.JPanel {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(btnReporteInventario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(btnReporteInventarioDetallado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
                         .addComponent(btnReporteGastosGanacias, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel7)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(btnAcercaDe, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(btnManualUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addComponent(btnManualUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(6, 6, 6))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -321,9 +308,8 @@ public class MenuPrincipal extends javax.swing.JPanel {
                 .addGap(12, 12, 12)
                 .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(26, 26, 26)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnAdministrarUsuarios, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnAdministrarRoles, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnConsultarBitacoraTransacciones, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnConsultarBitacoraAcceso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
@@ -331,9 +317,8 @@ public class MenuPrincipal extends javax.swing.JPanel {
                 .addGap(12, 12, 12)
                 .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnReporteInventario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnReporteInventarioDetallado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnReporteGastosGanacias, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -354,7 +339,6 @@ public class MenuPrincipal extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAcercaDe;
     private javax.swing.JButton btnAdministrarProductos;
-    private javax.swing.JButton btnAdministrarRoles;
     private javax.swing.JButton btnAdministrarUsuarios;
     private javax.swing.JButton btnCambiarClave;
     private javax.swing.JButton btnCerrarSesion;
@@ -364,7 +348,6 @@ public class MenuPrincipal extends javax.swing.JPanel {
     private javax.swing.JButton btnRegistrarCompraVenta;
     private javax.swing.JButton btnReporteGastosGanacias;
     private javax.swing.JButton btnReporteInventario;
-    private javax.swing.JButton btnReporteInventarioDetallado;
     private javax.swing.JButton btnSalir;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
