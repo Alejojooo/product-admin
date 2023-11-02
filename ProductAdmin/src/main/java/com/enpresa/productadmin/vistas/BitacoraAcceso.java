@@ -50,6 +50,7 @@ public class BitacoraAcceso extends javax.swing.JPanel {
         cBoxUsuario = new javax.swing.JCheckBox();
         jLabel6 = new javax.swing.JLabel();
         txtUsuario = new javax.swing.JTextField();
+        btnBuscar = new javax.swing.JButton();
 
         setPreferredSize(new java.awt.Dimension(980, 505));
         setLayout(null);
@@ -157,12 +158,18 @@ public class BitacoraAcceso extends javax.swing.JPanel {
         paFiltrar.add(txtUsuario);
         txtUsuario.setBounds(153, 174, 150, 27);
 
+        btnBuscar.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnBuscar.setText("Buscar");
+        paFiltrar.add(btnBuscar);
+        btnBuscar.setBounds(102, 217, 150, 50);
+
         add(paFiltrar);
         paFiltrar.setBounds(610, 41, 354, 448);
     }// </editor-fold>//GEN-END:initComponents
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnBuscar;
     private javax.swing.JCheckBox cBoxFecha;
     private javax.swing.JCheckBox cBoxHora;
     private javax.swing.JCheckBox cBoxUsuario;

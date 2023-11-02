@@ -56,6 +56,7 @@ public class BitacoraTransacciones extends javax.swing.JPanel {
         cBoxAccion = new javax.swing.JCheckBox();
         cBoxModulo = new javax.swing.JCheckBox();
         txtObjeto = new javax.swing.JTextField();
+        btnBuscar = new javax.swing.JButton();
 
         setPreferredSize(new java.awt.Dimension(980, 505));
         setLayout(null);
@@ -189,12 +190,18 @@ public class BitacoraTransacciones extends javax.swing.JPanel {
         jPanel1.add(txtObjeto);
         txtObjeto.setBounds(153, 174, 150, 27);
 
+        btnBuscar.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnBuscar.setText("Buscar");
+        jPanel1.add(btnBuscar);
+        btnBuscar.setBounds(102, 348, 150, 50);
+
         add(jPanel1);
         jPanel1.setBounds(610, 41, 354, 448);
     }// </editor-fold>//GEN-END:initComponents
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnBuscar;
     private javax.swing.JCheckBox cBoxAccion;
     private javax.swing.JCheckBox cBoxFecha;
     private javax.swing.JCheckBox cBoxHora;
