@@ -68,10 +68,6 @@ public class MenuPrincipal extends javax.swing.JPanel {
         return btnReporteInventario;
     }
 
-    public JButton getBtnReporteInventarioDetallado() {
-        return btnReporteInventarioDetallado;
-    }
-
     public JButton getBtnSalir() {
         return btnSalir;
     }
