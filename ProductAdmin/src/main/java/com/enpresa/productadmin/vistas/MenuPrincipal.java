@@ -28,10 +28,6 @@ public class MenuPrincipal extends javax.swing.JPanel {
         return btnAdministrarProductos;
     }
 
-    public JButton getBtnAdministrarRoles() {
-        return btnAdministrarRoles;
-    }
-
     public JButton getBtnAdministrarUsuarios() {
         return btnAdministrarUsuarios;
     }
