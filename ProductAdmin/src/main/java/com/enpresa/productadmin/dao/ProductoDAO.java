@@ -72,15 +72,22 @@ public class ProductoDAO implements DAO<Producto> {
 
     @Override
     public List<Producto> buscar(Producto producto) {
+        // TODO
         List<Producto> productos = new ArrayList<>();
-        String sql = "{CALL dbo.pBuscarProducto(?)}";
+        String sql = "{CALL dbo.pBuscarProducto(?, ?, ?, ?, ?, ?)}";
 
-        try (Connection c = new Conexion().establecerConexion(); Statement st = c.createStatement()) {
+        try (Connection c = new Conexion().establecerConexion(); CallableStatement cs = c.prepareCall(sql)) {
 
-            ResultSet rs = st.executeQuery(sql);
-            Producto producto;
+            // cs.setInt(1, producto.getId() !== null ? producto.getId() : "");
+            cs.setString(2, producto.getNombre());
+            cs.setInt(3, producto.getCantidad());
+            cs.setBigDecimal(4, producto.getPrecioCompra());
+            cs.setBigDecimal(5, producto.getPrecioVenta());
+            cs.setString(6, producto.getDescripcion());
+
+            ResultSet rs = cs.executeQuery();
             while (rs.next()) {
-                producto = new Producto(
+                Producto productoEncontrado = new Producto(
                         rs.getInt(1),
                         rs.getString(2),
                         rs.getInt(3),
@@ -88,12 +95,14 @@ public class ProductoDAO implements DAO<Producto> {
                         rs.getBigDecimal(5),
                         rs.getString(6)
                 );
-                productos.add(producto);
+                productos.add(productoEncontrado);
             }
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
+
+        return productos;
     }
 
     @Override

@@ -70,6 +70,11 @@ public class UsuarioDAO implements DAO<Usuario> {
         }
     }
     
+    @Override
+    public List<Usuario> buscar(Usuario usuario) {
+        return null;
+    }
+    
     public Usuario consultarUno(int id) {
         Usuario usuario = new Usuario();
         String sql = "{CALL dbo.pConsultarUsuario(?)}";
@@ -127,9 +132,5 @@ public class UsuarioDAO implements DAO<Usuario> {
             e.printStackTrace();
         }
         return 0;
-    }
-    
-    public void buscar() {
-        
     }
 }

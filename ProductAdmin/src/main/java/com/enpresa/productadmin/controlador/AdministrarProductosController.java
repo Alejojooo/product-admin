@@ -42,14 +42,10 @@ public class AdministrarProductosController {
 
     private void addActionListeners() {
         vista.getBtnAgregar().addActionListener((ActionEvent e) -> {
-            if (!camposInvalidos()) {
-                agregarProducto();
-            }
+            crearProducto();
         });
         vista.getBtnEditar().addActionListener((ActionEvent e) -> {
-            if (!camposInvalidos(true)) {
-                modificarProducto();
-            }
+            modificarProducto();
         });
     }
 
@@ -62,6 +58,7 @@ public class AdministrarProductosController {
         });
     }
 
+    /* --- Métodos auxiliares --- */
     private void mostrarProductos() {
         DefaultTableModel tabla = vista.getModelo();
 
@@ -87,7 +84,10 @@ public class AdministrarProductosController {
         System.out.println("Fila: " + fila);
 
         if (fila < 0) {
-            JOptionPane.showMessageDialog(frame, "No se seleccionó un producto.", "Aviso", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(
+                    frame,
+                    "No se seleccionó un producto.",
+                    "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
         vista.getTxtID().setText(tbProductos.getValueAt(fila, 0).toString());
@@ -100,65 +100,119 @@ public class AdministrarProductosController {
         System.out.println("Ejecutado método seleccionarProducto");
     }
 
-    /* Métodos para CRUD */
-    private void agregarProducto() {
-        String nombre = vista.getTxtNombre().getText();
-        int cantidad = Integer.parseInt(vista.getTxtCantidad().getText());
-        BigDecimal precioCompra = new BigDecimal(vista.getTxtPrecioCompra().getText());
-        BigDecimal precioVenta = new BigDecimal(vista.getTxtPrecioVenta().getText());
-        String descripcion = vista.getTxtDescripcion().getText();
+    private void limpiarCampos() {
+        vista.getTxtID().setText("");
+        vista.getTxtNombre().setText("");
+        vista.getTxtCantidad().setText("");
+        vista.getTxtPrecioCompra().setText("");
+        vista.getTxtPrecioVenta().setText("");
+        vista.getTxtDescripcion().setText("");
+    }
 
-        Producto producto = new Producto(nombre, cantidad, precioCompra, precioVenta, descripcion);
+    /* --- Métodos para CRUD --- */
+    private void crearProducto() {
+        if (nombreVacio() || cantidadInvalida() || preciosInvalidos()) {
+            return;
+        }
+
+        Producto producto = new Producto(
+                vista.getTxtNombre().getText(),
+                Integer.parseInt(vista.getTxtCantidad().getText()),
+                new BigDecimal(vista.getTxtPrecioCompra().getText()),
+                new BigDecimal(vista.getTxtPrecioVenta().getText()),
+                vista.getTxtDescripcion().getText()
+        );
+
         modelo.crear(producto);
 
-        JOptionPane.showMessageDialog(frame, "Se ha creado un nuevo producto.", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(frame,
+                "Se ha creado un nuevo producto.",
+                "Información",
+                JOptionPane.INFORMATION_MESSAGE);
 
         mostrarProductos();
         limpiarCampos();
     }
 
     private void modificarProducto() {
-        int id = Integer.parseInt(vista.getTxtID().getText());
-        String nombre = vista.getTxtNombre().getText();
-        int cantidad = Integer.parseInt(vista.getTxtCantidad().getText());
-        BigDecimal precioCompra = new BigDecimal(vista.getTxtPrecioCompra().getText());
-        BigDecimal precioVenta = new BigDecimal(vista.getTxtPrecioVenta().getText());
-        String descripcion = vista.getTxtDescripcion().getText();
+        if (idInvalida() || nombreVacio() || cantidadInvalida() || preciosInvalidos()) {
+            return;
+        }
 
-        Producto producto = new Producto(nombre, cantidad, precioCompra, precioVenta, descripcion);
+        int id = Integer.parseInt(vista.getTxtID().getText());
+        int confirmar = JOptionPane.showConfirmDialog(
+                frame,
+                String.format("¿Está seguro de modificar el producto con ID [%d]", id),
+                "Advertencia",
+                JOptionPane.YES_NO_OPTION,
+                JOptionPane.WARNING_MESSAGE);
+        if (confirmar == JOptionPane.NO_OPTION) {
+            return;
+        }
+
+        Producto producto = new Producto(
+                id,
+                vista.getTxtNombre().getText(),
+                Integer.parseInt(vista.getTxtCantidad().getText()),
+                new BigDecimal(vista.getTxtPrecioCompra().getText()),
+                new BigDecimal(vista.getTxtPrecioVenta().getText()),
+                vista.getTxtDescripcion().getText()
+        );
+
         modelo.modificar(producto);
 
-        JOptionPane.showMessageDialog(frame, "Se ha modificado el producto.", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(frame,
+                "Se ha modificado el producto.",
+                "Información",
+                JOptionPane.INFORMATION_MESSAGE);
 
         mostrarProductos();
         limpiarCampos();
     }
 
-    /* Métodos de comprobación */
-    private boolean camposInvalidos() {
-        return camposInvalidos(false);
+    private void eliminarProducto() {
+        if (idInvalida()) {
+            return;
+        }
+
+        int id = Integer.parseInt(vista.getTxtID().getText());
+
+        int confirmar = JOptionPane.showConfirmDialog(
+                frame,
+                String.format("¿Está seguro de eliminar el producto con ID [%d]", id),
+                "Advertencia",
+                JOptionPane.YES_NO_OPTION,
+                JOptionPane.WARNING_MESSAGE);
+        if (confirmar == JOptionPane.NO_OPTION) {
+            return;
+        }
+
+        modelo.eliminar(id);
+
+        JOptionPane.showMessageDialog(frame,
+                "Se ha eliminado el producto.",
+                "Información",
+                JOptionPane.INFORMATION_MESSAGE);
+
+        mostrarProductos();
+        limpiarCampos();
     }
 
-    private boolean camposInvalidos(boolean validacionDeId) {
-        if (validacionDeId && idInvalida()) {
-            JOptionPane.showMessageDialog(frame, "La ID del producto no es válida.", "Error", JOptionPane.ERROR_MESSAGE);
-            return true;
-        }
-        if (nombreVacio()) {
-            JOptionPane.showMessageDialog(frame, "Ingrese un nombre.", "Error", JOptionPane.ERROR_MESSAGE);
-            return true;
-        }
-        if (cantidadInvalida()) {
-            JOptionPane.showMessageDialog(frame, "Ingrese una cantidad válida.", "Error", JOptionPane.ERROR_MESSAGE);
-            return true;
-        }
-        if (preciosInvalidos()) {
-            JOptionPane.showMessageDialog(frame, "Ingrese precios válidos.", "Error", JOptionPane.ERROR_MESSAGE);
-            return true;
-        }
-        return false;
+    private void buscarProducto() {
+        // TODO
+        Producto producto = new Producto(
+                vista.getTxtID().getText(),
+                vista.getTxtNombre().getText(),
+                vista.getTxtCantidad().getText(),
+                vista.getTxtPrecioCompra().getText(),
+                vista.getTxtPrecioVenta().getText(),
+                vista.getTxtDescripcion().getText()
+        );
+        
+        List<Producto> productos = modelo.buscar(producto);
     }
 
+    /* --- Métodos de comprobación --- */
     private boolean idInvalida() {
         try {
             int id = Integer.parseInt(vista.getTxtID().getText());
@@ -166,13 +220,24 @@ public class AdministrarProductosController {
                 throw new NumberFormatException();
             }
         } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(frame,
+                    "La ID del producto no es válida.",
+                    "Error",
+                    JOptionPane.ERROR_MESSAGE);
             return true;
         }
         return false;
     }
 
     private boolean nombreVacio() {
-        return "".equals(vista.getTxtNombre().getText());
+        if ("".equals(vista.getTxtNombre().getText())) {
+            JOptionPane.showMessageDialog(frame,
+                    "El nombre introducido no es válido.",
+                    "Error",
+                    JOptionPane.ERROR_MESSAGE);
+            return true;
+        }
+        return false;
     }
 
     private boolean cantidadInvalida() {
@@ -182,6 +247,10 @@ public class AdministrarProductosController {
                 throw new NumberFormatException();
             }
         } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(frame,
+                    "La cantidad introducida no es válida.",
+                    "Error",
+                    JOptionPane.ERROR_MESSAGE);
             return true;
         }
         return false;
@@ -195,19 +264,12 @@ public class AdministrarProductosController {
                 throw new NumberFormatException();
             }
         } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(frame,
+                    "Los precios introducidos no son válidos.",
+                    "Error",
+                    JOptionPane.ERROR_MESSAGE);
             return true;
         }
         return false;
     }
-
-    /* Funciones adicionales */
-    private void limpiarCampos() {
-        vista.getTxtID().setText("");
-        vista.getTxtNombre().setText("");
-        vista.getTxtCantidad().setText("");
-        vista.getTxtPrecioCompra().setText("");
-        vista.getTxtPrecioVenta().setText("");
-        vista.getTxtDescripcion().setText("");
-    }
-
 }
