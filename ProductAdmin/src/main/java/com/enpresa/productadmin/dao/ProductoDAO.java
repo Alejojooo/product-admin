@@ -21,7 +21,6 @@ public class ProductoDAO implements DAO<Producto> {
         String sql = "{CALL dbo.pCrearProducto(?, ?, ?, ?, ?)}";
 
         try (Connection c = new Conexion().establecerConexion(); CallableStatement cs = c.prepareCall(sql)) {
-
             cs.setString(1, producto.getNombre());
             cs.setInt(2, producto.getCantidad());
             cs.setBigDecimal(3, producto.getPrecioCompra());
@@ -29,7 +28,6 @@ public class ProductoDAO implements DAO<Producto> {
             cs.setString(5, producto.getDescripcion());
 
             cs.execute();
-
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -40,7 +38,6 @@ public class ProductoDAO implements DAO<Producto> {
         String sql = "{CALL dbo.pModificarProducto(?, ?, ?, ?, ?, ?)}";
 
         try (Connection c = new Conexion().establecerConexion(); CallableStatement cs = c.prepareCall(sql)) {
-
             cs.setInt(1, producto.getId());
             cs.setString(2, producto.getNombre());
             cs.setInt(3, producto.getCantidad());
@@ -49,7 +46,6 @@ public class ProductoDAO implements DAO<Producto> {
             cs.setString(6, producto.getDescripcion());
 
             cs.execute();
-
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -60,11 +56,9 @@ public class ProductoDAO implements DAO<Producto> {
         String sql = "{CALL dbo.pEliminarProducto(?)}";
 
         try (Connection c = new Conexion().establecerConexion(); CallableStatement cs = c.prepareCall(sql)) {
-
             cs.setInt(1, id);
 
             cs.execute();
-
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -76,7 +70,6 @@ public class ProductoDAO implements DAO<Producto> {
         String sql = "{CALL dbo.pBuscarProducto(?, ?, ?, ?, ?, ?)}";
 
         try (Connection c = new Conexion().establecerConexion(); CallableStatement cs = c.prepareCall(sql)) {
-
             String id = (producto.getId() != null) ? String.valueOf(producto.getId()) : "";
             String nombre = producto.getNombre();
             String cantidad = (producto.getCantidad() != null) ? String.valueOf(producto.getCantidad()) : "";
@@ -102,21 +95,19 @@ public class ProductoDAO implements DAO<Producto> {
 
             ResultSet rs = cs.executeQuery();
             while (rs.next()) {
-                Producto productoEncontrado = new Producto(
-                        rs.getInt(1),
-                        rs.getString(2),
-                        rs.getInt(3),
-                        rs.getBigDecimal(4),
-                        rs.getBigDecimal(5),
-                        rs.getString(6)
-                );
+                Producto productoEncontrado = new Producto();
+                productoEncontrado.setId(rs.getInt(1));
+                productoEncontrado.setNombre(rs.getString(2));
+                productoEncontrado.setCantidad(rs.getInt(3));
+                productoEncontrado.setPrecioCompra(rs.getBigDecimal(4));
+                productoEncontrado.setPrecioVenta(rs.getBigDecimal(5));
+                productoEncontrado.setDescripcion(rs.getString(6));
+                
                 productos.add(productoEncontrado);
             }
-
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
         return productos;
     }
 
@@ -126,25 +117,21 @@ public class ProductoDAO implements DAO<Producto> {
         String sql = "SELECT * FROM vProductos";
 
         try (Connection c = new Conexion().establecerConexion(); Statement st = c.createStatement()) {
-
             ResultSet rs = st.executeQuery(sql);
-            Producto producto;
             while (rs.next()) {
-                producto = new Producto(
-                        rs.getInt(1),
-                        rs.getString(2),
-                        rs.getInt(3),
-                        rs.getBigDecimal(4),
-                        rs.getBigDecimal(5),
-                        rs.getString(6)
-                );
+                Producto producto = new Producto();
+                producto.setId(rs.getInt(1));
+                producto.setNombre(rs.getString(2));
+                producto.setCantidad(rs.getInt(3));
+                producto.setPrecioCompra(rs.getBigDecimal(4));
+                producto.setPrecioVenta(rs.getBigDecimal(5));
+                producto.setDescripcion(rs.getString(6));
+                
                 productos.add(producto);
             }
-
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
         return productos;
     }
 }

@@ -4,14 +4,8 @@ import com.enpresa.productadmin.dao.ProductoDAO;
 import com.enpresa.productadmin.modelo.Producto;
 import com.enpresa.productadmin.vistas.AdministrarProductos;
 import java.awt.event.ActionEvent;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.math.BigDecimal;
 import java.util.List;
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
-import javax.swing.JTable;
-import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -21,22 +15,12 @@ public class AdministrarProductosController {
 
     private final ProductoDAO modelo;
     private final AdministrarProductos vista;
-    private final JFrame frame;
 
     public AdministrarProductosController(ProductoDAO modelo, AdministrarProductos vista) {
         this.modelo = modelo;
         this.vista = vista;
 
-        frame = new JFrame("Administrar Productos");
-        frame.setContentPane(vista);
-        frame.pack();
-        frame.setResizable(false);
-        frame.setVisible(true);
-        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        frame.setLocationRelativeTo(null);
         addActionListeners();
-        addMouseListeners();
-
         mostrarProductos();
     }
 
@@ -55,70 +39,16 @@ public class AdministrarProductosController {
         });
     }
 
-    private void addMouseListeners() {
-        vista.getTbProductos().addMouseListener(new MouseAdapter() {
-            @Override
-            public void mousePressed(MouseEvent evt) {
-                seleccionarProducto();
-            }
-        });
-    }
-
     /* --- Métodos auxiliares --- */
     private void mostrarProductos(List<Producto> productos) {
-        DefaultTableModel tabla = vista.getModelo();
-
-        tabla.setNumRows(0);
-
         if (productos == null) {
             productos = modelo.consultarTodos();
         }
-        for (Producto producto : productos) {
-            String[] row = {
-                String.valueOf(producto.getId()),
-                producto.getNombre(),
-                String.valueOf(producto.getCantidad()),
-                producto.getPrecioCompra().toString(),
-                producto.getPrecioVenta().toString(),
-                producto.getDescripcion()
-            };
-            tabla.addRow(row);
-        }
+        vista.mostrarProductos(productos);
     }
 
     private void mostrarProductos() {
         mostrarProductos(null);
-    }
-
-    private void seleccionarProducto() {
-        JTable tbProductos = vista.getTbProductos();
-        int fila = tbProductos.getSelectedRow();
-        System.out.println("Fila: " + fila);
-
-        if (fila < 0) {
-            JOptionPane.showMessageDialog(
-                    frame,
-                    "No se seleccionó un producto.",
-                    "Error", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-        vista.getTxtID().setText(tbProductos.getValueAt(fila, 0).toString());
-        vista.getTxtNombre().setText(tbProductos.getValueAt(fila, 1).toString());
-        vista.getTxtCantidad().setText(tbProductos.getValueAt(fila, 2).toString());
-        vista.getTxtPrecioCompra().setText(tbProductos.getValueAt(fila, 3).toString());
-        vista.getTxtPrecioVenta().setText(tbProductos.getValueAt(fila, 4).toString());
-        vista.getTxtDescripcion().setText(tbProductos.getValueAt(fila, 5).toString());
-
-        System.out.println("Ejecutado método seleccionarProducto");
-    }
-
-    private void limpiarCampos() {
-        vista.getTxtID().setText("");
-        vista.getTxtNombre().setText("");
-        vista.getTxtCantidad().setText("");
-        vista.getTxtPrecioCompra().setText("");
-        vista.getTxtPrecioVenta().setText("");
-        vista.getTxtDescripcion().setText("");
     }
 
     /* --- Métodos para CRUD --- */
@@ -137,13 +67,10 @@ public class AdministrarProductosController {
 
         modelo.crear(producto);
 
-        JOptionPane.showMessageDialog(frame,
-                "Se ha creado un nuevo producto.",
-                "Información",
-                JOptionPane.INFORMATION_MESSAGE);
+        vista.mostrarMensaje("Se ha creado un nuevo producto.");
 
         mostrarProductos();
-        limpiarCampos();
+        vista.limpiarCampos();
     }
 
     private void modificarProducto() {
@@ -152,13 +79,8 @@ public class AdministrarProductosController {
         }
 
         int id = Integer.parseInt(vista.getTxtID().getText());
-        int confirmar = JOptionPane.showConfirmDialog(
-                frame,
-                String.format("¿Está seguro de modificar el producto con ID [%d]", id),
-                "Advertencia",
-                JOptionPane.YES_NO_OPTION,
-                JOptionPane.WARNING_MESSAGE);
-        if (confirmar == JOptionPane.NO_OPTION) {
+        boolean modificar = vista.mostrarConfirmacion(String.format("¿Está seguro de modificar el producto con ID [%d] ?", id));
+        if (!modificar) {
             return;
         }
 
@@ -173,13 +95,10 @@ public class AdministrarProductosController {
 
         modelo.modificar(producto);
 
-        JOptionPane.showMessageDialog(frame,
-                "Se ha modificado el producto.",
-                "Información",
-                JOptionPane.INFORMATION_MESSAGE);
+        vista.mostrarMensaje("Se ha modificado el producto.");
 
         mostrarProductos();
-        limpiarCampos();
+        vista.limpiarCampos();
     }
 
     private void eliminarProducto() {
@@ -189,25 +108,17 @@ public class AdministrarProductosController {
 
         int id = Integer.parseInt(vista.getTxtID().getText());
 
-        int confirmar = JOptionPane.showConfirmDialog(
-                frame,
-                String.format("¿Está seguro de eliminar el producto con ID [%d]", id),
-                "Advertencia",
-                JOptionPane.YES_NO_OPTION,
-                JOptionPane.WARNING_MESSAGE);
-        if (confirmar == JOptionPane.NO_OPTION) {
+        boolean modificar = vista.mostrarConfirmacion(String.format("¿Está seguro de eliminar el producto con ID [%d] ?", id));
+        if (!modificar) {
             return;
         }
 
         modelo.eliminar(id);
 
-        JOptionPane.showMessageDialog(frame,
-                "Se ha eliminado el producto.",
-                "Información",
-                JOptionPane.INFORMATION_MESSAGE);
+        vista.mostrarMensaje("Se ha eliminado el producto.");
 
         mostrarProductos();
-        limpiarCampos();
+        vista.limpiarCampos();
     }
 
     private void buscarProducto() {
@@ -233,10 +144,7 @@ public class AdministrarProductosController {
                 throw new NumberFormatException();
             }
         } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(frame,
-                    "La ID del producto no es válida.",
-                    "Error",
-                    JOptionPane.ERROR_MESSAGE);
+            vista.mostrarError("La ID del producto no es válida.");
             return true;
         }
         return false;
@@ -244,10 +152,7 @@ public class AdministrarProductosController {
 
     private boolean nombreVacio() {
         if ("".equals(vista.getTxtNombre().getText())) {
-            JOptionPane.showMessageDialog(frame,
-                    "El nombre introducido no es válido.",
-                    "Error",
-                    JOptionPane.ERROR_MESSAGE);
+            vista.mostrarError("El nombre introducido no es válido.");
             return true;
         }
         return false;
@@ -260,10 +165,7 @@ public class AdministrarProductosController {
                 throw new NumberFormatException();
             }
         } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(frame,
-                    "La cantidad introducida no es válida.",
-                    "Error",
-                    JOptionPane.ERROR_MESSAGE);
+            vista.mostrarError("La cantidad introducida no es válida.");
             return true;
         }
         return false;
@@ -277,10 +179,7 @@ public class AdministrarProductosController {
                 throw new NumberFormatException();
             }
         } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(frame,
-                    "Los precios introducidos no son válidos.",
-                    "Error",
-                    JOptionPane.ERROR_MESSAGE);
+            vista.mostrarError("Los precios introducidos no son válidos.");
             return true;
         }
         return false;

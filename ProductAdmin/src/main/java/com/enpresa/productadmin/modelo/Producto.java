@@ -19,11 +19,11 @@ public class Producto {
     }
 
     public Producto(int id) {
-        this(id, null, 0, null, null, null);
+        this(id, null, null, null, null, null);
     }
 
-    public Producto(String nombre, int cantidad, BigDecimal precioCompra, BigDecimal precioVenta, String descripcion) {
-        this(0, nombre, cantidad, precioCompra, precioVenta, descripcion);
+    public Producto(String nombre, Integer cantidad, BigDecimal precioCompra, BigDecimal precioVenta, String descripcion) {
+        this(null, nombre, cantidad, precioCompra, precioVenta, descripcion);
     }
 
     public Producto(String id, String nombre, String cantidad, String precioCompra, String precioVenta, String descripcion) {
@@ -52,7 +52,7 @@ public class Producto {
         this.descripcion = descripcion;
     }
 
-    public Producto(int id, String nombre, int cantidad, BigDecimal precioCompra, BigDecimal precioVenta, String descripcion) {
+    public Producto(Integer id, String nombre, Integer cantidad, BigDecimal precioCompra, BigDecimal precioVenta, String descripcion) {
         this.id = id;
         this.nombre = nombre;
         this.cantidad = cantidad;

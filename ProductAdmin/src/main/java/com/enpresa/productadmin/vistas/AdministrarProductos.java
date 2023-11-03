@@ -4,8 +4,12 @@
  */
 package com.enpresa.productadmin.vistas;
 
+import com.enpresa.productadmin.controlador.AdministrarProductosController;
+import com.enpresa.productadmin.modelo.Producto;
+import java.util.List;
 import javax.swing.JButton;
-import javax.swing.JTable;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
@@ -14,87 +18,120 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author Oscar
  */
-public class AdministrarProductos extends javax.swing.JPanel {
-    
-    private DefaultTableModel modelo;
+public class AdministrarProductos extends javax.swing.JPanel implements Notificador {
+
+    private JFrame frame;
 
     /**
      * Creates new form AdministrarProductos
      */
     public AdministrarProductos() {
         initComponents();
-        initTable();
+        initFrame();
     }
-    
-    private void initTable() {
-        modelo = new DefaultTableModel(
-                new Object[][]{},
-                new String[]{
-                    "ID Producto", "Nombre", "Cantidad", "Precio Compra", "Precio Venta", "Descripción"
-                }
-        ) {
-            boolean[] canEdit = new boolean[]{
-                false, false, false, false, false, false
+
+    private void initFrame() {
+        frame = new JFrame("Administrar Productos");
+        frame.setContentPane(this);
+        frame.pack();
+        frame.setResizable(false);
+        frame.setVisible(true);
+        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        frame.setLocationRelativeTo(null);
+    }
+
+    public void mostrarProductos(List<Producto> productos) {
+        DefaultTableModel modelo = (DefaultTableModel) tbProductos.getModel();
+        modelo.setNumRows(0);
+        for (Producto producto : productos) {
+            String[] row = {
+                String.valueOf(producto.getId()),
+                producto.getNombre(),
+                String.valueOf(producto.getCantidad()),
+                producto.getPrecioCompra().toString(),
+                producto.getPrecioVenta().toString(),
+                producto.getDescripcion()
             };
-            
-            @Override
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit[columnIndex];
-            }
-        };
-        
-        tbProductos.setModel(modelo);
-        
-        if (tbProductos.getColumnModel().getColumnCount() > 0) {
-            tbProductos.getColumnModel().getColumn(0).setResizable(false);
-            tbProductos.getColumnModel().getColumn(1).setResizable(false);
-            tbProductos.getColumnModel().getColumn(2).setResizable(false);
-            tbProductos.getColumnModel().getColumn(3).setResizable(false);
-            tbProductos.getColumnModel().getColumn(4).setResizable(false);
-            tbProductos.getColumnModel().getColumn(5).setResizable(false);
+            modelo.addRow(row);
         }
     }
-    
-    public JTable getTbProductos() {
-        return tbProductos;
+
+    public void seleccionarProducto() {
+        int fila = tbProductos.getSelectedRow();
+        if (fila < 0) {
+            mostrarError("No se seleccionó un producto.");
+            return;
+        }
+        txtID.setText(tbProductos.getValueAt(fila, 0).toString());
+        txtNombre.setText(tbProductos.getValueAt(fila, 1).toString());
+        txtCantidad.setText(tbProductos.getValueAt(fila, 2).toString());
+        txtPrecioCompra.setText(tbProductos.getValueAt(fila, 3).toString());
+        txtPrecioVenta.setText(tbProductos.getValueAt(fila, 4).toString());
+        txtDescripcion.setText(tbProductos.getValueAt(fila, 5).toString());
     }
-    
-    public DefaultTableModel getModelo() {
-        return modelo;
+
+    public void limpiarCampos() {
+        txtID.setText("");
+        txtNombre.setText("");
+        txtCantidad.setText("");
+        txtPrecioCompra.setText("");
+        txtPrecioVenta.setText("");
+        txtDescripcion.setText("");
     }
-    
+
+    @Override
+    public void mostrarMensaje(String mensaje) {
+        JOptionPane.showMessageDialog(frame, mensaje, "Aviso", JOptionPane.INFORMATION_MESSAGE);
+    }
+
+    @Override
+    public void mostrarError(String mensaje) {
+        JOptionPane.showMessageDialog(frame, mensaje, "Error", JOptionPane.ERROR_MESSAGE);
+    }
+
+    @Override
+    public void mostrarAdvertencia(String mensaje) {
+        JOptionPane.showMessageDialog(frame, mensaje, "Advertencia", JOptionPane.WARNING_MESSAGE);
+    }
+
+    @Override
+    public boolean mostrarConfirmacion(String mensaje) {
+        int opcion = JOptionPane.showConfirmDialog(frame, mensaje, "Confirmación", JOptionPane.QUESTION_MESSAGE);
+        return opcion == JOptionPane.YES_OPTION;
+    }
+
     public JButton getBtnAgregar() {
         return btnAgregar;
     }
-    
+
     public JButton getBtnBuscar() {
         return btnBuscar;
     }
-    
+
     public JButton getBtnModificar() {
         return btnModificar;
     }
-    
+
     public JButton getBtnEliminar() {
         return btnEliminar;
     }
-    
+
     public JTextField getTxtCantidad() {
         return txtCantidad;
     }
-    
+
     public JTextArea getTxtDescripcion() {
         return txtDescripcion;
     }
-    
+
     public JTextField getTxtNombre() {
         return txtNombre;
     }
-    
+
     public JTextField getTxtPrecioCompra() {
         return txtPrecioCompra;
     }
-    
+
     public JTextField getTxtPrecioVenta() {
         return txtPrecioVenta;
     }
@@ -102,7 +139,7 @@ public class AdministrarProductos extends javax.swing.JPanel {
     public JTextField getTxtID() {
         return txtID;
     }
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -136,9 +173,39 @@ public class AdministrarProductos extends javax.swing.JPanel {
         setPreferredSize(new java.awt.Dimension(980, 575));
         setLayout(null);
 
-        tbProductos.setModel(tbProductos.getModel());
+        tbProductos.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "ID Producto", "Nombre", "Cantidad", "Precio Compra", "Precio Venta", "Descripción"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tbProductos.setColumnSelectionAllowed(true);
         tbProductos.getTableHeader().setReorderingAllowed(false);
+        tbProductos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                tbProductosMousePressed(evt);
+            }
+        });
         jScrollPane1.setViewportView(tbProductos);
+        tbProductos.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        if (tbProductos.getColumnModel().getColumnCount() > 0) {
+            tbProductos.getColumnModel().getColumn(0).setResizable(false);
+            tbProductos.getColumnModel().getColumn(1).setResizable(false);
+            tbProductos.getColumnModel().getColumn(2).setResizable(false);
+            tbProductos.getColumnModel().getColumn(3).setResizable(false);
+            tbProductos.getColumnModel().getColumn(4).setResizable(false);
+            tbProductos.getColumnModel().getColumn(5).setResizable(false);
+        }
 
         add(jScrollPane1);
         jScrollPane1.setBounds(16, 41, 578, 525);
@@ -223,6 +290,10 @@ public class AdministrarProductos extends javax.swing.JPanel {
         add(jPanel1);
         jPanel1.setBounds(610, 41, 354, 525);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void tbProductosMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbProductosMousePressed
+        seleccionarProducto();
+    }//GEN-LAST:event_tbProductosMousePressed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
