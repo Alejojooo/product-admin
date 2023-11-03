@@ -14,6 +14,8 @@ public interface DAO<Entidad> {
     void modificar(Entidad e);
 
     void eliminar(int id);
+    
+    List<Entidad> buscar (Entidad e);
 
     List<Entidad> consultarTodos();
 }

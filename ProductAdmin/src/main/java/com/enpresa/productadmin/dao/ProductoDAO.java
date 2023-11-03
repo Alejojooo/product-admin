@@ -71,31 +71,56 @@ public class ProductoDAO implements DAO<Producto> {
     }
 
     @Override
+    public List<Producto> buscar(Producto producto) {
+        List<Producto> productos = new ArrayList<>();
+        String sql = "{CALL dbo.pBuscarProducto(?)}";
+
+        try (Connection c = new Conexion().establecerConexion(); Statement st = c.createStatement()) {
+
+            ResultSet rs = st.executeQuery(sql);
+            Producto producto;
+            while (rs.next()) {
+                producto = new Producto(
+                        rs.getInt(1),
+                        rs.getString(2),
+                        rs.getInt(3),
+                        rs.getBigDecimal(4),
+                        rs.getBigDecimal(5),
+                        rs.getString(6)
+                );
+                productos.add(producto);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
     public List<Producto> consultarTodos() {
         List<Producto> productos = new ArrayList<>();
         String sql = "SELECT * FROM vProductos";
 
         try (Connection c = new Conexion().establecerConexion(); Statement st = c.createStatement()) {
+
             ResultSet rs = st.executeQuery(sql);
             Producto producto;
             while (rs.next()) {
-                producto = new Producto();
-                producto.setId(rs.getInt(1));
-                producto.setNombre(rs.getString(2));
-                producto.setCantidad(rs.getInt(3));
-                producto.setPrecioCompra(rs.getBigDecimal(4));
-                producto.setPrecioVenta(rs.getBigDecimal(5));
-                producto.setDescripcion(rs.getString(6));
+                producto = new Producto(
+                        rs.getInt(1),
+                        rs.getString(2),
+                        rs.getInt(3),
+                        rs.getBigDecimal(4),
+                        rs.getBigDecimal(5),
+                        rs.getString(6)
+                );
                 productos.add(producto);
             }
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
         return productos;
-    }
-
-    public void buscar() {
-
     }
 }
