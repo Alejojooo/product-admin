@@ -84,6 +84,15 @@ public class ProductoDAO implements DAO<Producto> {
             String precioVenta = (producto.getPrecioVenta() != null) ? String.valueOf(producto.getPrecioVenta()) : "";
             String descripcion = producto.getDescripcion();
 
+            if ("".equals(id)
+                    && "".equals(nombre)
+                    && "".equals(cantidad)
+                    && "".equals(precioCompra)
+                    && "".equals(precioVenta)
+                    && "".equals(descripcion)) {
+                return null;
+            }
+
             cs.setString(1, id);
             cs.setString(2, nombre);
             cs.setString(3, cantidad);

@@ -48,7 +48,10 @@ public class AdministrarProductosController {
             modificarProducto();
         });
         vista.getBtnEliminar().addActionListener((ActionEvent e) -> {
-            modificarProducto();
+            eliminarProducto();
+        });
+        vista.getBtnBuscar().addActionListener((ActionEvent e) -> {
+            buscarProducto();
         });
     }
 
@@ -208,7 +211,6 @@ public class AdministrarProductosController {
     }
 
     private void buscarProducto() {
-        // TODO
         Producto producto = new Producto(
                 vista.getTxtID().getText(),
                 vista.getTxtNombre().getText(),

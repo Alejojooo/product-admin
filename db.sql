@@ -252,12 +252,12 @@ END
 GO
 
 CREATE PROCEDURE pBuscarProducto
-	@IDProducto INT,
-	@Nombre NVARCHAR(100),
-	@Cantidad INT,
-	@PrecioCompra DECIMAL(10, 2),
-	@PrecioVenta DECIMAL(10, 2),
-	@Descripcion NVARCHAR(250)
+	@IDProducto NVARCHAR(MAX),
+	@Nombre NVARCHAR(MAX),
+	@Cantidad NVARCHAR(MAX),
+	@PrecioCompra NVARCHAR(MAX),
+	@PrecioVenta NVARCHAR(MAX),
+	@Descripcion NVARCHAR(MAX)
 AS BEGIN
 	SELECT *
 	FROM vProductos
