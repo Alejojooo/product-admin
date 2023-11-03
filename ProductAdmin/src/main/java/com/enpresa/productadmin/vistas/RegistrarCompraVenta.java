@@ -4,19 +4,66 @@
  */
 package com.enpresa.productadmin.vistas;
 
+import javax.swing.ButtonGroup;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JTextField;
+
 /**
  *
  * @author Oscar
  */
 public class RegistrarCompraVenta extends javax.swing.JPanel {
 
+    private ButtonGroup buttonGroup;
+    
     /**
      * Creates new form RegistrarCompraVenta
      */
     public RegistrarCompraVenta() {
         initComponents();
+        initButtonGroup();
+    }
+    
+    private void initButtonGroup() {
+        buttonGroup = new ButtonGroup();
+        buttonGroup.add(rbtnCompra);
+        buttonGroup.add(rbtnVenta);
+        rbtnCompra.doClick();
     }
 
+    public ButtonGroup getButtonGroup() {
+        return buttonGroup;
+    }
+
+    public JButton getBtnBuscar() {
+        return btnBuscar;
+    }
+
+    public JButton getBtnConfirmar() {
+        return btnConfirmar;
+    }
+
+    public JComboBox<String> getcBoxProducto() {
+        return cBoxProducto;
+    }
+
+    public JTextField getTxtCantidad() {
+        return txtCantidad;
+    }
+
+    public JTextField getTxtId() {
+        return txtId;
+    }
+
+    public JTextField getTxtNombre() {
+        return txtNombre;
+    }
+
+    public JTextField getTxtTotal() {
+        return txtTotal;
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always

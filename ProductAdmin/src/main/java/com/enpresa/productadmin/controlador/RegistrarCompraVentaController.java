@@ -4,8 +4,8 @@
  */
 package com.enpresa.productadmin.controlador;
 
+import com.enpresa.productadmin.dao.OperacionDAO;
 import com.enpresa.productadmin.vistas.RegistrarCompraVenta;
-import java.awt.event.ActionEvent;
 import javax.swing.JFrame;
 
 /**
@@ -14,10 +14,12 @@ import javax.swing.JFrame;
  */
 public class RegistrarCompraVentaController {
     
+    private final OperacionDAO modelo;
     private final RegistrarCompraVenta vista;
     private final JFrame frame;
 
-    public RegistrarCompraVentaController(RegistrarCompraVenta vista) {
+    public RegistrarCompraVentaController(OperacionDAO modelo, RegistrarCompraVenta vista) {
+        this.modelo = modelo;
         this.vista = vista;
 
         frame = new JFrame();
@@ -31,5 +33,18 @@ public class RegistrarCompraVentaController {
     }
 
     private void addActionListeners() {
+    }
+    
+    private void buscarProducto() {
+        
+    }
+    
+    /* --- Métodos de comprobación --- */
+    private void idInvalida() {
+        
+    }
+    
+    private void nombreInvalido() {
+        
     }
 }
