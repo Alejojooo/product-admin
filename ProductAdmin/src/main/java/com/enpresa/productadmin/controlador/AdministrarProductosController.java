@@ -27,7 +27,7 @@ public class AdministrarProductosController {
         this.modelo = modelo;
         this.vista = vista;
 
-        frame = new JFrame();
+        frame = new JFrame("Administrar Productos");
         frame.setContentPane(vista);
         frame.pack();
         frame.setResizable(false);
@@ -42,17 +42,21 @@ public class AdministrarProductosController {
 
     private void addActionListeners() {
         vista.getBtnAgregar().addActionListener((ActionEvent e) -> {
-            agregarProducto();
+            if (!camposInvalidos()) {
+                agregarProducto();
+            }
         });
         vista.getBtnEditar().addActionListener((ActionEvent e) -> {
-            modificarProducto();
+            if (!camposInvalidos(true)) {
+                modificarProducto();
+            }
         });
     }
 
     private void addMouseListeners() {
         vista.getTbProductos().addMouseListener(new MouseAdapter() {
             @Override
-            public void mouseClicked(MouseEvent evt) {
+            public void mousePressed(MouseEvent evt) {
                 seleccionarProducto();
             }
         });
@@ -60,9 +64,9 @@ public class AdministrarProductosController {
 
     private void mostrarProductos() {
         DefaultTableModel tabla = vista.getModelo();
-        
+
         tabla.setNumRows(0);
-        
+
         List<Producto> productos = modelo.consultarTodos();
         for (Producto producto : productos) {
             String[] row = {
@@ -77,47 +81,6 @@ public class AdministrarProductosController {
         }
     }
 
-    private void agregarProducto() {
-        String nombre;
-        int cantidad;
-        BigDecimal precioCompra;
-        BigDecimal precioVenta;
-        String descripcion = vista.getTxtDescripcion().getText();
-
-        nombre = vista.getTxtNombre().getText();
-        if ("".equals(nombre)) {
-            JOptionPane.showMessageDialog(frame, "Ingrese un nombre.", "Error", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-
-        try {
-            cantidad = Integer.parseInt(vista.getTxtCantidad().getText());
-            if (cantidad < 0) {
-                throw new NumberFormatException();
-            }
-        } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(frame, "Ingrese una cantidad válida.", "Error", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-        try {
-            precioCompra = new BigDecimal(vista.getTxtPrecioCompra().getText());
-            precioVenta = new BigDecimal(vista.getTxtPrecioVenta().getText());
-            if (BigDecimal.ZERO.compareTo(precioCompra) > 0 || BigDecimal.ZERO.compareTo(precioVenta) > 0) {
-                throw new NumberFormatException();
-            }
-        } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(frame, "Ingrese precios válidos.", "Error", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-
-        Producto producto = new Producto(nombre, cantidad, precioCompra, precioVenta, descripcion);
-        modelo.crear(producto);
-
-        JOptionPane.showMessageDialog(frame, "Se ha creado un nuevo producto.", "Aviso", JOptionPane.INFORMATION_MESSAGE);
-
-        mostrarProductos();
-    }
-
     private void seleccionarProducto() {
         JTable tbProductos = vista.getTbProductos();
         int fila = tbProductos.getSelectedRow();
@@ -127,6 +90,7 @@ public class AdministrarProductosController {
             JOptionPane.showMessageDialog(frame, "No se seleccionó un producto.", "Aviso", JOptionPane.WARNING_MESSAGE);
             return;
         }
+        vista.getTxtID().setText(tbProductos.getValueAt(fila, 0).toString());
         vista.getTxtNombre().setText(tbProductos.getValueAt(fila, 1).toString());
         vista.getTxtCantidad().setText(tbProductos.getValueAt(fila, 2).toString());
         vista.getTxtPrecioCompra().setText(tbProductos.getValueAt(fila, 3).toString());
@@ -136,7 +100,114 @@ public class AdministrarProductosController {
         System.out.println("Ejecutado método seleccionarProducto");
     }
 
-    private void modificarProducto() {
+    /* Métodos para CRUD */
+    private void agregarProducto() {
+        String nombre = vista.getTxtNombre().getText();
+        int cantidad = Integer.parseInt(vista.getTxtCantidad().getText());
+        BigDecimal precioCompra = new BigDecimal(vista.getTxtPrecioCompra().getText());
+        BigDecimal precioVenta = new BigDecimal(vista.getTxtPrecioVenta().getText());
+        String descripcion = vista.getTxtDescripcion().getText();
 
+        Producto producto = new Producto(nombre, cantidad, precioCompra, precioVenta, descripcion);
+        modelo.crear(producto);
+
+        JOptionPane.showMessageDialog(frame, "Se ha creado un nuevo producto.", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+
+        mostrarProductos();
+        limpiarCampos();
     }
+
+    private void modificarProducto() {
+        int id = Integer.parseInt(vista.getTxtID().getText());
+        String nombre = vista.getTxtNombre().getText();
+        int cantidad = Integer.parseInt(vista.getTxtCantidad().getText());
+        BigDecimal precioCompra = new BigDecimal(vista.getTxtPrecioCompra().getText());
+        BigDecimal precioVenta = new BigDecimal(vista.getTxtPrecioVenta().getText());
+        String descripcion = vista.getTxtDescripcion().getText();
+
+        Producto producto = new Producto(nombre, cantidad, precioCompra, precioVenta, descripcion);
+        modelo.modificar(producto);
+
+        JOptionPane.showMessageDialog(frame, "Se ha modificado el producto.", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+
+        mostrarProductos();
+        limpiarCampos();
+    }
+
+    /* Métodos de comprobación */
+    private boolean camposInvalidos() {
+        return camposInvalidos(false);
+    }
+
+    private boolean camposInvalidos(boolean validacionDeId) {
+        if (validacionDeId && idInvalida()) {
+            JOptionPane.showMessageDialog(frame, "La ID del producto no es válida.", "Error", JOptionPane.ERROR_MESSAGE);
+            return true;
+        }
+        if (nombreVacio()) {
+            JOptionPane.showMessageDialog(frame, "Ingrese un nombre.", "Error", JOptionPane.ERROR_MESSAGE);
+            return true;
+        }
+        if (cantidadInvalida()) {
+            JOptionPane.showMessageDialog(frame, "Ingrese una cantidad válida.", "Error", JOptionPane.ERROR_MESSAGE);
+            return true;
+        }
+        if (preciosInvalidos()) {
+            JOptionPane.showMessageDialog(frame, "Ingrese precios válidos.", "Error", JOptionPane.ERROR_MESSAGE);
+            return true;
+        }
+        return false;
+    }
+
+    private boolean idInvalida() {
+        try {
+            int id = Integer.parseInt(vista.getTxtID().getText());
+            if (id < 0) {
+                throw new NumberFormatException();
+            }
+        } catch (NumberFormatException e) {
+            return true;
+        }
+        return false;
+    }
+
+    private boolean nombreVacio() {
+        return "".equals(vista.getTxtNombre().getText());
+    }
+
+    private boolean cantidadInvalida() {
+        try {
+            int cantidad = Integer.parseInt(vista.getTxtCantidad().getText());
+            if (cantidad < 0) {
+                throw new NumberFormatException();
+            }
+        } catch (NumberFormatException e) {
+            return true;
+        }
+        return false;
+    }
+
+    private boolean preciosInvalidos() {
+        try {
+            BigDecimal precioCompra = new BigDecimal(vista.getTxtPrecioCompra().getText());
+            BigDecimal precioVenta = new BigDecimal(vista.getTxtPrecioVenta().getText());
+            if (BigDecimal.ZERO.compareTo(precioCompra) > 0 || BigDecimal.ZERO.compareTo(precioVenta) > 0) {
+                throw new NumberFormatException();
+            }
+        } catch (NumberFormatException e) {
+            return true;
+        }
+        return false;
+    }
+
+    /* Funciones adicionales */
+    private void limpiarCampos() {
+        vista.getTxtID().setText("");
+        vista.getTxtNombre().setText("");
+        vista.getTxtCantidad().setText("");
+        vista.getTxtPrecioCompra().setText("");
+        vista.getTxtPrecioVenta().setText("");
+        vista.getTxtDescripcion().setText("");
+    }
+
 }
