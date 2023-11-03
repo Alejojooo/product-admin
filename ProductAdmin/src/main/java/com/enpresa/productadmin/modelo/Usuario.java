@@ -6,7 +6,7 @@ package com.enpresa.productadmin.modelo;
  */
 public class Usuario {
 
-    private int id;
+    private Integer id;
     private String usuario;
     private String clave;
     private String nombres;
@@ -24,6 +24,18 @@ public class Usuario {
         this(0, usuario, clave, nombres, apellidos, rol);
     }
 
+    /*public Usuario(String id, String usuario, String nombres, String apellidos, Rol rol) {
+        try {
+            this.id = Integer.valueOf(id);
+        } catch (NumberFormatException e) {
+            this.id = null;
+        }
+        this.usuario = usuario;
+        this.nombres = nombres;
+        this.apellidos = apellidos;
+        this.rol = rol;
+    } */
+    
     public Usuario(int id, String usuario, String password, String nombres, String apellidos, Rol rol) {
         this.id = id;
         this.usuario = usuario;
