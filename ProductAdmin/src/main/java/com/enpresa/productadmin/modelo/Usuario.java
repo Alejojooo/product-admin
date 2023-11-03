@@ -16,6 +16,14 @@ public class Usuario {
     public Usuario() {
     }
 
+    public Usuario(int id) {
+        this(id, null, null, null, null, null);
+    }
+
+    public Usuario(String usuario, String clave, String nombres, String apellidos, Rol rol) {
+        this(0, usuario, clave, nombres, apellidos, rol);
+    }
+
     public Usuario(int id, String usuario, String password, String nombres, String apellidos, Rol rol) {
         this.id = id;
         this.usuario = usuario;
