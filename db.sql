@@ -132,46 +132,6 @@ GO
 
 
 
-/*
-CREATE FUNCTION fBuscarUsuario (
-	@IDUsuario INT,
-	@Usuario VARCHAR(100),
-	@Nombres NVARCHAR(100),
-	@Apellidos NVARCHAR(100),
-	@Rol NVARCHAR(30))
-RETURNS TABLE
-AS RETURN
-	SELECT *
-	FROM vUsuarios
-	WHERE [ID Usuario] LIKE '%' + @IDUsuario + '%'
-	OR [Usuario] LIKE '%' + @Usuario + '%'
-	OR [Nombres] LIKE '%' + @Nombres + '%'
-	OR [Apellidos] LIKE '%' + @Apellidos + '%'
-	OR [Rol] LIKE '%' + @Rol + '%'
-GO
-
-CREATE FUNCTION fBuscarProducto (
-	@IDProducto INT,
-	@Nombre NVARCHAR(100),
-	@Cantidad INT,
-	@PrecioCompra DECIMAL(10, 2),
-	@PrecioVenta DECIMAL(10, 2),
-	@Descripcion NVARCHAR(250))
-RETURNS TABLE
-AS RETURN
-	SELECT *
-	FROM vProductos
-	WHERE [ID Producto] LIKE '%' + @IDProducto + '%'
-	OR [Nombre] LIKE '%' + @Nombre + '%'
-	OR [Cantidad] LIKE '%' + @Cantidad + '%'
-	OR [Precio Compra] LIKE '%' + @PrecioCompra + '%'
-	OR [Precio Venta] LIKE '%' + @PrecioVenta + '%'
-	OR [Descripción] LIKE '%' + @Descripcion + '%'
-GO
-*/
-
-
-
 
 
 -- PROCEDIMIENTOS
@@ -208,6 +168,23 @@ CREATE PROCEDURE pEliminarUsuario
 AS BEGIN
 	DELETE FROM tbUsuario
 	WHERE idUsuario = @IDUsuario
+END
+GO
+
+CREATE PROCEDURE pBuscarUsuario
+	@IDUsuario INT,
+	@Usuario VARCHAR(100),
+	@Nombres NVARCHAR(100),
+	@Apellidos NVARCHAR(100),
+	@Rol NVARCHAR(30)
+AS BEGIN
+	SELECT *
+	FROM vUsuarios
+	WHERE [ID Usuario] LIKE '%' + @IDUsuario + '%'
+	OR [Usuario] LIKE '%' + @Usuario + '%'
+	OR [Nombres] LIKE '%' + @Nombres + '%'
+	OR [Apellidos] LIKE '%' + @Apellidos + '%'
+	OR [Rol] LIKE '%' + @Rol + '%'
 END
 GO
 
@@ -271,6 +248,25 @@ CREATE PROCEDURE pEliminarProducto
 AS BEGIN
 	DELETE FROM tbProducto
 	WHERE idProducto = @IDProducto
+END
+GO
+
+CREATE PROCEDURE pBuscarProducto
+	@IDProducto INT,
+	@Nombre NVARCHAR(100),
+	@Cantidad INT,
+	@PrecioCompra DECIMAL(10, 2),
+	@PrecioVenta DECIMAL(10, 2),
+	@Descripcion NVARCHAR(250)
+AS BEGIN
+	SELECT *
+	FROM vProductos
+	WHERE [ID Producto] LIKE '%' + @IDProducto + '%'
+	OR [Nombre] LIKE '%' + @Nombre + '%'
+	OR [Cantidad] LIKE '%' + @Cantidad + '%'
+	OR [Precio Compra] LIKE '%' + @PrecioCompra + '%'
+	OR [Precio Venta] LIKE '%' + @PrecioVenta + '%'
+	OR [Descripción] LIKE '%' + @Descripcion + '%'
 END
 GO
 
