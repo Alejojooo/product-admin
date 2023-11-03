@@ -262,11 +262,11 @@ AS BEGIN
 	SELECT *
 	FROM vProductos
 	WHERE [ID Producto] LIKE '%' + @IDProducto + '%'
-	OR [Nombre] LIKE '%' + @Nombre + '%'
-	OR [Cantidad] LIKE '%' + @Cantidad + '%'
-	OR [Precio Compra] LIKE '%' + @PrecioCompra + '%'
-	OR [Precio Venta] LIKE '%' + @PrecioVenta + '%'
-	OR [Descripción] LIKE '%' + @Descripcion + '%'
+	AND [Nombre] LIKE '%' + @Nombre + '%'
+	AND [Cantidad] LIKE '%' + @Cantidad + '%'
+	AND [Precio Compra] LIKE '%' + @PrecioCompra + '%'
+	AND [Precio Venta] LIKE '%' + @PrecioVenta + '%'
+	AND [Descripción] LIKE '%' + @Descripcion + '%'
 END
 GO
 
