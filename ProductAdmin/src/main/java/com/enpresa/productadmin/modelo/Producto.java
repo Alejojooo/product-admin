@@ -35,8 +35,6 @@ public class Producto {
         this.descripcion = descripcion;
     }
 
-    
-
     public int getId() {
         return id;
     }
