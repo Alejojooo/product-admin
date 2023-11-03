@@ -8,9 +8,9 @@ import java.math.BigDecimal;
  */
 public class Producto {
 
-    private int id;
+    private Integer id;
     private String nombre;
-    private int cantidad;
+    private Integer cantidad;
     private BigDecimal precioCompra;
     private BigDecimal precioVenta;
     private String descripcion;
@@ -24,6 +24,31 @@ public class Producto {
     
     public Producto(String nombre, int cantidad, BigDecimal precioCompra, BigDecimal precioVenta, String descripcion) {
         this(0, nombre, cantidad, precioCompra, precioVenta, descripcion);
+    }
+    
+    public Producto(String id, String nombre, String cantidad, String precioCompra, String precioVenta, String descripcion) {
+        try {
+            this.id = Integer.valueOf(id);
+        } catch (NumberFormatException e) {
+            this.id = null;
+        }
+        this.nombre = nombre;
+        try {
+            this.cantidad = Integer.valueOf(cantidad);
+        } catch (NumberFormatException e) {
+            this.cantidad = null;
+        }
+        try {
+            this.precioCompra = new BigDecimal(precioCompra);
+        } catch (NumberFormatException e) {
+            this.precioCompra = null;
+        }
+        try {
+            this.precioVenta = new BigDecimal(precioVenta);
+        } catch (NumberFormatException e) {
+            this.precioVenta = null;
+        }
+        this.descripcion = descripcion;
     }
 
     public Producto(int id, String nombre, int cantidad, BigDecimal precioCompra, BigDecimal precioVenta, String descripcion) {
