@@ -56,12 +56,12 @@ public class ProductoDAO implements DAO<Producto> {
     }
 
     @Override
-    public void eliminar(Producto producto) {
+    public void eliminar(int id) {
         String sql = "{CALL dbo.pEliminarProducto(?)}";
 
         try (Connection c = new Conexion().establecerConexion(); CallableStatement cs = c.prepareCall(sql)) {
 
-            cs.setInt(1, producto.getId());
+            cs.setInt(1, id);
 
             cs.execute();
 

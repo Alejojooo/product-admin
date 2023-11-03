@@ -17,6 +17,14 @@ public class Producto {
 
     public Producto() {
     }
+    
+    public Producto(int id) {
+        this(id, null, 0, null, null, null);
+    }
+    
+    public Producto(String nombre, int cantidad, BigDecimal precioCompra, BigDecimal precioVenta, String descripcion) {
+        this(0, nombre, cantidad, precioCompra, precioVenta, descripcion);
+    }
 
     public Producto(int id, String nombre, int cantidad, BigDecimal precioCompra, BigDecimal precioVenta, String descripcion) {
         this.id = id;
@@ -27,9 +35,7 @@ public class Producto {
         this.descripcion = descripcion;
     }
 
-    public Producto(String nombre, int cantidad, BigDecimal precioCompra, BigDecimal precioVenta, String descripcion) {
-        this(0, nombre, cantidad, precioCompra, precioVenta, descripcion);
-    }
+    
 
     public int getId() {
         return id;
