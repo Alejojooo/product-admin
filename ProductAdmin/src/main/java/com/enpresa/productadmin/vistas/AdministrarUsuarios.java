@@ -4,19 +4,99 @@
  */
 package com.enpresa.productadmin.vistas;
 
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JTable;
+import javax.swing.JTextField;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author Oscar
  */
 public class AdministrarUsuarios extends javax.swing.JPanel {
 
+    private DefaultTableModel modelo;
+
     /**
      * Creates new form AdministrarProductos
      */
     public AdministrarUsuarios() {
         initComponents();
+        initTable();
     }
-    
+
+    private void initTable() {
+        modelo = new DefaultTableModel(
+                new Object[][]{},
+                new String[]{
+                    "ID Usuario", "Usuario", "Nombres", "Apellidos", "Rol"
+                }
+        ) {
+            boolean[] canEdit = new boolean[]{
+                false, false, false, false, false
+            };
+
+            public boolean isCelEditable(int rowIndex, int columnIndex) {
+                return canEdit[columnIndex];
+            }
+        };
+
+        tbUsuarios.setModel(modelo);
+
+        if (tbUsuarios.getColumnModel().getColumnCount() > 0) {
+            tbUsuarios.getColumnModel().getColumn(0).setResizable(false);
+            tbUsuarios.getColumnModel().getColumn(1).setResizable(false);
+            tbUsuarios.getColumnModel().getColumn(2).setResizable(false);
+            tbUsuarios.getColumnModel().getColumn(3).setResizable(false);
+            tbUsuarios.getColumnModel().getColumn(4).setResizable(false);
+        }
+    }
+
+    public DefaultTableModel getModelo() {
+        return modelo;
+    }
+
+    public JButton getBtnAgregar() {
+        return btnAgregar;
+    }
+
+    public JButton getBtnBuscar() {
+        return btnBuscar;
+    }
+
+    public JButton getBtnEliminar() {
+        return btnEliminar;
+    }
+
+    public JButton getBtnModificar() {
+        return btnModificar;
+    }
+
+    public JComboBox<String> getcBoxRol() {
+        return cBoxRol;
+    }
+
+    public JTable getTbUsuarios() {
+        return tbUsuarios;
+    }
+
+    public JTextField getTxtApellidos() {
+        return txtApellidos;
+    }
+
+    public JTextField getTxtId() {
+        return txtId;
+    }
+
+    public JTextField getTxtNombres() {
+        return txtNombres;
+    }
+
+    public JTextField getTxtUsuario() {
+        return txtUsuario;
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -47,14 +127,7 @@ public class AdministrarUsuarios extends javax.swing.JPanel {
         setPreferredSize(new java.awt.Dimension(980, 531));
         setLayout(null);
 
-        tbUsuarios.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-
-            }
-        ));
+        tbUsuarios.setModel(tbUsuarios.getModel());
         jScrollPane1.setViewportView(tbUsuarios);
 
         add(jScrollPane1);
