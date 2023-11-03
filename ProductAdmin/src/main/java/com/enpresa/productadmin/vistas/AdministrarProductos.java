@@ -71,8 +71,8 @@ public class AdministrarProductos extends javax.swing.JPanel {
         return btnBuscar;
     }
     
-    public JButton getBtnEditar() {
-        return btnEditar;
+    public JButton getBtnModificar() {
+        return btnModificar;
     }
     
     public JButton getBtnEliminar() {
@@ -116,7 +116,7 @@ public class AdministrarProductos extends javax.swing.JPanel {
         tbProductos = new javax.swing.JTable();
         jPanel1 = new javax.swing.JPanel();
         btnAgregar = new javax.swing.JButton();
-        btnEditar = new javax.swing.JButton();
+        btnModificar = new javax.swing.JButton();
         btnEliminar = new javax.swing.JButton();
         btnBuscar = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
@@ -151,10 +151,10 @@ public class AdministrarProductos extends javax.swing.JPanel {
         jPanel1.add(btnAgregar);
         btnAgregar.setBounds(44, 23, 125, 50);
 
-        btnEditar.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        btnEditar.setText("Editar");
-        jPanel1.add(btnEditar);
-        btnEditar.setBounds(185, 23, 125, 50);
+        btnModificar.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnModificar.setText("Modificar");
+        jPanel1.add(btnModificar);
+        btnModificar.setBounds(185, 23, 125, 50);
 
         btnEliminar.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btnEliminar.setText("Eliminar");
@@ -228,8 +228,8 @@ public class AdministrarProductos extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAgregar;
     private javax.swing.JButton btnBuscar;
-    private javax.swing.JButton btnEditar;
     private javax.swing.JButton btnEliminar;
+    private javax.swing.JButton btnModificar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

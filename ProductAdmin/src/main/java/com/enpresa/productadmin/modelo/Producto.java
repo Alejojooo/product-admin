@@ -17,22 +17,21 @@ public class Producto {
 
     public Producto() {
     }
-    
+
     public Producto(int id) {
         this(id, null, 0, null, null, null);
     }
-    
+
     public Producto(String nombre, int cantidad, BigDecimal precioCompra, BigDecimal precioVenta, String descripcion) {
         this(0, nombre, cantidad, precioCompra, precioVenta, descripcion);
     }
-    
+
     public Producto(String id, String nombre, String cantidad, String precioCompra, String precioVenta, String descripcion) {
         try {
             this.id = Integer.valueOf(id);
         } catch (NumberFormatException e) {
             this.id = null;
         }
-        this.nombre = nombre;
         try {
             this.cantidad = Integer.valueOf(cantidad);
         } catch (NumberFormatException e) {
@@ -48,6 +47,8 @@ public class Producto {
         } catch (NumberFormatException e) {
             this.precioVenta = null;
         }
+
+        this.nombre = nombre;
         this.descripcion = descripcion;
     }
 
@@ -60,7 +61,7 @@ public class Producto {
         this.descripcion = descripcion;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
@@ -76,7 +77,7 @@ public class Producto {
         this.nombre = nombre;
     }
 
-    public int getCantidad() {
+    public Integer getCantidad() {
         return cantidad;
     }
 

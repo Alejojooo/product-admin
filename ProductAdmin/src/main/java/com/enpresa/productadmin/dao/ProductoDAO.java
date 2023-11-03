@@ -72,18 +72,24 @@ public class ProductoDAO implements DAO<Producto> {
 
     @Override
     public List<Producto> buscar(Producto producto) {
-        // TODO
         List<Producto> productos = new ArrayList<>();
         String sql = "{CALL dbo.pBuscarProducto(?, ?, ?, ?, ?, ?)}";
 
         try (Connection c = new Conexion().establecerConexion(); CallableStatement cs = c.prepareCall(sql)) {
 
-            // cs.setInt(1, producto.getId() !== null ? producto.getId() : "");
-            cs.setString(2, producto.getNombre());
-            cs.setInt(3, producto.getCantidad());
-            cs.setBigDecimal(4, producto.getPrecioCompra());
-            cs.setBigDecimal(5, producto.getPrecioVenta());
-            cs.setString(6, producto.getDescripcion());
+            String id = (producto.getId() != null) ? String.valueOf(producto.getId()) : "";
+            String nombre = producto.getNombre();
+            String cantidad = (producto.getCantidad() != null) ? String.valueOf(producto.getCantidad()) : "";
+            String precioCompra = (producto.getPrecioCompra() != null) ? String.valueOf(producto.getPrecioCompra()) : "";
+            String precioVenta = (producto.getPrecioVenta() != null) ? String.valueOf(producto.getPrecioVenta()) : "";
+            String descripcion = producto.getDescripcion();
+
+            cs.setString(1, id);
+            cs.setString(2, nombre);
+            cs.setString(3, cantidad);
+            cs.setString(4, precioCompra);
+            cs.setString(5, precioVenta);
+            cs.setString(6, descripcion);
 
             ResultSet rs = cs.executeQuery();
             while (rs.next()) {

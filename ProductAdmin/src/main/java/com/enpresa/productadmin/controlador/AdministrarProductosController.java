@@ -44,7 +44,10 @@ public class AdministrarProductosController {
         vista.getBtnAgregar().addActionListener((ActionEvent e) -> {
             crearProducto();
         });
-        vista.getBtnEditar().addActionListener((ActionEvent e) -> {
+        vista.getBtnModificar().addActionListener((ActionEvent e) -> {
+            modificarProducto();
+        });
+        vista.getBtnEliminar().addActionListener((ActionEvent e) -> {
             modificarProducto();
         });
     }
@@ -59,12 +62,14 @@ public class AdministrarProductosController {
     }
 
     /* --- Métodos auxiliares --- */
-    private void mostrarProductos() {
+    private void mostrarProductos(List<Producto> productos) {
         DefaultTableModel tabla = vista.getModelo();
 
         tabla.setNumRows(0);
 
-        List<Producto> productos = modelo.consultarTodos();
+        if (productos == null) {
+            productos = modelo.consultarTodos();
+        }
         for (Producto producto : productos) {
             String[] row = {
                 String.valueOf(producto.getId()),
@@ -76,6 +81,10 @@ public class AdministrarProductosController {
             };
             tabla.addRow(row);
         }
+    }
+
+    private void mostrarProductos() {
+        mostrarProductos(null);
     }
 
     private void seleccionarProducto() {
@@ -208,8 +217,10 @@ public class AdministrarProductosController {
                 vista.getTxtPrecioVenta().getText(),
                 vista.getTxtDescripcion().getText()
         );
-        
+
         List<Producto> productos = modelo.buscar(producto);
+
+        mostrarProductos(productos);
     }
 
     /* --- Métodos de comprobación --- */
