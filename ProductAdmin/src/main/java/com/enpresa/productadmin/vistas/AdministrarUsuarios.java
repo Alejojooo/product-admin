@@ -37,7 +37,6 @@ public class AdministrarUsuarios extends javax.swing.JPanel {
                 false, false, false, false, false
             };
 
-            @Override
             public boolean isCelEditable(int rowIndex, int columnIndex) {
                 return canEdit[columnIndex];
             }

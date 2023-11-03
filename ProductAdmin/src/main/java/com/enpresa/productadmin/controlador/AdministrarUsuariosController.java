@@ -45,7 +45,7 @@ public class AdministrarUsuariosController {
         vista.getBtnAgregar().addActionListener((ActionEvent e) -> {
             crearUsuario();
         });
-        vista.getBtnEditar().addActionListener((ActionEvent e) -> {
+        vista.getBtnModificar().addActionListener((ActionEvent e) -> {
             modificarUsuario();
         });
     }
@@ -113,12 +113,7 @@ public class AdministrarUsuariosController {
             return;
         }
 
-        Usuario usuario = new Usuario(
-                vista.getTxtUsuario().getText(),
-                vista.getTxtNombres().getText(),
-                vista.getTxtApellidos().getText(),
-                vista.getcBoxRol().getActionCommand() //Debatible
-        );
+        Usuario usuario = new Usuario();
 
         modelo.crear(usuario);
 
@@ -147,13 +142,7 @@ public class AdministrarUsuariosController {
             return;
         }
 
-        Usuario usuario = new Usuario(
-                id,
-                vista.getTxtUsuario().getText(),
-                vista.getTxtNombres().getText(),
-                vista.getTxtApellidos().getText(),
-                vista.getcBoxRol().getActionCommand()
-        );
+        Usuario usuario = new Usuario();
 
         modelo.modificar(usuario);
 
@@ -196,13 +185,7 @@ public class AdministrarUsuariosController {
 
     private void buscarUsuario() {
         // TODO
-        Usuario usuario = new Usuario(
-                vista.getTxtId().getText(),
-                vista.getTxtUsuario().getText(),
-                vista.getTxtNombres().getText(),
-                vista.getTxtApellidos().getText(),
-                vista.getcBoxRol().getActionCommand()
-        );
+        Usuario usuario = new Usuario();
         
         List<Usuario> usuarios = modelo.buscar(usuario);
     }
