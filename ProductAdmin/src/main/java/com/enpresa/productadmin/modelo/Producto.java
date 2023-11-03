@@ -18,54 +18,11 @@ public class Producto {
     public Producto() {
     }
 
-    public Producto(int id) {
-        this(id, null, null, null, null, null);
-    }
-
-    public Producto(String nombre, Integer cantidad, BigDecimal precioCompra, BigDecimal precioVenta, String descripcion) {
-        this(null, nombre, cantidad, precioCompra, precioVenta, descripcion);
-    }
-
-    public Producto(String id, String nombre, String cantidad, String precioCompra, String precioVenta, String descripcion) {
-        try {
-            this.id = Integer.valueOf(id);
-        } catch (NumberFormatException e) {
-            this.id = null;
-        }
-        try {
-            this.cantidad = Integer.valueOf(cantidad);
-        } catch (NumberFormatException e) {
-            this.cantidad = null;
-        }
-        try {
-            this.precioCompra = new BigDecimal(precioCompra);
-        } catch (NumberFormatException e) {
-            this.precioCompra = null;
-        }
-        try {
-            this.precioVenta = new BigDecimal(precioVenta);
-        } catch (NumberFormatException e) {
-            this.precioVenta = null;
-        }
-
-        this.nombre = nombre;
-        this.descripcion = descripcion;
-    }
-
-    public Producto(Integer id, String nombre, Integer cantidad, BigDecimal precioCompra, BigDecimal precioVenta, String descripcion) {
-        this.id = id;
-        this.nombre = nombre;
-        this.cantidad = cantidad;
-        this.precioCompra = precioCompra;
-        this.precioVenta = precioVenta;
-        this.descripcion = descripcion;
-    }
-
     public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -81,7 +38,7 @@ public class Producto {
         return cantidad;
     }
 
-    public void setCantidad(int cantidad) {
+    public void setCantidad(Integer cantidad) {
         this.cantidad = cantidad;
     }
 
@@ -107,13 +64,5 @@ public class Producto {
 
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
-    }
-
-    @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append(id);
-        sb.append("[").append(nombre).append("]");
-        return sb.toString();
     }
 }

@@ -11,6 +11,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  *
@@ -71,7 +72,7 @@ public class UsuarioDAO implements DAO<Usuario> {
     }
     
     @Override
-    public List<Usuario> buscar(Usuario usuario) {
+    public List<Usuario> buscar(Map<String, String> campos) {
         return null;
     }
     

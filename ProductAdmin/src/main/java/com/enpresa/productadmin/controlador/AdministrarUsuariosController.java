@@ -187,7 +187,6 @@ public class AdministrarUsuariosController {
         // TODO
         Usuario usuario = new Usuario();
         
-        List<Usuario> usuarios = modelo.buscar(usuario);
     }
     
     /* --- Métodos de comprobación --- */

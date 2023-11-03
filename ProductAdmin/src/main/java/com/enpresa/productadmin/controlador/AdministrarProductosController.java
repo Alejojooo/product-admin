@@ -3,9 +3,10 @@ package com.enpresa.productadmin.controlador;
 import com.enpresa.productadmin.dao.ProductoDAO;
 import com.enpresa.productadmin.modelo.Producto;
 import com.enpresa.productadmin.vistas.AdministrarProductos;
-import java.awt.event.ActionEvent;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  *
@@ -20,22 +21,26 @@ public class AdministrarProductosController {
         this.modelo = modelo;
         this.vista = vista;
 
-        addActionListeners();
         mostrarProductos();
+        mapearAcciones();
     }
-
-    private void addActionListeners() {
-        vista.getBtnAgregar().addActionListener((ActionEvent e) -> {
+    
+    private void mapearAcciones() {
+        vista.mapearAccion("Agregar", (e) -> {
             crearProducto();
+            return null;
         });
-        vista.getBtnModificar().addActionListener((ActionEvent e) -> {
+        vista.mapearAccion("Modificar", (e) -> {
             modificarProducto();
+            return null;
         });
-        vista.getBtnEliminar().addActionListener((ActionEvent e) -> {
+        vista.mapearAccion("Eliminar", (e) -> {
             eliminarProducto();
+            return null;
         });
-        vista.getBtnBuscar().addActionListener((ActionEvent e) -> {
+        vista.mapearAccion("Buscar", (e) -> {
             buscarProducto();
+            return null;
         });
     }
 
@@ -44,144 +49,151 @@ public class AdministrarProductosController {
         if (productos == null) {
             productos = modelo.consultarTodos();
         }
-        vista.mostrarProductos(productos);
+        vista.mostrarRegistros(getRegistros(productos));
     }
 
     private void mostrarProductos() {
         mostrarProductos(null);
     }
 
+    private List<String[]> getRegistros(List<Producto> productos) {
+        List<String[]> registros = new ArrayList<>();
+        for (Producto producto : productos) {
+            String[] registro = {
+                String.valueOf(producto.getId()),
+                producto.getNombre(),
+                String.valueOf(producto.getCantidad()),
+                String.valueOf(producto.getPrecioCompra()),
+                String.valueOf(producto.getPrecioVenta()),
+                producto.getDescripcion()
+            };
+            registros.add(registro);
+        }
+        return registros;
+    }
+
     /* --- Métodos para CRUD --- */
     private void crearProducto() {
-        if (nombreVacio() || cantidadInvalida() || preciosInvalidos()) {
+        Map<String, String> campos = vista.getCampos();
+        Producto producto = new Producto();
+        try {
+            producto.setId(comprobarId(campos.get("id")));
+            producto.setNombre(comprobarNombre(campos.get("nombre")));
+            producto.setCantidad(comprobarCantidad(campos.get("cantidad")));
+            producto.setPrecioCompra(comprobarPrecio(campos.get("precioCompra")));
+            producto.setPrecioVenta(comprobarPrecio(campos.get("precioVenta")));
+            producto.setDescripcion(campos.get("descripcion"));
+        } catch (ProductoInvalidoException e) {
             return;
         }
-
-        Producto producto = new Producto(
-                vista.getTxtNombre().getText(),
-                Integer.parseInt(vista.getTxtCantidad().getText()),
-                new BigDecimal(vista.getTxtPrecioCompra().getText()),
-                new BigDecimal(vista.getTxtPrecioVenta().getText()),
-                vista.getTxtDescripcion().getText()
-        );
-
         modelo.crear(producto);
-
         vista.mostrarMensaje("Se ha creado un nuevo producto.");
-
         mostrarProductos();
-        vista.limpiarCampos();
     }
 
     private void modificarProducto() {
-        if (idInvalida() || nombreVacio() || cantidadInvalida() || preciosInvalidos()) {
+        Map<String, String> campos = vista.getCampos();
+        Producto producto = new Producto();
+        Integer id;
+        try {
+            id = comprobarId(campos.get("id"));
+            producto.setId(id);
+            producto.setNombre(comprobarNombre(campos.get("nombre")));
+            producto.setCantidad(comprobarCantidad(campos.get("cantidad")));
+            producto.setPrecioCompra(comprobarPrecio(campos.get("precioCompra")));
+            producto.setPrecioVenta(comprobarPrecio(campos.get("precioVenta")));
+            producto.setDescripcion(campos.get("descripcion"));
+        } catch (ProductoInvalidoException e) {
             return;
         }
 
-        int id = Integer.parseInt(vista.getTxtID().getText());
         boolean modificar = vista.mostrarConfirmacion(String.format("¿Está seguro de modificar el producto con ID [%d] ?", id));
         if (!modificar) {
             return;
         }
 
-        Producto producto = new Producto(
-                id,
-                vista.getTxtNombre().getText(),
-                Integer.parseInt(vista.getTxtCantidad().getText()),
-                new BigDecimal(vista.getTxtPrecioCompra().getText()),
-                new BigDecimal(vista.getTxtPrecioVenta().getText()),
-                vista.getTxtDescripcion().getText()
-        );
-
         modelo.modificar(producto);
-
         vista.mostrarMensaje("Se ha modificado el producto.");
-
         mostrarProductos();
-        vista.limpiarCampos();
     }
 
     private void eliminarProducto() {
-        if (idInvalida()) {
+        Map<String, String> campos = vista.getCampos();
+        Integer id;
+        try {
+            id = comprobarId(campos.get("id"));
+        } catch (ProductoInvalidoException e) {
             return;
         }
 
-        int id = Integer.parseInt(vista.getTxtID().getText());
-
-        boolean modificar = vista.mostrarConfirmacion(String.format("¿Está seguro de eliminar el producto con ID [%d] ?", id));
-        if (!modificar) {
+        boolean eliminar = vista.mostrarConfirmacion(String.format("¿Está seguro de eliminar el producto con ID [%d] ?", id));
+        if (!eliminar) {
             return;
         }
 
         modelo.eliminar(id);
-
         vista.mostrarMensaje("Se ha eliminado el producto.");
-
         mostrarProductos();
-        vista.limpiarCampos();
     }
 
     private void buscarProducto() {
-        Producto producto = new Producto(
-                vista.getTxtID().getText(),
-                vista.getTxtNombre().getText(),
-                vista.getTxtCantidad().getText(),
-                vista.getTxtPrecioCompra().getText(),
-                vista.getTxtPrecioVenta().getText(),
-                vista.getTxtDescripcion().getText()
-        );
-
-        List<Producto> productos = modelo.buscar(producto);
-
+        Map<String, String> campos = vista.getCampos();
+        List<Producto> productos = modelo.buscar(campos);
         mostrarProductos(productos);
     }
 
     /* --- Métodos de comprobación --- */
-    private boolean idInvalida() {
+    private Integer comprobarId(String idString) throws ProductoInvalidoException {
+        Integer id = null;
         try {
-            int id = Integer.parseInt(vista.getTxtID().getText());
+            id = Integer.valueOf(idString);
             if (id < 0) {
                 throw new NumberFormatException();
             }
         } catch (NumberFormatException e) {
             vista.mostrarError("La ID del producto no es válida.");
-            return true;
+            throw new ProductoInvalidoException();
         }
-        return false;
+        return id;
     }
 
-    private boolean nombreVacio() {
-        if ("".equals(vista.getTxtNombre().getText())) {
+    private String comprobarNombre(String nombre) throws ProductoInvalidoException {
+        if ("".equals(nombre)) {
             vista.mostrarError("El nombre introducido no es válido.");
-            return true;
+            throw new ProductoInvalidoException();
         }
-        return false;
+        return nombre;
     }
 
-    private boolean cantidadInvalida() {
+    private Integer comprobarCantidad(String cantidadString) throws ProductoInvalidoException {
+        Integer cantidad = null;
         try {
-            int cantidad = Integer.parseInt(vista.getTxtCantidad().getText());
+            cantidad = Integer.valueOf(cantidadString);
             if (cantidad < 0) {
                 throw new NumberFormatException();
             }
         } catch (NumberFormatException e) {
             vista.mostrarError("La cantidad introducida no es válida.");
-            return true;
+            throw new ProductoInvalidoException();
         }
-        return false;
+        return cantidad;
     }
 
-    private boolean preciosInvalidos() {
+    private BigDecimal comprobarPrecio(String precioString) throws ProductoInvalidoException {
+        BigDecimal precio = null;
         try {
-            BigDecimal precioCompra = new BigDecimal(vista.getTxtPrecioCompra().getText());
-            BigDecimal precioVenta = new BigDecimal(vista.getTxtPrecioVenta().getText());
-            if (BigDecimal.ZERO.compareTo(precioCompra) > 0 || BigDecimal.ZERO.compareTo(precioVenta) > 0) {
+            precio = new BigDecimal(precioString);
+            if (BigDecimal.ZERO.compareTo(precio) > 0) {
                 throw new NumberFormatException();
             }
         } catch (NumberFormatException e) {
             vista.mostrarError("Los precios introducidos no son válidos.");
-            return true;
+            throw new ProductoInvalidoException();
         }
-        return false;
+        return precio;
     }
+}
+
+class ProductoInvalidoException extends Exception {
+
 }

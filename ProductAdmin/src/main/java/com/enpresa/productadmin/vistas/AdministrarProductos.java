@@ -4,21 +4,20 @@
  */
 package com.enpresa.productadmin.vistas;
 
-import com.enpresa.productadmin.controlador.AdministrarProductosController;
-import com.enpresa.productadmin.modelo.Producto;
+import java.awt.event.ActionEvent;
+import java.util.HashMap;
 import java.util.List;
-import javax.swing.JButton;
+import java.util.Map;
+import java.util.function.Function;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
-import javax.swing.JTextArea;
-import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
 /**
  *
  * @author Oscar
  */
-public class AdministrarProductos extends javax.swing.JPanel implements Notificador {
+public class AdministrarProductos extends javax.swing.JPanel implements Vista {
 
     private JFrame frame;
 
@@ -40,29 +39,13 @@ public class AdministrarProductos extends javax.swing.JPanel implements Notifica
         frame.setLocationRelativeTo(null);
     }
 
-    public void mostrarProductos(List<Producto> productos) {
-        DefaultTableModel modelo = (DefaultTableModel) tbProductos.getModel();
-        modelo.setNumRows(0);
-        for (Producto producto : productos) {
-            String[] row = {
-                String.valueOf(producto.getId()),
-                producto.getNombre(),
-                String.valueOf(producto.getCantidad()),
-                producto.getPrecioCompra().toString(),
-                producto.getPrecioVenta().toString(),
-                producto.getDescripcion()
-            };
-            modelo.addRow(row);
-        }
-    }
-
-    public void seleccionarProducto() {
+    private void seleccionarProducto() {
         int fila = tbProductos.getSelectedRow();
         if (fila < 0) {
             mostrarError("No se seleccionó un producto.");
             return;
         }
-        txtID.setText(tbProductos.getValueAt(fila, 0).toString());
+        txtId.setText(tbProductos.getValueAt(fila, 0).toString());
         txtNombre.setText(tbProductos.getValueAt(fila, 1).toString());
         txtCantidad.setText(tbProductos.getValueAt(fila, 2).toString());
         txtPrecioCompra.setText(tbProductos.getValueAt(fila, 3).toString());
@@ -70,8 +53,8 @@ public class AdministrarProductos extends javax.swing.JPanel implements Notifica
         txtDescripcion.setText(tbProductos.getValueAt(fila, 5).toString());
     }
 
-    public void limpiarCampos() {
-        txtID.setText("");
+    private void limpiarCampos() {
+        txtId.setText("");
         txtNombre.setText("");
         txtCantidad.setText("");
         txtPrecioCompra.setText("");
@@ -80,64 +63,84 @@ public class AdministrarProductos extends javax.swing.JPanel implements Notifica
     }
 
     @Override
+    public Map<String, String> getCampos() {
+        Map<String, String> campos = new HashMap<>();
+        campos.put("id", txtId.getText());
+        campos.put("nombre", txtNombre.getText());
+        campos.put("cantidad", txtCantidad.getText());
+        campos.put("precioCompra", txtPrecioCompra.getText());
+        campos.put("precioVenta", txtPrecioVenta.getText());
+        campos.put("descripcion", txtDescripcion.getText());
+
+        return campos;
+    }
+
+    @Override
+    public void mostrarRegistros(List<String[]> productos) {
+        DefaultTableModel modelo = (DefaultTableModel) tbProductos.getModel();
+        modelo.setNumRows(0);
+        for (String[] producto : productos) {
+            modelo.addRow(producto);
+        }
+    }
+
+    @Override
     public void mostrarMensaje(String mensaje) {
-        JOptionPane.showMessageDialog(frame, mensaje, "Aviso", JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(frame,
+                mensaje,
+                "Aviso",
+                JOptionPane.INFORMATION_MESSAGE);
     }
 
     @Override
     public void mostrarError(String mensaje) {
-        JOptionPane.showMessageDialog(frame, mensaje, "Error", JOptionPane.ERROR_MESSAGE);
+        JOptionPane.showMessageDialog(frame,
+                mensaje,
+                "Error",
+                JOptionPane.ERROR_MESSAGE);
     }
 
     @Override
     public void mostrarAdvertencia(String mensaje) {
-        JOptionPane.showMessageDialog(frame, mensaje, "Advertencia", JOptionPane.WARNING_MESSAGE);
+        JOptionPane.showMessageDialog(frame,
+                mensaje,
+                "Advertencia",
+                JOptionPane.WARNING_MESSAGE);
     }
 
     @Override
     public boolean mostrarConfirmacion(String mensaje) {
-        int opcion = JOptionPane.showConfirmDialog(frame, mensaje, "Confirmación", JOptionPane.QUESTION_MESSAGE);
+        int opcion = JOptionPane.showConfirmDialog(frame,
+                mensaje,
+                "Confirmación",
+                JOptionPane.YES_NO_OPTION,
+                JOptionPane.WARNING_MESSAGE);
         return opcion == JOptionPane.YES_OPTION;
     }
 
-    public JButton getBtnAgregar() {
-        return btnAgregar;
-    }
-
-    public JButton getBtnBuscar() {
-        return btnBuscar;
-    }
-
-    public JButton getBtnModificar() {
-        return btnModificar;
-    }
-
-    public JButton getBtnEliminar() {
-        return btnEliminar;
-    }
-
-    public JTextField getTxtCantidad() {
-        return txtCantidad;
-    }
-
-    public JTextArea getTxtDescripcion() {
-        return txtDescripcion;
-    }
-
-    public JTextField getTxtNombre() {
-        return txtNombre;
-    }
-
-    public JTextField getTxtPrecioCompra() {
-        return txtPrecioCompra;
-    }
-
-    public JTextField getTxtPrecioVenta() {
-        return txtPrecioVenta;
-    }
-
-    public JTextField getTxtID() {
-        return txtID;
+    public void mapearAccion(String accion, Function funcion) {
+        switch (accion) {
+            case "Agregar" -> {
+                btnAgregar.addActionListener((ActionEvent e) -> {
+                    funcion.apply(null);
+                });
+            }
+            case "Modificar" -> {
+                btnModificar.addActionListener((ActionEvent e) -> {
+                    funcion.apply(null);
+                });
+            }
+            case "Eliminar" -> {
+                btnEliminar.addActionListener((ActionEvent e) -> {
+                    funcion.apply(null);
+                });
+            }
+            case "Buscar" -> {
+                btnBuscar.addActionListener((ActionEvent e) -> {
+                    funcion.apply(null);
+                });
+            }
+        }
     }
 
     /**
@@ -167,7 +170,7 @@ public class AdministrarProductos extends javax.swing.JPanel implements Notifica
         jLabel5 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         txtDescripcion = new javax.swing.JTextArea();
-        txtID = new javax.swing.JTextField();
+        txtId = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
 
         setPreferredSize(new java.awt.Dimension(980, 575));
@@ -279,9 +282,9 @@ public class AdministrarProductos extends javax.swing.JPanel implements Notifica
         jPanel1.add(jScrollPane2);
         jScrollPane2.setBounds(44, 369, 266, 140);
 
-        txtID.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jPanel1.add(txtID);
-        txtID.setBounds(44, 177, 100, 27);
+        txtId.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jPanel1.add(txtId);
+        txtId.setBounds(44, 177, 100, 27);
 
         jLabel6.setText("ID:");
         jPanel1.add(jLabel6);
@@ -313,7 +316,7 @@ public class AdministrarProductos extends javax.swing.JPanel implements Notifica
     private javax.swing.JTable tbProductos;
     private javax.swing.JTextField txtCantidad;
     private javax.swing.JTextArea txtDescripcion;
-    private javax.swing.JTextField txtID;
+    private javax.swing.JTextField txtId;
     private javax.swing.JTextField txtNombre;
     private javax.swing.JTextField txtPrecioCompra;
     private javax.swing.JTextField txtPrecioVenta;

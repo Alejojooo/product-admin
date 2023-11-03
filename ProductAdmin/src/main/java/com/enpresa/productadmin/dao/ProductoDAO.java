@@ -9,6 +9,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  *
@@ -21,11 +22,11 @@ public class ProductoDAO implements DAO<Producto> {
         String sql = "{CALL dbo.pCrearProducto(?, ?, ?, ?, ?)}";
 
         try (Connection c = new Conexion().establecerConexion(); CallableStatement cs = c.prepareCall(sql)) {
-            cs.setString(1, producto.getNombre());
+            cs.setNString(1, producto.getNombre());
             cs.setInt(2, producto.getCantidad());
             cs.setBigDecimal(3, producto.getPrecioCompra());
             cs.setBigDecimal(4, producto.getPrecioVenta());
-            cs.setString(5, producto.getDescripcion());
+            cs.setNString(5, producto.getDescripcion());
 
             cs.execute();
         } catch (SQLException e) {
@@ -39,11 +40,11 @@ public class ProductoDAO implements DAO<Producto> {
 
         try (Connection c = new Conexion().establecerConexion(); CallableStatement cs = c.prepareCall(sql)) {
             cs.setInt(1, producto.getId());
-            cs.setString(2, producto.getNombre());
+            cs.setNString(2, producto.getNombre());
             cs.setInt(3, producto.getCantidad());
             cs.setBigDecimal(4, producto.getPrecioCompra());
             cs.setBigDecimal(5, producto.getPrecioVenta());
-            cs.setString(6, producto.getDescripcion());
+            cs.setNString(6, producto.getDescripcion());
 
             cs.execute();
         } catch (SQLException e) {
@@ -65,43 +66,27 @@ public class ProductoDAO implements DAO<Producto> {
     }
 
     @Override
-    public List<Producto> buscar(Producto producto) {
+    public List<Producto> buscar(Map<String, String> campos) {
         List<Producto> productos = new ArrayList<>();
         String sql = "{CALL dbo.pBuscarProducto(?, ?, ?, ?, ?, ?)}";
 
         try (Connection c = new Conexion().establecerConexion(); CallableStatement cs = c.prepareCall(sql)) {
-            String id = (producto.getId() != null) ? String.valueOf(producto.getId()) : "";
-            String nombre = producto.getNombre();
-            String cantidad = (producto.getCantidad() != null) ? String.valueOf(producto.getCantidad()) : "";
-            String precioCompra = (producto.getPrecioCompra() != null) ? String.valueOf(producto.getPrecioCompra()) : "";
-            String precioVenta = (producto.getPrecioVenta() != null) ? String.valueOf(producto.getPrecioVenta()) : "";
-            String descripcion = producto.getDescripcion();
-
-            if ("".equals(id)
-                    && "".equals(nombre)
-                    && "".equals(cantidad)
-                    && "".equals(precioCompra)
-                    && "".equals(precioVenta)
-                    && "".equals(descripcion)) {
-                return null;
-            }
-
-            cs.setString(1, id);
-            cs.setString(2, nombre);
-            cs.setString(3, cantidad);
-            cs.setString(4, precioCompra);
-            cs.setString(5, precioVenta);
-            cs.setString(6, descripcion);
+            cs.setString(1, campos.get("id"));
+            cs.setNString(2, campos.get("nombre"));
+            cs.setString(3, campos.get("cantidad"));
+            cs.setString(4, campos.get("precioCompra"));
+            cs.setString(5, campos.get("precioVenta"));
+            cs.setNString(6, campos.get("descripcion"));
 
             ResultSet rs = cs.executeQuery();
             while (rs.next()) {
                 Producto productoEncontrado = new Producto();
                 productoEncontrado.setId(rs.getInt(1));
-                productoEncontrado.setNombre(rs.getString(2));
+                productoEncontrado.setNombre(rs.getNString(2));
                 productoEncontrado.setCantidad(rs.getInt(3));
                 productoEncontrado.setPrecioCompra(rs.getBigDecimal(4));
                 productoEncontrado.setPrecioVenta(rs.getBigDecimal(5));
-                productoEncontrado.setDescripcion(rs.getString(6));
+                productoEncontrado.setDescripcion(rs.getNString(6));
                 
                 productos.add(productoEncontrado);
             }
@@ -121,11 +106,11 @@ public class ProductoDAO implements DAO<Producto> {
             while (rs.next()) {
                 Producto producto = new Producto();
                 producto.setId(rs.getInt(1));
-                producto.setNombre(rs.getString(2));
+                producto.setNombre(rs.getNString(2));
                 producto.setCantidad(rs.getInt(3));
                 producto.setPrecioCompra(rs.getBigDecimal(4));
                 producto.setPrecioVenta(rs.getBigDecimal(5));
-                producto.setDescripcion(rs.getString(6));
+                producto.setDescripcion(rs.getNString(6));
                 
                 productos.add(producto);
             }

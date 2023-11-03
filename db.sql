@@ -30,7 +30,7 @@ CREATE TABLE tbUsuario (
 
 CREATE TABLE tbProducto (
 	idProducto INT PRIMARY KEY IDENTITY(1, 1),
-	nombreProducto NVARCHAR(100) NOT NULL,
+	nombre NVARCHAR(100) NOT NULL,
 	cantidad INT NOT NULL,
 	precioCompra DECIMAL(10, 2) NOT NULL,
 	precioVenta DECIMAL(10, 2) NOT NULL,
@@ -81,7 +81,7 @@ GO
 CREATE VIEW vProductos
 AS
 	SELECT idProducto AS [ID Producto],
-		   nombreProducto AS [Nombre],
+		   nombre AS [Nombre],
 		   cantidad AS [Cantidad],
 		   precioCompra AS [Precio Compra],
 		   precioVenta AS [Precio Venta],
@@ -214,27 +214,27 @@ GO
 
 
 CREATE PROCEDURE pCrearProducto
-	@NombreProducto NVARCHAR(100),
+	@Nombre NVARCHAR(100),
 	@Cantidad INT,
 	@PrecioCompra DECIMAL(10, 2),
 	@PrecioVenta DECIMAL(10, 2),
 	@Descripcion NVARCHAR(250)
 AS BEGIN
-	INSERT INTO tbProducto (nombreProducto, cantidad, precioCompra, precioVenta, descripcion)
-	VALUES (@NombreProducto, @Cantidad, @PrecioCompra, @PrecioVenta, @Descripcion)
+	INSERT INTO tbProducto (nombre, cantidad, precioCompra, precioVenta, descripcion)
+	VALUES (@Nombre, @Cantidad, @PrecioCompra, @PrecioVenta, @Descripcion)
 END
 GO
 
 CREATE PROCEDURE pModificarProducto
 	@IDProducto INT,
-	@NombreProducto NVARCHAR(100),
+	@Nombre NVARCHAR(100),
 	@Cantidad INT,
 	@PrecioCompra DECIMAL(10, 2),
 	@PrecioVenta DECIMAL(10, 2),
 	@Descripcion NVARCHAR(250)
 AS BEGIN
 	UPDATE tbProducto SET
-		nombreProducto = @NombreProducto,
+		nombre = @Nombre,
 		cantidad = @Cantidad,
 		precioCompra = @PrecioCompra,
 		precioVenta = @PrecioVenta,
@@ -252,12 +252,12 @@ END
 GO
 
 CREATE PROCEDURE pBuscarProducto
-	@IDProducto NVARCHAR(MAX),
-	@Nombre NVARCHAR(MAX),
-	@Cantidad NVARCHAR(MAX),
-	@PrecioCompra NVARCHAR(MAX),
-	@PrecioVenta NVARCHAR(MAX),
-	@Descripcion NVARCHAR(MAX)
+	@IDProducto VARCHAR(100),
+	@Nombre NVARCHAR(100),
+	@Cantidad VARCHAR(100),
+	@PrecioCompra VARCHAR(100),
+	@PrecioVenta VARCHAR(100),
+	@Descripcion NVARCHAR(250)
 AS BEGIN
 	SELECT *
 	FROM vProductos
@@ -311,11 +311,11 @@ END CATCH
 
 BEGIN TRY
 	BEGIN TRANSACTION TranProductos
-		INSERT INTO tbProducto (nombreProducto, cantidad, precioCompra, precioVenta, descripcion)
+		INSERT INTO tbProducto (nombre, cantidad, precioCompra, precioVenta, descripcion)
 		VALUES (N'Cubo Rubik', 42, 5.00, 25.00, N'Cubo de Rubik')
-		INSERT INTO tbProducto (nombreProducto, cantidad, precioCompra, precioVenta, descripcion)
+		INSERT INTO tbProducto (nombre, cantidad, precioCompra, precioVenta, descripcion)
 		VALUES (N'Pelota', 100, 5.00, 25.00, N'Pelota antiestrés')
-		INSERT INTO tbProducto (nombreProducto, cantidad, precioCompra, precioVenta, descripcion)
+		INSERT INTO tbProducto (nombre, cantidad, precioCompra, precioVenta, descripcion)
 		VALUES (N'Pulsera', 0, 1.00, 3.00, '')
 	COMMIT TRANSACTION TranProductos
 	PRINT 'Ingresados productos.'

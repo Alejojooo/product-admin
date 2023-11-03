@@ -1,6 +1,7 @@
 package com.enpresa.productadmin.dao;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  *
@@ -14,8 +15,8 @@ public interface DAO<Entidad> {
     void modificar(Entidad e);
 
     void eliminar(int id);
-    
-    List<Entidad> buscar (Entidad e);
+
+    List<Entidad> buscar(Map<String, String> campos);
 
     List<Entidad> consultarTodos();
 }
