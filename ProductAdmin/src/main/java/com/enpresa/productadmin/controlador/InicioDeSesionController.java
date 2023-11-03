@@ -43,7 +43,7 @@ public class InicioDeSesionController {
             JOptionPane.showMessageDialog(frame, "Usuario o contraseña incorrectos", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
-        JOptionPane.showMessageDialog(frame, "Inicio de sesión correcto.", "Información", JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(frame, "Inicio de sesión correcto.", "Aviso", JOptionPane.INFORMATION_MESSAGE);
         frame.dispose();
         ProductAdmin.usuarioActivo = modelo.consultarUno(id);
         ProductAdmin.goToMenuPrincipal();
