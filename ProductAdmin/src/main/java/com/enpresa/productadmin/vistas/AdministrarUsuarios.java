@@ -44,6 +44,7 @@ public class AdministrarUsuarios extends javax.swing.JPanel {
         txtId = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
 
+        setPreferredSize(new java.awt.Dimension(980, 531));
         setLayout(null);
 
         tbUsuarios.setModel(new javax.swing.table.DefaultTableModel(
