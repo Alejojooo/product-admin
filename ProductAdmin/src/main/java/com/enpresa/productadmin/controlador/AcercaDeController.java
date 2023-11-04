@@ -4,7 +4,7 @@
  */
 package com.enpresa.productadmin.controlador;
 
-import com.enpresa.productadmin.vistas.AcercaDe;
+import com.enpresa.productadmin.vistas.AcercaDeVista;
 import java.awt.event.ActionEvent;
 import javax.swing.JFrame;
 
@@ -14,10 +14,10 @@ import javax.swing.JFrame;
  */
 public class AcercaDeController {
     
-    private final AcercaDe vista;
+    private final AcercaDeVista vista;
     private final JFrame frame;
 
-    public AcercaDeController(AcercaDe vista) {
+    public AcercaDeController(AcercaDeVista vista) {
         this.vista = vista;
 
         frame = new JFrame();

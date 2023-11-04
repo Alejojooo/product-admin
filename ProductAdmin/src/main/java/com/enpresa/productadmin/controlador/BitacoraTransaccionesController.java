@@ -4,7 +4,7 @@
  */
 package com.enpresa.productadmin.controlador;
 
-import com.enpresa.productadmin.vistas.BitacoraTransacciones;
+import com.enpresa.productadmin.vistas.BitacoraTransaccionesVista;
 import java.awt.event.ActionEvent;
 import javax.swing.JFrame;
 /**
@@ -13,10 +13,10 @@ import javax.swing.JFrame;
  */
 public class BitacoraTransaccionesController {
     
-    private final BitacoraTransacciones vista;
+    private final BitacoraTransaccionesVista vista;
     private final JFrame frame;
 
-    public BitacoraTransaccionesController(BitacoraTransacciones vista) {
+    public BitacoraTransaccionesController(BitacoraTransaccionesVista vista) {
         this.vista = vista;
 
         frame = new JFrame();

@@ -5,7 +5,7 @@
 package com.enpresa.productadmin.controlador;
 
 import com.enpresa.productadmin.dao.OperacionDAO;
-import com.enpresa.productadmin.vistas.RegistrarCompraVenta;
+import com.enpresa.productadmin.vistas.RegistrarCompraVentaVista;
 import javax.swing.JFrame;
 
 /**
@@ -15,10 +15,10 @@ import javax.swing.JFrame;
 public class RegistrarCompraVentaController {
     
     private final OperacionDAO modelo;
-    private final RegistrarCompraVenta vista;
+    private final RegistrarCompraVentaVista vista;
     private final JFrame frame;
 
-    public RegistrarCompraVentaController(OperacionDAO modelo, RegistrarCompraVenta vista) {
+    public RegistrarCompraVentaController(OperacionDAO modelo, RegistrarCompraVentaVista vista) {
         this.modelo = modelo;
         this.vista = vista;
 

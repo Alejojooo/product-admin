@@ -13,14 +13,14 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author Oscar
  */
-public class AdministrarProductos extends javax.swing.JPanel implements Vista {
+public class AdministrarProductosVista extends javax.swing.JPanel implements Vista {
 
     private JFrame frame;
 
     /**
      * Creates new form AdministrarProductos
      */
-    public AdministrarProductos() {
+    public AdministrarProductosVista() {
         initComponents();
         initFrame();
     }

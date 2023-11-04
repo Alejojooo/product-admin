@@ -8,12 +8,12 @@ package com.enpresa.productadmin.vistas;
  *
  * @author jmdub
  */
-public class ContraseñaNuevoUsuario extends javax.swing.JPanel {
+public class ClaveNuevoUsuarioVista extends javax.swing.JPanel {
 
     /**
      * Creates new form ContraseñaNuevoUsuario
      */
-    public ContraseñaNuevoUsuario() {
+    public ClaveNuevoUsuarioVista() {
         initComponents();
     }
 

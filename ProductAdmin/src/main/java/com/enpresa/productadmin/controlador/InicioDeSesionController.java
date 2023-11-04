@@ -2,7 +2,7 @@ package com.enpresa.productadmin.controlador;
 
 import com.enpresa.productadmin.ProductAdmin;
 import com.enpresa.productadmin.dao.UsuarioDAO;
-import com.enpresa.productadmin.vistas.IniciarSesion;
+import com.enpresa.productadmin.vistas.IniciarSesionVista;
 import java.awt.event.ActionEvent;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -14,10 +14,10 @@ import javax.swing.JOptionPane;
 public class InicioDeSesionController {
 
     private final UsuarioDAO modelo;
-    private final IniciarSesion vista;
+    private final IniciarSesionVista vista;
     private final JFrame frame;
 
-    public InicioDeSesionController(UsuarioDAO modelo, IniciarSesion vista) {
+    public InicioDeSesionController(UsuarioDAO modelo, IniciarSesionVista vista) {
         this.modelo = modelo;
         this.vista = vista;
         

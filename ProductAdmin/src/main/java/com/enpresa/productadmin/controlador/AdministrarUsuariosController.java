@@ -5,17 +5,14 @@
 package com.enpresa.productadmin.controlador;
 
 import com.enpresa.productadmin.dao.UsuarioDAO;
-import com.enpresa.productadmin.modelo.Producto;
 import com.enpresa.productadmin.modelo.Rol;
 import com.enpresa.productadmin.modelo.Usuario;
-import com.enpresa.productadmin.vistas.AdministrarUsuarios;
+import com.enpresa.productadmin.vistas.AdministrarUsuariosVista;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.regex.Pattern;
-import javax.swing.JOptionPane;
-import javax.swing.JTable;
-import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -24,9 +21,9 @@ import javax.swing.table.DefaultTableModel;
 public class AdministrarUsuariosController {
 
     private final UsuarioDAO modelo;
-    private final AdministrarUsuarios vista;
+    private final AdministrarUsuariosVista vista;
 
-    public AdministrarUsuariosController(UsuarioDAO modelo, AdministrarUsuarios vista) {
+    public AdministrarUsuariosController(UsuarioDAO modelo, AdministrarUsuariosVista vista) {
         this.modelo = modelo;
         this.vista = vista;
 
@@ -75,8 +72,8 @@ public class AdministrarUsuariosController {
         try {
             usuario.setUsuario(comprobarUsuario(campos.get("usuario")));
             usuario.setNombres(comprobarNombres(campos.get("nombres")));
-            usuario.setApellidos(comprobarApellidos(campos.get("precioCompra")));
-            usuario.setRol(Rol.valueOf(campos.get("rol")));
+            usuario.setApellidos(comprobarApellidos(campos.get("apellidos")));
+            usuario.setRol(comprobarRol(campos.get("rol")));
         } catch (UsuarioInvalidoException e) {
             return -1;
         }
@@ -95,8 +92,8 @@ public class AdministrarUsuariosController {
             usuario.setId(id);
             usuario.setUsuario(comprobarUsuario(campos.get("usuario")));
             usuario.setNombres(comprobarNombres(campos.get("nombres")));
-            usuario.setApellidos(comprobarApellidos(campos.get("precioCompra")));
-            usuario.setRol(Rol.valueOf(campos.get("rol")));
+            usuario.setApellidos(comprobarApellidos(campos.get("apellidos")));
+            usuario.setRol(comprobarRol(campos.get("rol")));
         } catch (UsuarioInvalidoException e) {
             return -1;
         }
@@ -120,7 +117,7 @@ public class AdministrarUsuariosController {
         } catch (UsuarioInvalidoException e) {
             return -1;
         }
-        
+
         boolean modificar = vista.mostrarConfirmacion(String.format("¿Está seguro de modificar el usuario con ID [%d]?", id));
         if (!modificar) {
             return -1;
@@ -155,27 +152,42 @@ public class AdministrarUsuariosController {
     }
 
     private String comprobarUsuario(String usuario) throws UsuarioInvalidoException {
-        if ("".equals(usuario) || Pattern.matches("\\W", usuario)) {
+        if (!Pattern.matches("\\w{8,}", usuario)) {
             vista.mostrarError("El usuario introducido no es válido.");
             throw new UsuarioInvalidoException();
         }
+        System.out.println("Usuario legit.");
         return usuario;
     }
 
-    private String comprobarVacio(String nombre, String tipo) throws UsuarioInvalidoException {
+    private String comprobarNombres(String nombre) throws UsuarioInvalidoException {
         if ("".equals(nombre)) {
-            vista.mostrarError(String.format("Los %s introducido no es válido.", tipo));
+            vista.mostrarError(String.format("Los nombres introducidos no son válidos."));
             throw new UsuarioInvalidoException();
         }
         return nombre;
     }
 
-    private String comprobarNombres(String nombre) throws UsuarioInvalidoException {
-        return comprobarVacio(nombre, "nombres");
+    private String comprobarApellidos(String apellido) throws UsuarioInvalidoException {
+        if ("".equals(apellido)) {
+            vista.mostrarError(String.format("Los apellidos introducidos no son válidos."));
+            throw new UsuarioInvalidoException();
+        }
+        return apellido;
     }
 
-    private String comprobarApellidos(String apellido) throws UsuarioInvalidoException {
-        return comprobarVacio(apellido, "apellidos");
+    private Rol comprobarRol(String rolString) throws UsuarioInvalidoException {
+        boolean isValidRol = Arrays.stream(Rol.values())
+                .map(rol -> rol.toString())
+                .filter(rol -> rol.equals(rolString))
+                .findAny()
+                .isPresent();
+
+        if (!isValidRol) {
+            vista.mostrarError("Seleccione un rol para el usuario.");
+            throw new UsuarioInvalidoException();
+        }
+        return Rol.valueOf(rolString);
     }
 }
 

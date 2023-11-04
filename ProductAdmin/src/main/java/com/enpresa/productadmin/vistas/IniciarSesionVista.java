@@ -10,12 +10,12 @@ import javax.swing.JButton;
  *
  * @author jmdub
  */
-public class IniciarSesion extends javax.swing.JPanel {
+public class IniciarSesionVista extends javax.swing.JPanel {
 
     /**
      * Creates new form IniciarSesion
      */
-    public IniciarSesion() {
+    public IniciarSesionVista() {
         initComponents();
     }
 

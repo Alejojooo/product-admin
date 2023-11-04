@@ -1,14 +1,16 @@
 package com.enpresa.productadmin;
 
 import com.enpresa.productadmin.controlador.AdministrarProductosController;
+import com.enpresa.productadmin.controlador.AdministrarUsuariosController;
 import com.enpresa.productadmin.controlador.InicioDeSesionController;
 import com.enpresa.productadmin.controlador.MenuPrincipalController;
 import com.enpresa.productadmin.dao.ProductoDAO;
 import com.enpresa.productadmin.dao.UsuarioDAO;
 import com.enpresa.productadmin.modelo.Usuario;
-import com.enpresa.productadmin.vistas.AdministrarProductos;
-import com.enpresa.productadmin.vistas.IniciarSesion;
-import com.enpresa.productadmin.vistas.MenuPrincipal;
+import com.enpresa.productadmin.vistas.AdministrarProductosVista;
+import com.enpresa.productadmin.vistas.AdministrarUsuariosVista;
+import com.enpresa.productadmin.vistas.IniciarSesionVista;
+import com.enpresa.productadmin.vistas.MenuPrincipalVista;
 
 /**
  *
@@ -25,18 +27,18 @@ public class ProductAdmin {
     // Podría hacer los métodos públicos y estáticos también
     public static void goToIniciarSesion() {
         UsuarioDAO modelo = new UsuarioDAO();
-        IniciarSesion vista = new IniciarSesion();
+        IniciarSesionVista vista = new IniciarSesionVista();
         InicioDeSesionController controller = new InicioDeSesionController(modelo, vista);
     }
     
     public static void goToMenuPrincipal() {
-        MenuPrincipal vista = new MenuPrincipal();
+        MenuPrincipalVista vista = new MenuPrincipalVista();
         MenuPrincipalController controller = new MenuPrincipalController(vista);
     }
 
     public static void goToAdministrarProductos() {
         ProductoDAO modelo = new ProductoDAO();
-        AdministrarProductos vista = new AdministrarProductos();
+        AdministrarProductosVista vista = new AdministrarProductosVista();
         AdministrarProductosController controller = new AdministrarProductosController(modelo, vista);
     }
 
@@ -45,7 +47,9 @@ public class ProductAdmin {
     }
 
     public static void goToAdministrarUsuarios() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        UsuarioDAO modelo = new UsuarioDAO();
+        AdministrarUsuariosVista vista = new AdministrarUsuariosVista();
+        AdministrarUsuariosController controller = new AdministrarUsuariosController(modelo, vista);
     }
 
     public static void goToConsultarBitacoraTransacciones() {

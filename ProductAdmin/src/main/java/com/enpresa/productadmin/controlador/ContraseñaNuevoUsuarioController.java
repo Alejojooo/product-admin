@@ -4,7 +4,7 @@
  */
 package com.enpresa.productadmin.controlador;
 
-import com.enpresa.productadmin.vistas.ContraseñaNuevoUsuario;
+import com.enpresa.productadmin.vistas.ClaveNuevoUsuarioVista;
 import java.awt.event.ActionEvent;
 import javax.swing.JFrame;
 
@@ -14,10 +14,10 @@ import javax.swing.JFrame;
  */
 public class ContraseñaNuevoUsuarioController {
     
-    private final ContraseñaNuevoUsuario vista;
+    private final ClaveNuevoUsuarioVista vista;
     private final JFrame frame;
 
-    public ContraseñaNuevoUsuarioController(ContraseñaNuevoUsuario vista) {
+    public ContraseñaNuevoUsuarioController(ClaveNuevoUsuarioVista vista) {
         this.vista = vista;
 
         frame = new JFrame();

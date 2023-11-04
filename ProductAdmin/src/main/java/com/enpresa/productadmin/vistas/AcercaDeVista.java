@@ -9,12 +9,12 @@ package com.enpresa.productadmin.vistas;
  *
  * @author jmdub
  */
-public class AcercaDe extends javax.swing.JPanel {
+public class AcercaDeVista extends javax.swing.JPanel {
 
     /**
      * Creates new form AcercaDe
      */
-    public AcercaDe() {
+    public AcercaDeVista() {
         initComponents();
     }
 

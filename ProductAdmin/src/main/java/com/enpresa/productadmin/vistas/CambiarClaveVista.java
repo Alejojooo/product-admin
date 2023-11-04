@@ -8,12 +8,12 @@ package com.enpresa.productadmin.vistas;
  *
  * @author jmdub
  */
-public class CambiarPassword extends javax.swing.JPanel {
+public class CambiarClaveVista extends javax.swing.JPanel {
 
     /**
      * Creates new form CambiarPassword
      */
-    public CambiarPassword() {
+    public CambiarClaveVista() {
         initComponents();
     }
 

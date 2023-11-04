@@ -13,14 +13,14 @@ import javax.swing.JTextField;
  *
  * @author Oscar
  */
-public class RegistrarCompraVenta extends javax.swing.JPanel {
+public class RegistrarCompraVentaVista extends javax.swing.JPanel {
 
     private ButtonGroup buttonGroup;
     
     /**
      * Creates new form RegistrarCompraVenta
      */
-    public RegistrarCompraVenta() {
+    public RegistrarCompraVentaVista() {
         initComponents();
         initButtonGroup();
     }

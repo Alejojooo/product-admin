@@ -18,15 +18,26 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author Oscar
  */
-public class AdministrarUsuarios extends javax.swing.JPanel implements Vista {
+public class AdministrarUsuariosVista extends javax.swing.JPanel implements Vista {
 
     private JFrame frame;
 
     /**
      * Creates new form AdministrarProductos
      */
-    public AdministrarUsuarios() {
+    public AdministrarUsuariosVista() {
         initComponents();
+        initFrame();
+    }
+
+    private void initFrame() {
+        frame = new JFrame("Administrar Productos");
+        frame.setContentPane(this);
+        frame.pack();
+        frame.setResizable(false);
+        frame.setVisible(true);
+        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        frame.setLocationRelativeTo(null);
     }
 
     /**
@@ -241,7 +252,7 @@ public class AdministrarUsuarios extends javax.swing.JPanel implements Vista {
                 JOptionPane.WARNING_MESSAGE);
         return opcion == JOptionPane.YES_OPTION;
     }
-    
+
     @Override
     public void mapearAccion(String accion, Function funcion) {
         switch (accion) {
@@ -292,7 +303,7 @@ public class AdministrarUsuarios extends javax.swing.JPanel implements Vista {
         Rol rol = Rol.valueOf(tbUsuarios.getValueAt(fila, 4).toString());
         cBoxRol.setSelectedIndex(rol.ordinal());
     }
-    
+
     private void limpiarCampos() {
         txtId.setText("");
         txtUsuario.setText("");

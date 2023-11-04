@@ -2,7 +2,7 @@ package com.enpresa.productadmin.controlador;
 
 import com.enpresa.productadmin.dao.ProductoDAO;
 import com.enpresa.productadmin.modelo.Producto;
-import com.enpresa.productadmin.vistas.AdministrarProductos;
+import com.enpresa.productadmin.vistas.AdministrarProductosVista;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
@@ -15,9 +15,9 @@ import java.util.Map;
 public class AdministrarProductosController {
 
     private final ProductoDAO modelo;
-    private final AdministrarProductos vista;
+    private final AdministrarProductosVista vista;
 
-    public AdministrarProductosController(ProductoDAO modelo, AdministrarProductos vista) {
+    public AdministrarProductosController(ProductoDAO modelo, AdministrarProductosVista vista) {
         this.modelo = modelo;
         this.vista = vista;
 

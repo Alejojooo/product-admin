@@ -6,12 +6,8 @@ package com.enpresa.productadmin.modelo;
  */
 public enum Rol {
     
-    NINGUNO,
-    EMPLEADO,
-    GERENTE,
-    ADMINISTRADOR;
-
-    public static void ordinal(String toString) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
+    Ninguno,
+    Empleado,
+    Gerente,
+    Administrador;
 }

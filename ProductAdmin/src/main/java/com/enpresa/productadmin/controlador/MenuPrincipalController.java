@@ -1,7 +1,7 @@
 package com.enpresa.productadmin.controlador;
 
 import com.enpresa.productadmin.ProductAdmin;
-import com.enpresa.productadmin.vistas.MenuPrincipal;
+import com.enpresa.productadmin.vistas.MenuPrincipalVista;
 import java.awt.event.ActionEvent;
 import javax.swing.JFrame;
 
@@ -11,10 +11,10 @@ import javax.swing.JFrame;
  */
 public class MenuPrincipalController {
 
-    private final MenuPrincipal vista;
+    private final MenuPrincipalVista vista;
     private final JFrame frame;
 
-    public MenuPrincipalController(MenuPrincipal vista) {
+    public MenuPrincipalController(MenuPrincipalVista vista) {
         this.vista = vista;
         this.vista.getLabelUsuario().setText(ProductAdmin.usuarioActivo.getNombres());
 

@@ -8,12 +8,12 @@ package com.enpresa.productadmin.vistas;
  *
  * @author Alejo
  */
-public class BitacoraAcceso extends javax.swing.JPanel {
+public class BitacoraTransaccionesVista extends javax.swing.JPanel {
 
     /**
      * Creates new form BitacoraAcceso
      */
-    public BitacoraAcceso() {
+    public BitacoraTransaccionesVista() {
         initComponents();
     }
 
@@ -27,8 +27,8 @@ public class BitacoraAcceso extends javax.swing.JPanel {
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        tbBitacoraA = new javax.swing.JTable();
-        paFiltrar = new javax.swing.JPanel();
+        tbBitacoraTrans = new javax.swing.JTable();
+        jPanel1 = new javax.swing.JPanel();
         txtHastaDia = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         txtHastaMes = new javax.swing.JTextField();
@@ -47,132 +47,169 @@ public class BitacoraAcceso extends javax.swing.JPanel {
         txtHastaAño = new javax.swing.JTextField();
         cBoxHora = new javax.swing.JCheckBox();
         jLabel5 = new javax.swing.JLabel();
-        cBoxUsuario = new javax.swing.JCheckBox();
         jLabel6 = new javax.swing.JLabel();
+        comboBoxModulo = new javax.swing.JComboBox<>();
+        comboBoxAcción = new javax.swing.JComboBox<>();
+        cBoxObjeto = new javax.swing.JCheckBox();
         txtUsuario = new javax.swing.JTextField();
+        cBoxUsuario = new javax.swing.JCheckBox();
+        cBoxAccion = new javax.swing.JCheckBox();
+        cBoxModulo = new javax.swing.JCheckBox();
+        txtObjeto = new javax.swing.JTextField();
         btnBuscar = new javax.swing.JButton();
 
         setPreferredSize(new java.awt.Dimension(980, 505));
         setLayout(null);
 
-        tbBitacoraA.setModel(new javax.swing.table.DefaultTableModel(
+        tbBitacoraTrans.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null}
             },
             new String [] {
-                "ID", "Fecha", "Hora", "Usuario"
+                "ID", "Fecha", "Hora", "Objeto", "Usuario", "Acción", "Módulo"
             }
         ));
-        tbBitacoraA.setToolTipText("");
-        tbBitacoraA.setPreferredSize(new java.awt.Dimension(578, 448));
-        jScrollPane1.setViewportView(tbBitacoraA);
+        tbBitacoraTrans.setToolTipText("");
+        tbBitacoraTrans.setPreferredSize(new java.awt.Dimension(578, 448));
+        jScrollPane1.setViewportView(tbBitacoraTrans);
 
         add(jScrollPane1);
         jScrollPane1.setBounds(16, 41, 578, 448);
 
-        paFiltrar.setBorder(javax.swing.BorderFactory.createTitledBorder("¿Filtrar?"));
-        paFiltrar.setLayout(null);
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("¿Filtrar?"));
+        jPanel1.setLayout(null);
 
         txtHastaDia.setPreferredSize(new java.awt.Dimension(30, 22));
-        paFiltrar.add(txtHastaDia);
-        txtHastaDia.setBounds(70, 105, 30, 22);
+        jPanel1.add(txtHastaDia);
+        txtHastaDia.setBounds(70, 105, 30, 27);
 
         jLabel1.setText("De:");
-        paFiltrar.add(jLabel1);
+        jPanel1.add(jLabel1);
         jLabel1.setBounds(17, 65, 17, 16);
 
         txtHastaMes.setPreferredSize(new java.awt.Dimension(30, 22));
-        paFiltrar.add(txtHastaMes);
-        txtHastaMes.setBounds(106, 105, 30, 22);
+        jPanel1.add(txtHastaMes);
+        txtHastaMes.setBounds(106, 105, 30, 27);
 
         jLabel2.setText("Hasta:");
-        paFiltrar.add(jLabel2);
+        jPanel1.add(jLabel2);
         jLabel2.setBounds(16, 108, 33, 16);
 
         jLabel7.setText("De:");
-        paFiltrar.add(jLabel7);
+        jPanel1.add(jLabel7);
         jLabel7.setBounds(235, 65, 17, 16);
 
         txtDeDia.setPreferredSize(new java.awt.Dimension(30, 22));
-        paFiltrar.add(txtDeDia);
+        jPanel1.add(txtDeDia);
         txtDeDia.setBounds(71, 62, 30, 27);
 
         jLabel8.setText("Hasta:");
-        paFiltrar.add(jLabel8);
+        jPanel1.add(jLabel8);
         jLabel8.setBounds(234, 108, 33, 16);
 
         txtDeMes.setPreferredSize(new java.awt.Dimension(30, 22));
-        paFiltrar.add(txtDeMes);
+        jPanel1.add(txtDeMes);
         txtDeMes.setBounds(107, 62, 30, 27);
 
         txtDeHora.setPreferredSize(new java.awt.Dimension(50, 22));
-        paFiltrar.add(txtDeHora);
+        jPanel1.add(txtDeHora);
         txtDeHora.setBounds(288, 62, 50, 27);
 
         txtDeAño.setPreferredSize(new java.awt.Dimension(50, 22));
-        paFiltrar.add(txtDeAño);
+        jPanel1.add(txtDeAño);
         txtDeAño.setBounds(143, 62, 50, 27);
 
         txtHastaHora.setPreferredSize(new java.awt.Dimension(50, 22));
-        paFiltrar.add(txtHastaHora);
+        jPanel1.add(txtHastaHora);
         txtHastaHora.setBounds(288, 105, 50, 27);
 
         jLabel3.setText("/");
-        paFiltrar.add(jLabel3);
+        jPanel1.add(jLabel3);
         jLabel3.setBounds(101, 65, 5, 16);
-        paFiltrar.add(jSeparator1);
+        jPanel1.add(jSeparator1);
         jSeparator1.setBounds(21, 147, 314, 10);
 
         jLabel4.setText("/");
-        paFiltrar.add(jLabel4);
+        jPanel1.add(jLabel4);
         jLabel4.setBounds(137, 65, 5, 16);
 
         cBoxFecha.setText("Fecha");
-        paFiltrar.add(cBoxFecha);
+        jPanel1.add(cBoxFecha);
         cBoxFecha.setBounds(17, 30, 54, 20);
 
         txtHastaAño.setPreferredSize(new java.awt.Dimension(50, 22));
-        paFiltrar.add(txtHastaAño);
-        txtHastaAño.setBounds(142, 105, 50, 22);
+        jPanel1.add(txtHastaAño);
+        txtHastaAño.setBounds(142, 105, 50, 27);
 
         cBoxHora.setText("Hora");
-        paFiltrar.add(cBoxHora);
+        jPanel1.add(cBoxHora);
         cBoxHora.setBounds(234, 30, 49, 20);
 
         jLabel5.setText("/");
-        paFiltrar.add(jLabel5);
+        jPanel1.add(jLabel5);
         jLabel5.setBounds(100, 108, 5, 16);
 
-        cBoxUsuario.setText("Usuario");
-        paFiltrar.add(cBoxUsuario);
-        cBoxUsuario.setBounds(51, 176, 63, 20);
-
         jLabel6.setText("/");
-        paFiltrar.add(jLabel6);
+        jPanel1.add(jLabel6);
         jLabel6.setBounds(136, 108, 5, 16);
 
+        comboBoxModulo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        comboBoxModulo.setPreferredSize(new java.awt.Dimension(150, 22));
+        jPanel1.add(comboBoxModulo);
+        comboBoxModulo.setBounds(153, 305, 150, 27);
+
+        comboBoxAcción.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        comboBoxAcción.setPreferredSize(new java.awt.Dimension(150, 22));
+        jPanel1.add(comboBoxAcción);
+        comboBoxAcción.setBounds(153, 262, 150, 27);
+
+        cBoxObjeto.setText("Objeto");
+        jPanel1.add(cBoxObjeto);
+        cBoxObjeto.setBounds(51, 176, 59, 20);
+
         txtUsuario.setPreferredSize(new java.awt.Dimension(150, 22));
-        paFiltrar.add(txtUsuario);
-        txtUsuario.setBounds(153, 174, 150, 27);
+        jPanel1.add(txtUsuario);
+        txtUsuario.setBounds(153, 219, 150, 27);
+
+        cBoxUsuario.setText("Usuario");
+        jPanel1.add(cBoxUsuario);
+        cBoxUsuario.setBounds(51, 221, 63, 20);
+
+        cBoxAccion.setText("Accion");
+        jPanel1.add(cBoxAccion);
+        cBoxAccion.setBounds(51, 264, 60, 20);
+
+        cBoxModulo.setText("Módulo");
+        jPanel1.add(cBoxModulo);
+        cBoxModulo.setBounds(51, 307, 65, 20);
+
+        txtObjeto.setPreferredSize(new java.awt.Dimension(150, 22));
+        jPanel1.add(txtObjeto);
+        txtObjeto.setBounds(153, 174, 150, 27);
 
         btnBuscar.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btnBuscar.setText("Buscar");
-        paFiltrar.add(btnBuscar);
-        btnBuscar.setBounds(102, 217, 150, 50);
+        jPanel1.add(btnBuscar);
+        btnBuscar.setBounds(102, 348, 150, 50);
 
-        add(paFiltrar);
-        paFiltrar.setBounds(610, 41, 354, 448);
+        add(jPanel1);
+        jPanel1.setBounds(610, 41, 354, 448);
     }// </editor-fold>//GEN-END:initComponents
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBuscar;
+    private javax.swing.JCheckBox cBoxAccion;
     private javax.swing.JCheckBox cBoxFecha;
     private javax.swing.JCheckBox cBoxHora;
+    private javax.swing.JCheckBox cBoxModulo;
+    private javax.swing.JCheckBox cBoxObjeto;
     private javax.swing.JCheckBox cBoxUsuario;
+    private javax.swing.JComboBox<String> comboBoxAcción;
+    private javax.swing.JComboBox<String> comboBoxModulo;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -181,10 +218,10 @@ public class BitacoraAcceso extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JPanel paFiltrar;
-    private javax.swing.JTable tbBitacoraA;
+    private javax.swing.JTable tbBitacoraTrans;
     private javax.swing.JTextField txtDeAño;
     private javax.swing.JTextField txtDeDia;
     private javax.swing.JTextField txtDeHora;
@@ -193,6 +230,7 @@ public class BitacoraAcceso extends javax.swing.JPanel {
     private javax.swing.JTextField txtHastaDia;
     private javax.swing.JTextField txtHastaHora;
     private javax.swing.JTextField txtHastaMes;
+    private javax.swing.JTextField txtObjeto;
     private javax.swing.JTextField txtUsuario;
     // End of variables declaration//GEN-END:variables
 }

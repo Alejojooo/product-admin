@@ -11,12 +11,12 @@ import javax.swing.JLabel;
  *
  * @author jmdub
  */
-public class MenuPrincipal extends javax.swing.JPanel {
+public class MenuPrincipalVista extends javax.swing.JPanel {
 
     /**
      * Creates new form MenuPrincipal
      */
-    public MenuPrincipal() {
+    public MenuPrincipalVista() {
         initComponents();
     }
 

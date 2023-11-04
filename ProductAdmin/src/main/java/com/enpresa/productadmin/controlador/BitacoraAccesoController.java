@@ -4,7 +4,7 @@
  */
 package com.enpresa.productadmin.controlador;
 
-import com.enpresa.productadmin.vistas.BitacoraAcceso;
+import com.enpresa.productadmin.vistas.BitacoraAccesoVista;
 import java.awt.event.ActionEvent;
 import javax.swing.JFrame;
 /**
@@ -12,10 +12,10 @@ import javax.swing.JFrame;
  * @author jmdub
  */
 public class BitacoraAccesoController {
-    private final BitacoraAcceso vista;
+    private final BitacoraAccesoVista vista;
     private final JFrame frame;
 
-    public BitacoraAccesoController(BitacoraAcceso vista) {
+    public BitacoraAccesoController(BitacoraAccesoVista vista) {
         this.vista = vista;
 
         frame = new JFrame();
