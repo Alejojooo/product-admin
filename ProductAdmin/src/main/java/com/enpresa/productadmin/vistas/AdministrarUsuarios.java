@@ -4,97 +4,29 @@
  */
 package com.enpresa.productadmin.vistas;
 
-import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JTable;
-import javax.swing.JTextField;
+import com.enpresa.productadmin.modelo.Rol;
+import java.awt.event.ActionEvent;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.function.Function;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
  *
  * @author Oscar
  */
-public class AdministrarUsuarios extends javax.swing.JPanel {
+public class AdministrarUsuarios extends javax.swing.JPanel implements Vista {
 
-    private DefaultTableModel modelo;
+    private JFrame frame;
 
     /**
      * Creates new form AdministrarProductos
      */
     public AdministrarUsuarios() {
         initComponents();
-        initTable();
-    }
-
-    private void initTable() {
-        modelo = new DefaultTableModel(
-                new Object[][]{},
-                new String[]{
-                    "ID Usuario", "Usuario", "Nombres", "Apellidos", "Rol"
-                }
-        ) {
-            boolean[] canEdit = new boolean[]{
-                false, false, false, false, false
-            };
-
-            public boolean isCelEditable(int rowIndex, int columnIndex) {
-                return canEdit[columnIndex];
-            }
-        };
-
-        tbUsuarios.setModel(modelo);
-
-        if (tbUsuarios.getColumnModel().getColumnCount() > 0) {
-            tbUsuarios.getColumnModel().getColumn(0).setResizable(false);
-            tbUsuarios.getColumnModel().getColumn(1).setResizable(false);
-            tbUsuarios.getColumnModel().getColumn(2).setResizable(false);
-            tbUsuarios.getColumnModel().getColumn(3).setResizable(false);
-            tbUsuarios.getColumnModel().getColumn(4).setResizable(false);
-        }
-    }
-
-    public DefaultTableModel getModelo() {
-        return modelo;
-    }
-
-    public JButton getBtnAgregar() {
-        return btnAgregar;
-    }
-
-    public JButton getBtnBuscar() {
-        return btnBuscar;
-    }
-
-    public JButton getBtnEliminar() {
-        return btnEliminar;
-    }
-
-    public JButton getBtnModificar() {
-        return btnModificar;
-    }
-
-    public JComboBox<String> getcBoxRol() {
-        return cBoxRol;
-    }
-
-    public JTable getTbUsuarios() {
-        return tbUsuarios;
-    }
-
-    public JTextField getTxtApellidos() {
-        return txtApellidos;
-    }
-
-    public JTextField getTxtId() {
-        return txtId;
-    }
-
-    public JTextField getTxtNombres() {
-        return txtNombres;
-    }
-
-    public JTextField getTxtUsuario() {
-        return txtUsuario;
     }
 
     /**
@@ -127,8 +59,38 @@ public class AdministrarUsuarios extends javax.swing.JPanel {
         setPreferredSize(new java.awt.Dimension(980, 531));
         setLayout(null);
 
-        tbUsuarios.setModel(tbUsuarios.getModel());
+        tbUsuarios.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "ID", "Usuario", "Nombres", "Apellidos", "Rol"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tbUsuarios.setColumnSelectionAllowed(true);
+        tbUsuarios.getTableHeader().setReorderingAllowed(false);
+        tbUsuarios.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                tbUsuariosMousePressed(evt);
+            }
+        });
         jScrollPane1.setViewportView(tbUsuarios);
+        tbUsuarios.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        if (tbUsuarios.getColumnModel().getColumnCount() > 0) {
+            tbUsuarios.getColumnModel().getColumn(0).setResizable(false);
+            tbUsuarios.getColumnModel().getColumn(1).setResizable(false);
+            tbUsuarios.getColumnModel().getColumn(2).setResizable(false);
+            tbUsuarios.getColumnModel().getColumn(3).setResizable(false);
+            tbUsuarios.getColumnModel().getColumn(4).setResizable(false);
+        }
 
         add(jScrollPane1);
         jScrollPane1.setBounds(16, 41, 578, 474);
@@ -185,7 +147,7 @@ public class AdministrarUsuarios extends javax.swing.JPanel {
         jLabel4.setBounds(77, 411, 23, 21);
 
         cBoxRol.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        cBoxRol.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cBoxRol.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione un rol...", "Empleado", "Gerente", "Administrador" }));
         jPanel1.add(cBoxRol);
         cBoxRol.setBounds(77, 431, 200, 27);
 
@@ -201,6 +163,9 @@ public class AdministrarUsuarios extends javax.swing.JPanel {
         jPanel1.setBounds(610, 41, 354, 474);
     }// </editor-fold>//GEN-END:initComponents
 
+    private void tbUsuariosMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbUsuariosMousePressed
+        seleccionarUsuario();
+    }//GEN-LAST:event_tbUsuariosMousePressed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAgregar;
@@ -221,4 +186,118 @@ public class AdministrarUsuarios extends javax.swing.JPanel {
     private javax.swing.JTextField txtNombres;
     private javax.swing.JTextField txtUsuario;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public Map<String, String> getCampos() {
+        Map<String, String> campos = new HashMap<>();
+        campos.put("id", txtId.getText());
+        campos.put("usuario", txtUsuario.getText());
+        campos.put("nombres", txtNombres.getText());
+        campos.put("apellidos", txtApellidos.getText());
+        campos.put("rol", (String) cBoxRol.getSelectedItem());
+
+        return campos;
+    }
+
+    @Override
+    public void mostrarRegistros(List<String[]> usuarios) {
+        DefaultTableModel modelo = (DefaultTableModel) tbUsuarios.getModel();
+        modelo.setNumRows(0);
+        for (String[] usuario : usuarios) {
+            modelo.addRow(usuario);
+        }
+    }
+
+    @Override
+    public void mostrarMensaje(String mensaje) {
+        JOptionPane.showMessageDialog(frame,
+                mensaje,
+                "Aviso",
+                JOptionPane.INFORMATION_MESSAGE);
+    }
+
+    @Override
+    public void mostrarError(String mensaje) {
+        JOptionPane.showMessageDialog(frame,
+                mensaje,
+                "Error",
+                JOptionPane.ERROR_MESSAGE);
+    }
+
+    @Override
+    public void mostrarAdvertencia(String mensaje) {
+        JOptionPane.showMessageDialog(frame,
+                mensaje,
+                "Advertencia",
+                JOptionPane.WARNING_MESSAGE);
+    }
+
+    @Override
+    public boolean mostrarConfirmacion(String mensaje) {
+        int opcion = JOptionPane.showConfirmDialog(frame,
+                mensaje,
+                "Confirmación",
+                JOptionPane.YES_NO_OPTION,
+                JOptionPane.WARNING_MESSAGE);
+        return opcion == JOptionPane.YES_OPTION;
+    }
+    
+    @Override
+    public void mapearAccion(String accion, Function funcion) {
+        switch (accion) {
+            case "Agregar" -> {
+                btnAgregar.addActionListener((ActionEvent e) -> {
+                    int exitCode = (int) funcion.apply(null);
+                    if (exitCode > 0) {
+                        limpiarCampos();
+                    }
+                });
+            }
+            case "Modificar" -> {
+                btnModificar.addActionListener((ActionEvent e) -> {
+                    int exitCode = (int) funcion.apply(null);
+                    if (exitCode > 0) {
+                        limpiarCampos();
+                    }
+                });
+            }
+            case "Eliminar" -> {
+                btnEliminar.addActionListener((ActionEvent e) -> {
+                    int exitCode = (int) funcion.apply(null);
+                    if (exitCode > 0) {
+                        limpiarCampos();
+                    }
+                });
+            }
+            case "Buscar" -> {
+                btnBuscar.addActionListener((ActionEvent e) -> {
+                    int exitCode = (int) funcion.apply(null);
+                    if (exitCode > 0) {
+                    }
+                });
+            }
+        }
+    }
+
+    private void seleccionarUsuario() {
+        int fila = tbUsuarios.getSelectedRow();
+        if (fila < 0) {
+            mostrarError("No se seleccionó un usuario.");
+            return;
+        }
+        txtId.setText(tbUsuarios.getValueAt(fila, 0).toString());
+        txtUsuario.setText(tbUsuarios.getValueAt(fila, 1).toString());
+        txtNombres.setText(tbUsuarios.getValueAt(fila, 2).toString());
+        txtApellidos.setText(tbUsuarios.getValueAt(fila, 3).toString());
+        Rol rol = Rol.valueOf(tbUsuarios.getValueAt(fila, 4).toString());
+        cBoxRol.setSelectedIndex(rol.ordinal());
+    }
+    
+    private void limpiarCampos() {
+        txtId.setText("");
+        txtUsuario.setText("");
+        txtNombres.setText("");
+        txtApellidos.setText("");
+        cBoxRol.setSelectedIndex(0);
+    }
 }

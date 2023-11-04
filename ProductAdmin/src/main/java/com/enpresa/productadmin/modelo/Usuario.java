@@ -16,35 +16,6 @@ public class Usuario {
     public Usuario() {
     }
 
-    public Usuario(int id) {
-        this(id, null, null, null, null, null);
-    }
-
-    public Usuario(String usuario, String clave, String nombres, String apellidos, Rol rol) {
-        this(0, usuario, clave, nombres, apellidos, rol);
-    }
-
-    /*public Usuario(String id, String usuario, String nombres, String apellidos, Rol rol) {
-        try {
-            this.id = Integer.valueOf(id);
-        } catch (NumberFormatException e) {
-            this.id = null;
-        }
-        this.usuario = usuario;
-        this.nombres = nombres;
-        this.apellidos = apellidos;
-        this.rol = rol;
-    } */
-    
-    public Usuario(int id, String usuario, String password, String nombres, String apellidos, Rol rol) {
-        this.id = id;
-        this.usuario = usuario;
-        this.clave = password;
-        this.nombres = nombres;
-        this.apellidos = apellidos;
-        this.rol = rol;
-    }
-
     public int getId() {
         return id;
     }
@@ -91,10 +62,5 @@ public class Usuario {
 
     public void setRol(Rol rol) {
         this.rol = rol;
-    }
-
-    @Override
-    public String toString() {
-        return "[" + id + "] " + usuario + "(" + rol + ")";
     }
 }

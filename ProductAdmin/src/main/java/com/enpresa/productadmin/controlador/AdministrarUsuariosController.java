@@ -5,237 +5,179 @@
 package com.enpresa.productadmin.controlador;
 
 import com.enpresa.productadmin.dao.UsuarioDAO;
+import com.enpresa.productadmin.modelo.Producto;
+import com.enpresa.productadmin.modelo.Rol;
 import com.enpresa.productadmin.modelo.Usuario;
 import com.enpresa.productadmin.vistas.AdministrarUsuarios;
-import java.awt.event.ActionEvent;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import java.util.ArrayList;
 import java.util.List;
-import javax.swing.JFrame;
+import java.util.Map;
+import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author jmdub
  */
 public class AdministrarUsuariosController {
+
     private final UsuarioDAO modelo;
     private final AdministrarUsuarios vista;
-    private final JFrame frame;
 
     public AdministrarUsuariosController(UsuarioDAO modelo, AdministrarUsuarios vista) {
         this.modelo = modelo;
         this.vista = vista;
 
-        frame = new JFrame("Administrar Usuarios");
-        frame.setContentPane(vista);
-        frame.pack();
-        frame.setResizable(false);
-        frame.setVisible(true);
-        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        frame.setLocationRelativeTo(null);
-        addActionListeners();
-        addMouseListeners();
-        
-        mostrarUsuarios();
+        mostrarRegistros();
+        mapearAcciones();
     }
 
-    private void addActionListeners() {
-        vista.getBtnAgregar().addActionListener((ActionEvent e) -> {
-            crearUsuario();
-        });
-        vista.getBtnModificar().addActionListener((ActionEvent e) -> {
-            modificarUsuario();
-        });
-    }
-
-    private void addMouseListeners() {
-        vista.getTbUsuarios().addMouseListener(new MouseAdapter() {
-            @Override
-            public void mousePressed(MouseEvent evt) {
-                seleccionarUsuario();
-            }
-        });
-    }
-    
     /* --- Métodos auxiliares --- */
-    private void mostrarUsuarios() {
-        DefaultTableModel tabla = vista.getModelo();
+    private void mapearAcciones() {
+        vista.mapearAccion("Agregar", (e) -> crearUsuario());
+        vista.mapearAccion("Modificar", (e) -> modificarUsuario());
+        vista.mapearAccion("Eliminar", (e) -> eliminarUsuario());
+        vista.mapearAccion("Buscar", (e) -> buscarUsuario());
+    }
 
-        tabla.setNumRows(0);
+    private void mostrarRegistros(List<Usuario> usuarios) {
+        if (usuarios == null) {
+            usuarios = modelo.consultarTodos();
+        }
+        vista.mostrarRegistros(getRegistros(usuarios));
+    }
 
-        List<Usuario> usuarios = modelo.consultarTodos();
+    private void mostrarRegistros() {
+        mostrarRegistros(null);
+    }
+
+    private List<String[]> getRegistros(List<Usuario> usuarios) {
+        List<String[]> registros = new ArrayList<>();
         for (Usuario usuario : usuarios) {
-            String[] row = {
+            String[] registro = {
                 String.valueOf(usuario.getId()),
                 usuario.getUsuario(),
                 usuario.getNombres(),
                 usuario.getApellidos(),
-                usuario.getRol().toString(),
+                usuario.getRol().toString()
             };
-            tabla.addRow(row);
+            registros.add(registro);
         }
+        return registros;
     }
-    
-    private void seleccionarUsuario() {
-        JTable tbUsuarios = vista.getTbUsuarios();
-        int fila = tbUsuarios.getSelectedRow();
-        System.out.println("Fila: " + fila);
 
-        if (fila < 0) { 
-            JOptionPane.showMessageDialog(
-                    frame,
-                    "No se seleccionó el usuario.",
-                    "Error", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-        vista.getTxtId().setText(tbUsuarios.getValueAt(fila, 0).toString());
-        vista.getTxtUsuario().setText(tbUsuarios.getValueAt(fila, 1).toString());
-        vista.getTxtNombres().setText(tbUsuarios.getValueAt(fila, 2).toString());
-        vista.getTxtApellidos().setText(tbUsuarios.getValueAt(fila, 3).toString());
-        //vista.getTxtRol().setText(tbUsuarios.getValueAt(fila, 4).toString());
-        
-        
-        System.out.println("Ejecutado método seleccionarUsuario");
-    }
-    
-    private void limpiarCampos() {
-        vista.getTxtId().setText("");
-        vista.getTxtUsuario().setText("");
-        vista.getTxtNombres().setText("");
-        vista.getTxtApellidos().setText("");
-    }
-    
     /* --- Métodos para CRUD --- */
-    private void crearUsuario() {
-        if (usuarioVacio() || nombreVacio() || apellidoVacio()) {
-            return;
-        }
-
+    private int crearUsuario() {
+        Map<String, String> campos = vista.getCampos();
         Usuario usuario = new Usuario();
-
+        try {
+            usuario.setUsuario(comprobarUsuario(campos.get("usuario")));
+            usuario.setNombres(comprobarNombres(campos.get("nombres")));
+            usuario.setApellidos(comprobarApellidos(campos.get("precioCompra")));
+            usuario.setRol(Rol.valueOf(campos.get("rol")));
+        } catch (UsuarioInvalidoException e) {
+            return -1;
+        }
         modelo.crear(usuario);
-
-        JOptionPane.showMessageDialog(frame,
-                "Se ha creado un nuevo usuario.",
-                "Información",
-                JOptionPane.INFORMATION_MESSAGE);
-
-        mostrarUsuarios();
-        limpiarCampos();
+        vista.mostrarMensaje("Se ha creado un nuevo usuario.");
+        mostrarRegistros();
+        return 1;
     }
 
-    private void modificarUsuario() {
-        if (idInvalida() || usuarioVacio() || nombreVacio() || apellidoVacio()) {
-            return;
-        }
-
-        int id = Integer.parseInt(vista.getTxtId().getText());
-        int confirmar = JOptionPane.showConfirmDialog(
-                frame,
-                String.format("¿Está seguro de modificar el usuario con ID [%d]", id),
-                "Advertencia",
-                JOptionPane.YES_NO_OPTION,
-                JOptionPane.WARNING_MESSAGE);
-        if (confirmar == JOptionPane.NO_OPTION) {
-            return;
-        }
-
+    private int modificarUsuario() {
+        Map<String, String> campos = vista.getCampos();
         Usuario usuario = new Usuario();
+        Integer id;
+        try {
+            id = comprobarId(campos.get("id"));
+            usuario.setId(id);
+            usuario.setUsuario(comprobarUsuario(campos.get("usuario")));
+            usuario.setNombres(comprobarNombres(campos.get("nombres")));
+            usuario.setApellidos(comprobarApellidos(campos.get("precioCompra")));
+            usuario.setRol(Rol.valueOf(campos.get("rol")));
+        } catch (UsuarioInvalidoException e) {
+            return -1;
+        }
+
+        boolean modificar = vista.mostrarConfirmacion(String.format("¿Está seguro de modificar el usuario con ID [%d]?", id));
+        if (!modificar) {
+            return -1;
+        }
 
         modelo.modificar(usuario);
-
-        JOptionPane.showMessageDialog(frame,
-                "Se ha modificado el usuario.",
-                "Información",
-                JOptionPane.INFORMATION_MESSAGE);
-
-        mostrarUsuarios();
-        limpiarCampos();
+        vista.mostrarMensaje("Se ha modificado el usuario.");
+        mostrarRegistros();
+        return 1;
     }
 
-    private void eliminarUsuario() {
-        if (idInvalida()) {
-            return;
+    private int eliminarUsuario() {
+        Map<String, String> campos = vista.getCampos();
+        Integer id;
+        try {
+            id = comprobarId(campos.get("id"));
+        } catch (UsuarioInvalidoException e) {
+            return -1;
         }
-
-        int id = Integer.parseInt(vista.getTxtId().getText());
-
-        int confirmar = JOptionPane.showConfirmDialog(
-                frame,
-                String.format("¿Está seguro de eliminar el usuario con ID [%d]", id),
-                "Advertencia",
-                JOptionPane.YES_NO_OPTION,
-                JOptionPane.WARNING_MESSAGE);
-        if (confirmar == JOptionPane.NO_OPTION) {
-            return;
+        
+        boolean modificar = vista.mostrarConfirmacion(String.format("¿Está seguro de modificar el usuario con ID [%d]?", id));
+        if (!modificar) {
+            return -1;
         }
 
         modelo.eliminar(id);
-
-        JOptionPane.showMessageDialog(frame,
-                "Se ha eliminado el usuario.",
-                "Información",
-                JOptionPane.INFORMATION_MESSAGE);
-
-        mostrarUsuarios();
-        limpiarCampos();
+        vista.mostrarMensaje("Se ha modificado el usuario.");
+        mostrarRegistros();
+        return 1;
     }
 
-    private void buscarUsuario() {
-        // TODO
-        Usuario usuario = new Usuario();
-        
+    private int buscarUsuario() {
+        Map<String, String> campos = vista.getCampos();
+        List<Usuario> usuarios = modelo.buscar(campos);
+        mostrarRegistros(usuarios);
+        return 1;
     }
-    
+
     /* --- Métodos de comprobación --- */
-    private boolean idInvalida() {
+    private Integer comprobarId(String idString) throws UsuarioInvalidoException {
+        Integer id = null;
         try {
-            int id = Integer.parseInt(vista.getTxtId().getText());
+            id = Integer.valueOf(idString);
             if (id < 0) {
                 throw new NumberFormatException();
             }
         } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(frame,
-                    "La ID del usuario no es válida.",
-                    "Error",
-                    JOptionPane.ERROR_MESSAGE);
-            return true;
+            vista.mostrarError("La ID del usuario no es válida.");
+            throw new UsuarioInvalidoException();
         }
-        return false;
+        return id;
     }
-    
-    private boolean usuarioVacio() {
-        if ("".equals(vista.getTxtUsuario().getText())) {
-            JOptionPane.showMessageDialog(frame,
-                    "El usuario introducido no es válido.",
-                    "Error",
-                    JOptionPane.ERROR_MESSAGE);
-            return true;
+
+    private String comprobarUsuario(String usuario) throws UsuarioInvalidoException {
+        if ("".equals(usuario) || Pattern.matches("\\W", usuario)) {
+            vista.mostrarError("El usuario introducido no es válido.");
+            throw new UsuarioInvalidoException();
         }
-        return false;
+        return usuario;
     }
-    
-    private boolean nombreVacio() {
-        if ("".equals(vista.getTxtNombres().getText())) {
-            JOptionPane.showMessageDialog(frame,
-                    "El nombre introducido no es válido.",
-                    "Error",
-                    JOptionPane.ERROR_MESSAGE);
-            return true;
+
+    private String comprobarVacio(String nombre, String tipo) throws UsuarioInvalidoException {
+        if ("".equals(nombre)) {
+            vista.mostrarError(String.format("Los %s introducido no es válido.", tipo));
+            throw new UsuarioInvalidoException();
         }
-        return false;
+        return nombre;
     }
-    
-    private boolean apellidoVacio() {
-        if ("".equals(vista.getTxtApellidos().getText())) {
-            JOptionPane.showMessageDialog(frame,
-                    "El apellido introducido no es válido.",
-                    "Error",
-                    JOptionPane.ERROR_MESSAGE);
-            return true;
-        }
-        return false;
+
+    private String comprobarNombres(String nombre) throws UsuarioInvalidoException {
+        return comprobarVacio(nombre, "nombres");
     }
+
+    private String comprobarApellidos(String apellido) throws UsuarioInvalidoException {
+        return comprobarVacio(apellido, "apellidos");
+    }
+}
+
+class UsuarioInvalidoException extends Exception {
 }
