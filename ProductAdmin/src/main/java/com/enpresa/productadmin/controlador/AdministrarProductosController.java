@@ -65,7 +65,6 @@ public class AdministrarProductosController {
         Map<String, String> campos = vista.getCampos();
         Producto producto = new Producto();
         try {
-            producto.setId(comprobarId(campos.get("id")));
             producto.setNombre(comprobarNombre(campos.get("nombre")));
             producto.setCantidad(comprobarCantidad(campos.get("cantidad")));
             producto.setPrecioCompra(comprobarPrecio(campos.get("precioCompra")));
@@ -187,5 +186,4 @@ public class AdministrarProductosController {
 }
 
 class ProductoInvalidoException extends Exception {
-
 }
