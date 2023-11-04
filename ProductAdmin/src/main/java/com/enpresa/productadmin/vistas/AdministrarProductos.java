@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
- */
 package com.enpresa.productadmin.vistas;
 
 import java.awt.event.ActionEvent;
@@ -37,110 +33,6 @@ public class AdministrarProductos extends javax.swing.JPanel implements Vista {
         frame.setVisible(true);
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frame.setLocationRelativeTo(null);
-    }
-
-    private void seleccionarProducto() {
-        int fila = tbProductos.getSelectedRow();
-        if (fila < 0) {
-            mostrarError("No se seleccionó un producto.");
-            return;
-        }
-        txtId.setText(tbProductos.getValueAt(fila, 0).toString());
-        txtNombre.setText(tbProductos.getValueAt(fila, 1).toString());
-        txtCantidad.setText(tbProductos.getValueAt(fila, 2).toString());
-        txtPrecioCompra.setText(tbProductos.getValueAt(fila, 3).toString());
-        txtPrecioVenta.setText(tbProductos.getValueAt(fila, 4).toString());
-        txtDescripcion.setText(tbProductos.getValueAt(fila, 5).toString());
-    }
-
-    private void limpiarCampos() {
-        txtId.setText("");
-        txtNombre.setText("");
-        txtCantidad.setText("");
-        txtPrecioCompra.setText("");
-        txtPrecioVenta.setText("");
-        txtDescripcion.setText("");
-    }
-
-    @Override
-    public Map<String, String> getCampos() {
-        Map<String, String> campos = new HashMap<>();
-        campos.put("id", txtId.getText());
-        campos.put("nombre", txtNombre.getText());
-        campos.put("cantidad", txtCantidad.getText());
-        campos.put("precioCompra", txtPrecioCompra.getText());
-        campos.put("precioVenta", txtPrecioVenta.getText());
-        campos.put("descripcion", txtDescripcion.getText());
-
-        return campos;
-    }
-
-    @Override
-    public void mostrarRegistros(List<String[]> productos) {
-        DefaultTableModel modelo = (DefaultTableModel) tbProductos.getModel();
-        modelo.setNumRows(0);
-        for (String[] producto : productos) {
-            modelo.addRow(producto);
-        }
-    }
-
-    @Override
-    public void mostrarMensaje(String mensaje) {
-        JOptionPane.showMessageDialog(frame,
-                mensaje,
-                "Aviso",
-                JOptionPane.INFORMATION_MESSAGE);
-    }
-
-    @Override
-    public void mostrarError(String mensaje) {
-        JOptionPane.showMessageDialog(frame,
-                mensaje,
-                "Error",
-                JOptionPane.ERROR_MESSAGE);
-    }
-
-    @Override
-    public void mostrarAdvertencia(String mensaje) {
-        JOptionPane.showMessageDialog(frame,
-                mensaje,
-                "Advertencia",
-                JOptionPane.WARNING_MESSAGE);
-    }
-
-    @Override
-    public boolean mostrarConfirmacion(String mensaje) {
-        int opcion = JOptionPane.showConfirmDialog(frame,
-                mensaje,
-                "Confirmación",
-                JOptionPane.YES_NO_OPTION,
-                JOptionPane.WARNING_MESSAGE);
-        return opcion == JOptionPane.YES_OPTION;
-    }
-
-    public void mapearAccion(String accion, Function funcion) {
-        switch (accion) {
-            case "Agregar" -> {
-                btnAgregar.addActionListener((ActionEvent e) -> {
-                    funcion.apply(null);
-                });
-            }
-            case "Modificar" -> {
-                btnModificar.addActionListener((ActionEvent e) -> {
-                    funcion.apply(null);
-                });
-            }
-            case "Eliminar" -> {
-                btnEliminar.addActionListener((ActionEvent e) -> {
-                    funcion.apply(null);
-                });
-            }
-            case "Buscar" -> {
-                btnBuscar.addActionListener((ActionEvent e) -> {
-                    funcion.apply(null);
-                });
-            }
-        }
     }
 
     /**
@@ -298,7 +190,6 @@ public class AdministrarProductos extends javax.swing.JPanel implements Vista {
         seleccionarProducto();
     }//GEN-LAST:event_tbProductosMousePressed
 
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAgregar;
     private javax.swing.JButton btnBuscar;
@@ -321,4 +212,120 @@ public class AdministrarProductos extends javax.swing.JPanel implements Vista {
     private javax.swing.JTextField txtPrecioCompra;
     private javax.swing.JTextField txtPrecioVenta;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public Map<String, String> getCampos() {
+        Map<String, String> campos = new HashMap<>();
+        campos.put("id", txtId.getText());
+        campos.put("nombre", txtNombre.getText());
+        campos.put("cantidad", txtCantidad.getText());
+        campos.put("precioCompra", txtPrecioCompra.getText());
+        campos.put("precioVenta", txtPrecioVenta.getText());
+        campos.put("descripcion", txtDescripcion.getText());
+
+        return campos;
+    }
+
+    @Override
+    public void mostrarRegistros(List<String[]> productos) {
+        DefaultTableModel modelo = (DefaultTableModel) tbProductos.getModel();
+        modelo.setNumRows(0);
+        for (String[] producto : productos) {
+            modelo.addRow(producto);
+        }
+    }
+
+    @Override
+    public void mostrarMensaje(String mensaje) {
+        JOptionPane.showMessageDialog(frame,
+                mensaje,
+                "Aviso",
+                JOptionPane.INFORMATION_MESSAGE);
+    }
+
+    @Override
+    public void mostrarError(String mensaje) {
+        JOptionPane.showMessageDialog(frame,
+                mensaje,
+                "Error",
+                JOptionPane.ERROR_MESSAGE);
+    }
+
+    @Override
+    public void mostrarAdvertencia(String mensaje) {
+        JOptionPane.showMessageDialog(frame,
+                mensaje,
+                "Advertencia",
+                JOptionPane.WARNING_MESSAGE);
+    }
+
+    @Override
+    public boolean mostrarConfirmacion(String mensaje) {
+        int opcion = JOptionPane.showConfirmDialog(frame,
+                mensaje,
+                "Confirmación",
+                JOptionPane.YES_NO_OPTION,
+                JOptionPane.WARNING_MESSAGE);
+        return opcion == JOptionPane.YES_OPTION;
+    }
+
+    public void mapearAccion(String accion, Function funcion) {
+        switch (accion) {
+            case "Agregar" -> {
+                btnAgregar.addActionListener((ActionEvent e) -> {
+                    int exitCode = (int) funcion.apply(null);
+                    if (exitCode > 0) {
+                        limpiarCampos();
+                    }
+                });
+            }
+            case "Modificar" -> {
+                btnModificar.addActionListener((ActionEvent e) -> {
+                    int exitCode = (int) funcion.apply(null);
+                    if (exitCode > 0) {
+                        limpiarCampos();
+                    }
+                });
+            }
+            case "Eliminar" -> {
+                btnEliminar.addActionListener((ActionEvent e) -> {
+                    int exitCode = (int) funcion.apply(null);
+                    if (exitCode > 0) {
+                        limpiarCampos();
+                    }
+                });
+            }
+            case "Buscar" -> {
+                btnBuscar.addActionListener((ActionEvent e) -> {
+                    int exitCode = (int) funcion.apply(null);
+                    if (exitCode > 0) {
+                        limpiarCampos();
+                    }
+                });
+            }
+        }
+    }
+
+    private void seleccionarProducto() {
+        int fila = tbProductos.getSelectedRow();
+        if (fila < 0) {
+            mostrarError("No se seleccionó un producto.");
+            return;
+        }
+        txtId.setText(tbProductos.getValueAt(fila, 0).toString());
+        txtNombre.setText(tbProductos.getValueAt(fila, 1).toString());
+        txtCantidad.setText(tbProductos.getValueAt(fila, 2).toString());
+        txtPrecioCompra.setText(tbProductos.getValueAt(fila, 3).toString());
+        txtPrecioVenta.setText(tbProductos.getValueAt(fila, 4).toString());
+        txtDescripcion.setText(tbProductos.getValueAt(fila, 5).toString());
+    }
+
+    private void limpiarCampos() {
+        txtId.setText("");
+        txtNombre.setText("");
+        txtCantidad.setText("");
+        txtPrecioCompra.setText("");
+        txtPrecioVenta.setText("");
+        txtDescripcion.setText("");
+    }
 }

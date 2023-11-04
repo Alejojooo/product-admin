@@ -24,27 +24,15 @@ public class AdministrarProductosController {
         mostrarProductos();
         mapearAcciones();
     }
-    
-    private void mapearAcciones() {
-        vista.mapearAccion("Agregar", (e) -> {
-            crearProducto();
-            return null;
-        });
-        vista.mapearAccion("Modificar", (e) -> {
-            modificarProducto();
-            return null;
-        });
-        vista.mapearAccion("Eliminar", (e) -> {
-            eliminarProducto();
-            return null;
-        });
-        vista.mapearAccion("Buscar", (e) -> {
-            buscarProducto();
-            return null;
-        });
-    }
 
     /* --- Métodos auxiliares --- */
+    private void mapearAcciones() {
+        vista.mapearAccion("Agregar", (e) -> crearProducto());
+        vista.mapearAccion("Modificar", (e) -> modificarProducto());
+        vista.mapearAccion("Eliminar", (e) -> eliminarProducto());
+        vista.mapearAccion("Buscar", (e) -> buscarProducto());
+    }
+
     private void mostrarProductos(List<Producto> productos) {
         if (productos == null) {
             productos = modelo.consultarTodos();
@@ -73,7 +61,7 @@ public class AdministrarProductosController {
     }
 
     /* --- Métodos para CRUD --- */
-    private void crearProducto() {
+    private int crearProducto() {
         Map<String, String> campos = vista.getCampos();
         Producto producto = new Producto();
         try {
@@ -84,14 +72,15 @@ public class AdministrarProductosController {
             producto.setPrecioVenta(comprobarPrecio(campos.get("precioVenta")));
             producto.setDescripcion(campos.get("descripcion"));
         } catch (ProductoInvalidoException e) {
-            return;
+            return -1;
         }
         modelo.crear(producto);
         vista.mostrarMensaje("Se ha creado un nuevo producto.");
         mostrarProductos();
+        return 1;
     }
 
-    private void modificarProducto() {
+    private int modificarProducto() {
         Map<String, String> campos = vista.getCampos();
         Producto producto = new Producto();
         Integer id;
@@ -104,42 +93,45 @@ public class AdministrarProductosController {
             producto.setPrecioVenta(comprobarPrecio(campos.get("precioVenta")));
             producto.setDescripcion(campos.get("descripcion"));
         } catch (ProductoInvalidoException e) {
-            return;
+            return -1;
         }
 
         boolean modificar = vista.mostrarConfirmacion(String.format("¿Está seguro de modificar el producto con ID [%d] ?", id));
         if (!modificar) {
-            return;
+            return -1;
         }
 
         modelo.modificar(producto);
         vista.mostrarMensaje("Se ha modificado el producto.");
         mostrarProductos();
+        return 1;
     }
 
-    private void eliminarProducto() {
+    private int eliminarProducto() {
         Map<String, String> campos = vista.getCampos();
         Integer id;
         try {
             id = comprobarId(campos.get("id"));
         } catch (ProductoInvalidoException e) {
-            return;
+            return -1;
         }
 
         boolean eliminar = vista.mostrarConfirmacion(String.format("¿Está seguro de eliminar el producto con ID [%d] ?", id));
         if (!eliminar) {
-            return;
+            return -1;
         }
 
         modelo.eliminar(id);
         vista.mostrarMensaje("Se ha eliminado el producto.");
         mostrarProductos();
+        return 1;
     }
 
-    private void buscarProducto() {
+    private int buscarProducto() {
         Map<String, String> campos = vista.getCampos();
         List<Producto> productos = modelo.buscar(campos);
         mostrarProductos(productos);
+        return 1;
     }
 
     /* --- Métodos de comprobación --- */
