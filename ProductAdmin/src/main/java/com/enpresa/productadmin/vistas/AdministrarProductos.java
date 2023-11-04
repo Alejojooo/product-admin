@@ -269,6 +269,7 @@ public class AdministrarProductos extends javax.swing.JPanel implements Vista {
         return opcion == JOptionPane.YES_OPTION;
     }
 
+    @Override
     public void mapearAccion(String accion, Function funcion) {
         switch (accion) {
             case "Agregar" -> {
@@ -299,7 +300,6 @@ public class AdministrarProductos extends javax.swing.JPanel implements Vista {
                 btnBuscar.addActionListener((ActionEvent e) -> {
                     int exitCode = (int) funcion.apply(null);
                     if (exitCode > 0) {
-                        limpiarCampos();
                     }
                 });
             }
