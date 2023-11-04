@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.enpresa.productadmin.controlador;
 
 import com.enpresa.productadmin.dao.UsuarioDAO;
@@ -12,6 +8,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 import java.util.regex.Pattern;
 
 /**
@@ -65,22 +62,40 @@ public class AdministrarUsuariosController {
         return registros;
     }
 
+    private String generarClaveNuevoUsuario() {
+        String letras = "abcdefghijklmnopqrstuvwxyz";
+        String numeros = "0123456789";
+        String clave = "";
+        Random rand = new Random();
+        for (int i = 0; i < 8; i++) {
+            double randNum = rand.nextDouble();
+            if (randNum < 0.5) {
+                clave += letras.charAt(rand.nextInt(0, letras.length()));
+            } else {
+                clave += numeros.charAt(rand.nextInt(0, numeros.length()));
+            }
+        }
+        return clave;
+    }
+
     /* --- Métodos para CRUD --- */
-    private int crearUsuario() {
+    private String crearUsuario() {
         Map<String, String> campos = vista.getCampos();
         Usuario usuario = new Usuario();
+        String clave = generarClaveNuevoUsuario();
         try {
             usuario.setUsuario(comprobarUsuario(campos.get("usuario")));
             usuario.setNombres(comprobarNombres(campos.get("nombres")));
+            usuario.setClave(clave);
             usuario.setApellidos(comprobarApellidos(campos.get("apellidos")));
             usuario.setRol(comprobarRol(campos.get("rol")));
         } catch (UsuarioInvalidoException e) {
-            return -1;
+            return null;
         }
         modelo.crear(usuario);
         vista.mostrarMensaje("Se ha creado un nuevo usuario.");
         mostrarRegistros();
-        return 1;
+        return clave;
     }
 
     private int modificarUsuario() {

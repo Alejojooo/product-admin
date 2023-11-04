@@ -258,8 +258,9 @@ public class AdministrarUsuariosVista extends javax.swing.JPanel implements Vist
         switch (accion) {
             case "Agregar" -> {
                 btnAgregar.addActionListener((ActionEvent e) -> {
-                    int exitCode = (int) funcion.apply(null);
-                    if (exitCode > 0) {
+                    String clave = (String) funcion.apply(null);
+                    if (clave != null) {
+                        mostrarClaveNuevoUsuario(clave);
                         limpiarCampos();
                     }
                 });
@@ -288,6 +289,10 @@ public class AdministrarUsuariosVista extends javax.swing.JPanel implements Vist
                 });
             }
         }
+    }
+    
+    private void mostrarClaveNuevoUsuario(String clave) {
+        ClaveNuevoUsuarioVista claveNuevoUsuarioVista = new ClaveNuevoUsuarioVista(clave);
     }
 
     private void seleccionarUsuario() {

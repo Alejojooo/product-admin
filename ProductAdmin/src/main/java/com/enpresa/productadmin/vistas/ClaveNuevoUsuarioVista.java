@@ -1,8 +1,6 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
- */
 package com.enpresa.productadmin.vistas;
+
+import javax.swing.JFrame;
 
 /**
  *
@@ -10,11 +8,27 @@ package com.enpresa.productadmin.vistas;
  */
 public class ClaveNuevoUsuarioVista extends javax.swing.JPanel {
 
+    private JFrame frame;
+
     /**
      * Creates new form ContraseñaNuevoUsuario
+     *
+     * @param clave
      */
-    public ClaveNuevoUsuarioVista() {
+    public ClaveNuevoUsuarioVista(String clave) {
         initComponents();
+        initFrame();
+        labelClave.setText(clave);
+    }
+
+    private void initFrame() {
+        frame = new JFrame("Clave del nuevo usuario");
+        frame.setContentPane(this);
+        frame.pack();
+        frame.setResizable(false);
+        frame.setVisible(true);
+        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        frame.setLocationRelativeTo(null);
     }
 
     /**
@@ -27,7 +41,7 @@ public class ClaveNuevoUsuarioVista extends javax.swing.JPanel {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        labelContraseña = new javax.swing.JLabel();
+        labelClave = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         btnAceptar = new javax.swing.JButton();
 
@@ -41,12 +55,12 @@ public class ClaveNuevoUsuarioVista extends javax.swing.JPanel {
         jLabel1.setMinimumSize(new java.awt.Dimension(213, 21));
         jLabel1.setPreferredSize(new java.awt.Dimension(213, 21));
 
-        labelContraseña.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        labelContraseña.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        labelContraseña.setText("8QJF9C823A");
-        labelContraseña.setMaximumSize(new java.awt.Dimension(111, 26));
-        labelContraseña.setMinimumSize(new java.awt.Dimension(111, 26));
-        labelContraseña.setPreferredSize(new java.awt.Dimension(111, 26));
+        labelClave.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        labelClave.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        labelClave.setText("8QJF9C823A");
+        labelClave.setMaximumSize(new java.awt.Dimension(111, 26));
+        labelClave.setMinimumSize(new java.awt.Dimension(111, 26));
+        labelClave.setPreferredSize(new java.awt.Dimension(111, 26));
 
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel3.setText("<html>\n<p>¡Recuerde esta contraseña!</p>\n<p>De lo contrario, se tendrá que eliminar al usuario.</p>\n</html>\n");
@@ -59,6 +73,11 @@ public class ClaveNuevoUsuarioVista extends javax.swing.JPanel {
         btnAceptar.setMaximumSize(new java.awt.Dimension(70, 30));
         btnAceptar.setMinimumSize(new java.awt.Dimension(70, 30));
         btnAceptar.setPreferredSize(new java.awt.Dimension(70, 30));
+        btnAceptar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAceptarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -77,7 +96,7 @@ public class ClaveNuevoUsuarioVista extends javax.swing.JPanel {
                         .addComponent(btnAceptar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(92, 92, 92)
-                        .addComponent(labelContraseña, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(labelClave, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(52, 52, 52))
         );
         layout.setVerticalGroup(
@@ -86,7 +105,7 @@ public class ClaveNuevoUsuarioVista extends javax.swing.JPanel {
                 .addGap(30, 30, 30)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(labelContraseña, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(labelClave, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -95,11 +114,14 @@ public class ClaveNuevoUsuarioVista extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptarActionPerformed
+        frame.dispose();
+    }//GEN-LAST:event_btnAceptarActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAceptar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel labelContraseña;
+    private javax.swing.JLabel labelClave;
     // End of variables declaration//GEN-END:variables
 }
