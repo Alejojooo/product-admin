@@ -33,7 +33,7 @@ public class AdministrarProductosController {
         vista.mapearAccion("Buscar", (e) -> buscarProducto());
     }
 
-    private void mostrarProductos(List<Producto> productos) {
+    private void mostrarRegistros(List<Producto> productos) {
         if (productos == null) {
             productos = modelo.consultarTodos();
         }
@@ -41,7 +41,7 @@ public class AdministrarProductosController {
     }
 
     private void mostrarRegistros() {
-        mostrarProductos(null);
+        mostrarRegistros(null);
     }
 
     private List<String[]> getRegistros(List<Producto> productos) {
@@ -129,7 +129,7 @@ public class AdministrarProductosController {
     private int buscarProducto() {
         Map<String, String> campos = vista.getCampos();
         List<Producto> productos = modelo.buscar(campos);
-        mostrarProductos(productos);
+        mostrarRegistros(productos);
         return 1;
     }
 
