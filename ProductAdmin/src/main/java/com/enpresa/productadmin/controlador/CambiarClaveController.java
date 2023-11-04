@@ -3,8 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package com.enpresa.productadmin.controlador;
-
-import com.enpresa.productadmin.vistas.ClaveNuevoUsuarioVista;
+import com.enpresa.productadmin.vistas.CambiarClaveVista;
 import java.awt.event.ActionEvent;
 import javax.swing.JFrame;
 
@@ -12,12 +11,11 @@ import javax.swing.JFrame;
  *
  * @author jmdub
  */
-public class ContraseñaNuevoUsuarioController {
-    
-    private final ClaveNuevoUsuarioVista vista;
+public class CambiarClaveController {
+    private final CambiarClaveVista vista;
     private final JFrame frame;
 
-    public ContraseñaNuevoUsuarioController(ClaveNuevoUsuarioVista vista) {
+    public CambiarClaveController(CambiarClaveVista vista) {
         this.vista = vista;
 
         frame = new JFrame();
