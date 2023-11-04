@@ -296,7 +296,7 @@ GO
 BEGIN TRY
 	BEGIN TRANSACTION TranUsuarios
 		INSERT INTO tbUsuario (usuario, clave, nombres, apellidos, rol)
-		VALUES ('admin', dbo.fHash('admin'), N'admin', N'admin', 'ADMINISTRADOR')
+		VALUES ('admin', dbo.fHash('admin'), N'admin', N'admin', 'Administrador')
 	COMMIT TRANSACTION TranUsuarios
 	PRINT 'Ingresados usuarios.'
 END TRY
