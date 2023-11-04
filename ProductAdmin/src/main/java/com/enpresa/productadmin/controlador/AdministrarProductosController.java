@@ -95,7 +95,7 @@ public class AdministrarProductosController {
             return -1;
         }
 
-        boolean modificar = vista.mostrarConfirmacion(String.format("¿Está seguro de modificar el producto con ID [%d] ?", id));
+        boolean modificar = vista.mostrarConfirmacion(String.format("¿Está seguro de modificar el producto con ID [%d]?", id));
         if (!modificar) {
             return -1;
         }
@@ -115,7 +115,7 @@ public class AdministrarProductosController {
             return -1;
         }
 
-        boolean eliminar = vista.mostrarConfirmacion(String.format("¿Está seguro de eliminar el producto con ID [%d] ?", id));
+        boolean eliminar = vista.mostrarConfirmacion(String.format("¿Está seguro de eliminar el producto con ID [%d]?", id));
         if (!eliminar) {
             return -1;
         }
