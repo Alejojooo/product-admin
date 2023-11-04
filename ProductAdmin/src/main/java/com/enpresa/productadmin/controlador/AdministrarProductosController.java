@@ -21,7 +21,7 @@ public class AdministrarProductosController {
         this.modelo = modelo;
         this.vista = vista;
 
-        mostrarProductos();
+        mostrarRegistros();
         mapearAcciones();
     }
 
@@ -40,7 +40,7 @@ public class AdministrarProductosController {
         vista.mostrarRegistros(getRegistros(productos));
     }
 
-    private void mostrarProductos() {
+    private void mostrarRegistros() {
         mostrarProductos(null);
     }
 
@@ -75,7 +75,7 @@ public class AdministrarProductosController {
         }
         modelo.crear(producto);
         vista.mostrarMensaje("Se ha creado un nuevo producto.");
-        mostrarProductos();
+        mostrarRegistros();
         return 1;
     }
 
@@ -102,7 +102,7 @@ public class AdministrarProductosController {
 
         modelo.modificar(producto);
         vista.mostrarMensaje("Se ha modificado el producto.");
-        mostrarProductos();
+        mostrarRegistros();
         return 1;
     }
 
@@ -122,7 +122,7 @@ public class AdministrarProductosController {
 
         modelo.eliminar(id);
         vista.mostrarMensaje("Se ha eliminado el producto.");
-        mostrarProductos();
+        mostrarRegistros();
         return 1;
     }
 
