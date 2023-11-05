@@ -7,10 +7,10 @@ import com.enpresa.productadmin.controlador.MenuPrincipalController;
 import com.enpresa.productadmin.dao.ProductoDAO;
 import com.enpresa.productadmin.dao.UsuarioDAO;
 import com.enpresa.productadmin.modelo.Usuario;
-import com.enpresa.productadmin.vistas.AdministrarProductosVista;
-import com.enpresa.productadmin.vistas.AdministrarUsuariosVista;
-import com.enpresa.productadmin.vistas.IniciarSesionVista;
-import com.enpresa.productadmin.vistas.MenuPrincipalVista;
+import com.enpresa.productadmin.vistas.gui.AdministrarProductosVista;
+import com.enpresa.productadmin.vistas.gui.AdministrarUsuariosVista;
+import com.enpresa.productadmin.vistas.gui.IniciarSesionVista;
+import com.enpresa.productadmin.vistas.gui.MenuPrincipalVista;
 
 /**
  *

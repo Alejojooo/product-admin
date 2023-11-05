@@ -1,69 +1,33 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
- */
-package com.enpresa.productadmin.vistas;
+package com.enpresa.productadmin.vistas.gui;
 
+import com.enpresa.productadmin.vistas.VistaGraficaConNotificador;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.function.Function;
 import javax.swing.ButtonGroup;
-import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JTextField;
 
 /**
  *
  * @author Oscar
  */
-public class RegistrarCompraVentaVista extends javax.swing.JPanel {
+public class RegistrarCompraVentaVista extends VistaGraficaConNotificador {
 
-    private ButtonGroup buttonGroup;
-    
+    private final ButtonGroup buttonGroup;
+
     /**
      * Creates new form RegistrarCompraVenta
      */
     public RegistrarCompraVentaVista() {
-        initComponents();
-        initButtonGroup();
-    }
-    
-    private void initButtonGroup() {
-        buttonGroup = new ButtonGroup();
-        buttonGroup.add(rbtnCompra);
-        buttonGroup.add(rbtnVenta);
+        this.buttonGroup = new ButtonGroup();
         rbtnCompra.doClick();
+        initComponents();
+        mostrarVista("Registrar Compra/Venta");
     }
 
-    public ButtonGroup getButtonGroup() {
+    private ButtonGroup getButtonGroup() {
         return buttonGroup;
     }
 
-    public JButton getBtnBuscar() {
-        return btnBuscar;
-    }
-
-    public JButton getBtnConfirmar() {
-        return btnConfirmar;
-    }
-
-    public JComboBox<String> getcBoxProducto() {
-        return cBoxProducto;
-    }
-
-    public JTextField getTxtCantidad() {
-        return txtCantidad;
-    }
-
-    public JTextField getTxtId() {
-        return txtId;
-    }
-
-    public JTextField getTxtNombre() {
-        return txtNombre;
-    }
-
-    public JTextField getTxtTotal() {
-        return txtTotal;
-    }
-    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -134,11 +98,13 @@ public class RegistrarCompraVentaVista extends javax.swing.JPanel {
         add(jLabel4);
         jLabel4.setBounds(36, 209, 128, 21);
 
+        getButtonGroup().add(rbtnCompra);
         rbtnCompra.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
         rbtnCompra.setText("Compra");
         add(rbtnCompra);
         rbtnCompra.setBounds(36, 230, 67, 23);
 
+        getButtonGroup().add(rbtnVenta);
         rbtnVenta.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
         rbtnVenta.setText("Venta");
         add(rbtnVenta);
@@ -186,4 +152,23 @@ public class RegistrarCompraVentaVista extends javax.swing.JPanel {
     private javax.swing.JTextField txtNombre;
     private javax.swing.JTextField txtTotal;
     // End of variables declaration//GEN-END:variables
+
+    public Map<String, String> getCampos() {
+        Map<String, String> campos = new HashMap<>();
+        campos.put("producto", cBoxProducto.getSelectedItem().toString());
+
+        return campos;
+    }
+
+    public Map<String, String> getCamposBusqueda() {
+        Map<String, String> campos = new HashMap<>();
+        campos.put("idProducto", txtId.getText());
+        campos.put("nombreProducto", txtNombre.getText());
+
+        return campos;
+    }
+
+    public void mapearAccion(String accion, Function funcion) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
 }

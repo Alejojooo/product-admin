@@ -1,14 +1,14 @@
-package com.enpresa.productadmin.vistas;
+package com.enpresa.productadmin.vistas.gui;
 
+import com.enpresa.productadmin.vistas.VistaGrafica;
 import javax.swing.JFrame;
 
 /**
  *
  * @author jmdub
  */
-public class ClaveNuevoUsuarioVista extends javax.swing.JPanel {
+public class ClaveNuevoUsuarioVista extends VistaGrafica {
 
-    private JFrame frame;
 
     /**
      * Creates new form ContraseñaNuevoUsuario
@@ -17,18 +17,8 @@ public class ClaveNuevoUsuarioVista extends javax.swing.JPanel {
      */
     public ClaveNuevoUsuarioVista(String clave) {
         initComponents();
-        initFrame();
+        mostrarVista("Clave del nuevo usuario");
         labelClave.setText(clave);
-    }
-
-    private void initFrame() {
-        frame = new JFrame("Clave del nuevo usuario");
-        frame.setContentPane(this);
-        frame.pack();
-        frame.setResizable(false);
-        frame.setVisible(true);
-        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        frame.setLocationRelativeTo(null);
     }
 
     /**
@@ -115,7 +105,7 @@ public class ClaveNuevoUsuarioVista extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptarActionPerformed
-        frame.dispose();
+        cerrarVista();
     }//GEN-LAST:event_btnAceptarActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

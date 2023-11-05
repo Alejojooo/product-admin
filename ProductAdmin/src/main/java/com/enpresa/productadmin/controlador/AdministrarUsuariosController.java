@@ -3,7 +3,7 @@ package com.enpresa.productadmin.controlador;
 import com.enpresa.productadmin.dao.UsuarioDAO;
 import com.enpresa.productadmin.modelo.Rol;
 import com.enpresa.productadmin.modelo.Usuario;
-import com.enpresa.productadmin.vistas.AdministrarUsuariosVista;
+import com.enpresa.productadmin.vistas.gui.AdministrarUsuariosVista;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;

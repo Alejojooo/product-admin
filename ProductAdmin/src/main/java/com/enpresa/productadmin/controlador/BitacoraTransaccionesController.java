@@ -4,7 +4,7 @@
  */
 package com.enpresa.productadmin.controlador;
 
-import com.enpresa.productadmin.vistas.BitacoraTransaccionesVista;
+import com.enpresa.productadmin.vistas.gui.BitacoraTransaccionesVista;
 import java.awt.event.ActionEvent;
 import javax.swing.JFrame;
 /**

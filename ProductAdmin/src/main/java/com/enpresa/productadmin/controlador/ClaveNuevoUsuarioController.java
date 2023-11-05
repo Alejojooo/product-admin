@@ -4,7 +4,7 @@
  */
 package com.enpresa.productadmin.controlador;
 
-import com.enpresa.productadmin.vistas.ClaveNuevoUsuarioVista;
+import com.enpresa.productadmin.vistas.gui.ClaveNuevoUsuarioVista;
 import java.awt.event.ActionEvent;
 import javax.swing.JFrame;
 

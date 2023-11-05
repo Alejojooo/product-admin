@@ -1,38 +1,24 @@
-package com.enpresa.productadmin.vistas;
+package com.enpresa.productadmin.vistas.gui;
 
+import com.enpresa.productadmin.vistas.VistaGraficaDeRegistros;
 import java.awt.event.ActionEvent;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
-import javax.swing.table.DefaultTableModel;
 
 /**
  *
  * @author Oscar
  */
-public class AdministrarProductosVista extends javax.swing.JPanel implements Vista {
-
-    private JFrame frame;
+public class AdministrarProductosVista extends VistaGraficaDeRegistros {
 
     /**
      * Creates new form AdministrarProductos
      */
     public AdministrarProductosVista() {
         initComponents();
-        initFrame();
-    }
-
-    private void initFrame() {
-        frame = new JFrame("Administrar Productos");
-        frame.setContentPane(this);
-        frame.pack();
-        frame.setResizable(false);
-        frame.setVisible(true);
-        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        frame.setLocationRelativeTo(null);
+        mostrarVista("Administrar Productos");
     }
 
     /**
@@ -213,7 +199,6 @@ public class AdministrarProductosVista extends javax.swing.JPanel implements Vis
     private javax.swing.JTextField txtPrecioVenta;
     // End of variables declaration//GEN-END:variables
 
-    @Override
     public Map<String, String> getCampos() {
         Map<String, String> campos = new HashMap<>();
         campos.put("id", txtId.getText());
@@ -226,50 +211,10 @@ public class AdministrarProductosVista extends javax.swing.JPanel implements Vis
         return campos;
     }
 
-    @Override
     public void mostrarRegistros(List<String[]> productos) {
-        DefaultTableModel modelo = (DefaultTableModel) tbProductos.getModel();
-        modelo.setNumRows(0);
-        for (String[] producto : productos) {
-            modelo.addRow(producto);
-        }
+        mostrarRegistrosEnTabla(tbProductos, productos);
     }
 
-    @Override
-    public void mostrarMensaje(String mensaje) {
-        JOptionPane.showMessageDialog(frame,
-                mensaje,
-                "Aviso",
-                JOptionPane.INFORMATION_MESSAGE);
-    }
-
-    @Override
-    public void mostrarError(String mensaje) {
-        JOptionPane.showMessageDialog(frame,
-                mensaje,
-                "Error",
-                JOptionPane.ERROR_MESSAGE);
-    }
-
-    @Override
-    public void mostrarAdvertencia(String mensaje) {
-        JOptionPane.showMessageDialog(frame,
-                mensaje,
-                "Advertencia",
-                JOptionPane.WARNING_MESSAGE);
-    }
-
-    @Override
-    public boolean mostrarConfirmacion(String mensaje) {
-        int opcion = JOptionPane.showConfirmDialog(frame,
-                mensaje,
-                "Confirmación",
-                JOptionPane.YES_NO_OPTION,
-                JOptionPane.WARNING_MESSAGE);
-        return opcion == JOptionPane.YES_OPTION;
-    }
-
-    @Override
     public void mapearAccion(String accion, Function funcion) {
         switch (accion) {
             case "Agregar" -> {
@@ -302,6 +247,9 @@ public class AdministrarProductosVista extends javax.swing.JPanel implements Vis
                     if (exitCode > 0) {
                     }
                 });
+            }
+            default -> {
+                mostrarError("Operación no implementada.");
             }
         }
     }

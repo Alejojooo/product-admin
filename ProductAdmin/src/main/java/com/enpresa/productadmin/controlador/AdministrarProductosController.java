@@ -2,7 +2,7 @@ package com.enpresa.productadmin.controlador;
 
 import com.enpresa.productadmin.dao.ProductoDAO;
 import com.enpresa.productadmin.modelo.Producto;
-import com.enpresa.productadmin.vistas.AdministrarProductosVista;
+import com.enpresa.productadmin.vistas.gui.AdministrarProductosVista;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;

@@ -4,7 +4,7 @@
  */
 package com.enpresa.productadmin.controlador;
 
-import com.enpresa.productadmin.vistas.AcercaDeVista;
+import com.enpresa.productadmin.vistas.gui.AcercaDeVista;
 import java.awt.event.ActionEvent;
 import javax.swing.JFrame;
 

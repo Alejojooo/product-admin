@@ -1,4 +1,4 @@
-package com.enpresa.productadmin.vistas;
+package com.enpresa.productadmin.vistas.gui;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license

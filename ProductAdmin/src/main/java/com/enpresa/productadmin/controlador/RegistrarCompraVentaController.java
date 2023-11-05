@@ -5,8 +5,7 @@
 package com.enpresa.productadmin.controlador;
 
 import com.enpresa.productadmin.dao.OperacionDAO;
-import com.enpresa.productadmin.vistas.RegistrarCompraVentaVista;
-import javax.swing.JFrame;
+import com.enpresa.productadmin.vistas.gui.RegistrarCompraVentaVista;
 
 /**
  *
@@ -16,26 +15,20 @@ public class RegistrarCompraVentaController {
     
     private final OperacionDAO modelo;
     private final RegistrarCompraVentaVista vista;
-    private final JFrame frame;
 
     public RegistrarCompraVentaController(OperacionDAO modelo, RegistrarCompraVentaVista vista) {
         this.modelo = modelo;
         this.vista = vista;
-
-        frame = new JFrame();
-        frame.setContentPane(vista);
-        frame.pack();
-        frame.setResizable(false);
-        frame.setVisible(true);
-        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        frame.setLocationRelativeTo(null);
-        addActionListeners();
     }
 
     private void addActionListeners() {
     }
     
     private void buscarProducto() {
+        
+    }
+    
+    private void agregarOperacion() {
         
     }
     

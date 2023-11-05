@@ -1,43 +1,25 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
- */
-package com.enpresa.productadmin.vistas;
+package com.enpresa.productadmin.vistas.gui;
 
 import com.enpresa.productadmin.modelo.Rol;
+import com.enpresa.productadmin.vistas.VistaGraficaDeRegistros;
 import java.awt.event.ActionEvent;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
-import javax.swing.table.DefaultTableModel;
 
 /**
  *
  * @author Oscar
  */
-public class AdministrarUsuariosVista extends javax.swing.JPanel implements Vista {
-
-    private JFrame frame;
+public class AdministrarUsuariosVista extends VistaGraficaDeRegistros {
 
     /**
      * Creates new form AdministrarProductos
      */
     public AdministrarUsuariosVista() {
         initComponents();
-        initFrame();
-    }
-
-    private void initFrame() {
-        frame = new JFrame("Administrar Productos");
-        frame.setContentPane(this);
-        frame.pack();
-        frame.setResizable(false);
-        frame.setVisible(true);
-        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        frame.setLocationRelativeTo(null);
+        mostrarVista("Administrar Usuarios");
     }
 
     /**
@@ -198,7 +180,6 @@ public class AdministrarUsuariosVista extends javax.swing.JPanel implements Vist
     private javax.swing.JTextField txtUsuario;
     // End of variables declaration//GEN-END:variables
 
-    @Override
     public Map<String, String> getCampos() {
         Map<String, String> campos = new HashMap<>();
         campos.put("id", txtId.getText());
@@ -210,50 +191,10 @@ public class AdministrarUsuariosVista extends javax.swing.JPanel implements Vist
         return campos;
     }
 
-    @Override
     public void mostrarRegistros(List<String[]> usuarios) {
-        DefaultTableModel modelo = (DefaultTableModel) tbUsuarios.getModel();
-        modelo.setNumRows(0);
-        for (String[] usuario : usuarios) {
-            modelo.addRow(usuario);
-        }
+        mostrarRegistrosEnTabla(tbUsuarios, usuarios);
     }
 
-    @Override
-    public void mostrarMensaje(String mensaje) {
-        JOptionPane.showMessageDialog(frame,
-                mensaje,
-                "Aviso",
-                JOptionPane.INFORMATION_MESSAGE);
-    }
-
-    @Override
-    public void mostrarError(String mensaje) {
-        JOptionPane.showMessageDialog(frame,
-                mensaje,
-                "Error",
-                JOptionPane.ERROR_MESSAGE);
-    }
-
-    @Override
-    public void mostrarAdvertencia(String mensaje) {
-        JOptionPane.showMessageDialog(frame,
-                mensaje,
-                "Advertencia",
-                JOptionPane.WARNING_MESSAGE);
-    }
-
-    @Override
-    public boolean mostrarConfirmacion(String mensaje) {
-        int opcion = JOptionPane.showConfirmDialog(frame,
-                mensaje,
-                "Confirmación",
-                JOptionPane.YES_NO_OPTION,
-                JOptionPane.WARNING_MESSAGE);
-        return opcion == JOptionPane.YES_OPTION;
-    }
-
-    @Override
     public void mapearAccion(String accion, Function funcion) {
         switch (accion) {
             case "Agregar" -> {
@@ -290,7 +231,7 @@ public class AdministrarUsuariosVista extends javax.swing.JPanel implements Vist
             }
         }
     }
-    
+
     private void mostrarClaveNuevoUsuario(String clave) {
         ClaveNuevoUsuarioVista claveNuevoUsuarioVista = new ClaveNuevoUsuarioVista(clave);
     }

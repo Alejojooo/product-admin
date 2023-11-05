@@ -1,7 +1,7 @@
 package com.enpresa.productadmin.controlador;
 
 import com.enpresa.productadmin.ProductAdmin;
-import com.enpresa.productadmin.vistas.MenuPrincipalVista;
+import com.enpresa.productadmin.vistas.gui.MenuPrincipalVista;
 import java.awt.event.ActionEvent;
 import javax.swing.JFrame;
 
