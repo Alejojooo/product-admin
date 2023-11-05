@@ -162,11 +162,9 @@ public class RegistrarCompraVentaVista extends VistaGraficaConRegistros {
         String productoComoString = (String) cBoxProducto.getSelectedItem();
         Pattern patron = Pattern.compile("\\[(\\d+)\\]");
         Matcher matcher = patron.matcher(productoComoString);
-        String idProducto = null;
+        String idProducto = "";
         if (matcher.find()) {
             idProducto = matcher.group(1);
-        } else {
-            idProducto = "";
         }
 
         campos.put("idProducto", idProducto);
