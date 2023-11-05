@@ -1,7 +1,7 @@
 package com.enpresa.productadmin.controlador;
 
 import com.enpresa.productadmin.ProductAdmin;
-import com.enpresa.productadmin.dao.UsuarioDAO;
+import com.enpresa.productadmin.modelo.dao.UsuarioDAO;
 import com.enpresa.productadmin.vistas.gui.IniciarSesionVista;
 import java.awt.event.ActionEvent;
 import javax.swing.JFrame;

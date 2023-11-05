@@ -1,6 +1,6 @@
 package com.enpresa.productadmin.controlador;
 
-import com.enpresa.productadmin.dao.UsuarioDAO;
+import com.enpresa.productadmin.modelo.dao.UsuarioDAO;
 import com.enpresa.productadmin.modelo.Rol;
 import com.enpresa.productadmin.modelo.Usuario;
 import com.enpresa.productadmin.vistas.gui.AdministrarUsuariosVista;

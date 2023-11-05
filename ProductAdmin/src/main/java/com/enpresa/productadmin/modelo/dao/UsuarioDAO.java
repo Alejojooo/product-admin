@@ -1,4 +1,4 @@
-package com.enpresa.productadmin.dao;
+package com.enpresa.productadmin.modelo.dao;
 
 import com.enpresa.productadmin.modelo.Rol;
 import com.enpresa.productadmin.modelo.Usuario;

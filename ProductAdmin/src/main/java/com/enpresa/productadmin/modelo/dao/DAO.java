@@ -1,4 +1,4 @@
-package com.enpresa.productadmin.dao;
+package com.enpresa.productadmin.modelo.dao;
 
 import java.util.List;
 import java.util.Map;

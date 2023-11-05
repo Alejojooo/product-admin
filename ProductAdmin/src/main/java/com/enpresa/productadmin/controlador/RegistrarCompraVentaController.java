@@ -4,7 +4,7 @@
  */
 package com.enpresa.productadmin.controlador;
 
-import com.enpresa.productadmin.dao.OperacionDAO;
+import com.enpresa.productadmin.modelo.dao.OperacionDAO;
 import com.enpresa.productadmin.vistas.gui.RegistrarCompraVentaVista;
 
 /**

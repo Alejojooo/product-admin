@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package com.enpresa.productadmin.dao;
+package com.enpresa.productadmin.modelo.dao;
 
 import com.enpresa.productadmin.modelo.Operacion;
 import java.util.List;
