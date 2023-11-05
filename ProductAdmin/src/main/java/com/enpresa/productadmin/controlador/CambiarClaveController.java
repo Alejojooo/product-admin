@@ -1,4 +1,6 @@
 package com.enpresa.productadmin.controlador;
+
+import com.enpresa.productadmin.modelo.dao.UsuarioDAO;
 import com.enpresa.productadmin.vistas.gui.CambiarClaveVista;
 import javax.swing.JFrame;
 
@@ -7,22 +9,14 @@ import javax.swing.JFrame;
  * @author jmdub
  */
 public class CambiarClaveController {
+
+    private final UsuarioDAO modelo;
     private final CambiarClaveVista vista;
-    private final JFrame frame;
 
-    public CambiarClaveController(CambiarClaveVista vista) {
+    public CambiarClaveController(UsuarioDAO modelo, CambiarClaveVista vista) {
+        this.modelo = modelo;
         this.vista = vista;
-
-        frame = new JFrame();
-        frame.setContentPane(vista);
-        frame.pack();
-        frame.setResizable(false);
-        frame.setVisible(true);
-        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        frame.setLocationRelativeTo(null);
-        addActionListeners();
     }
-
-    private void addActionListeners() {
-    }
+    
+    
 }

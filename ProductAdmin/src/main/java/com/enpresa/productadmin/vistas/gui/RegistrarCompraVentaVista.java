@@ -2,7 +2,9 @@ package com.enpresa.productadmin.vistas.gui;
 
 import com.enpresa.productadmin.modelo.Producto;
 import com.enpresa.productadmin.utils.Mapper;
+import com.enpresa.productadmin.vistas.MapearAccion;
 import com.enpresa.productadmin.vistas.VistaGraficaConRegistros;
+import java.awt.event.ActionEvent;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -15,7 +17,7 @@ import javax.swing.ButtonGroup;
  *
  * @author Oscar
  */
-public class RegistrarCompraVentaVista extends VistaGraficaConRegistros {
+public class RegistrarCompraVentaVista extends VistaGraficaConRegistros implements MapearAccion {
 
     private final ButtonGroup buttonGroup;
 
@@ -186,7 +188,22 @@ public class RegistrarCompraVentaVista extends VistaGraficaConRegistros {
         mostrarRegistrosEnLista(cBoxProducto, productos);
     }
 
+    @Override
     public void mapearAccion(String accion, Function funcion) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        switch (accion) {
+            case "Agregar" -> {
+                btnConfirmar.addActionListener((ActionEvent e) -> {
+                    funcion.apply(null);
+                });
+            }
+            case "Buscar" -> {
+                btnBuscar.addActionListener((ActionEvent e) -> {
+                    funcion.apply(null);
+                });
+            }
+            default -> {
+                mostrarError("Operacion no implementada.");
+            }
+        }
     }
 }

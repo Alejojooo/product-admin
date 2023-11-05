@@ -1,5 +1,6 @@
 package com.enpresa.productadmin.vistas.gui;
 
+import com.enpresa.productadmin.vistas.MapearAccion;
 import com.enpresa.productadmin.vistas.VistaGraficaConRegistros;
 import java.awt.event.ActionEvent;
 import java.util.HashMap;
@@ -11,7 +12,7 @@ import java.util.function.Function;
  *
  * @author Oscar
  */
-public class AdministrarProductosVista extends VistaGraficaConRegistros {
+public class AdministrarProductosVista extends VistaGraficaConRegistros implements MapearAccion {
 
     /**
      * Creates new form AdministrarProductos
@@ -214,6 +215,7 @@ public class AdministrarProductosVista extends VistaGraficaConRegistros {
         mostrarRegistrosEnTabla(tbProductos, productos);
     }
 
+    @Override
     public void mapearAccion(String accion, Function funcion) {
         switch (accion) {
             case "Agregar" -> {
@@ -242,9 +244,7 @@ public class AdministrarProductosVista extends VistaGraficaConRegistros {
             }
             case "Buscar" -> {
                 btnBuscar.addActionListener((ActionEvent e) -> {
-                    int exitCode = (int) funcion.apply(null);
-                    if (exitCode > 0) {
-                    }
+                    funcion.apply(null);
                 });
             }
             default -> {

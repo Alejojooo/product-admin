@@ -24,11 +24,17 @@ public class RegistrarCompraVentaController {
         this.vista = vista;
     }
 
-    private void buscarProducto() {
+    private void mapearAcciones() {
+        vista.mapearAccion("Agregar", (e) -> crearOperacion());
+        vista.mapearAccion("Buscar", (e) -> buscarProducto());
+    }
+
+    private int buscarProducto() {
         Map<String, String> camposBusqueda = vista.getCamposBusqueda();
         ProductoDAO productoDAO = new ProductoDAO();
         List<Producto> productos = productoDAO.buscar(camposBusqueda);
         vista.mostrarRegistros(productos);
+        return 1;
     }
 
     private int crearOperacion() {
