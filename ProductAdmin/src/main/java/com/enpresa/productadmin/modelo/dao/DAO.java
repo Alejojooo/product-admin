@@ -6,17 +6,19 @@ import java.util.Map;
 /**
  *
  * @author Alejo
- * @param <Entidad>
+ * @param <T>
  */
-public interface DAO<Entidad> {
+public interface DAO<T> {
 
-    void crear(Entidad e);
+    void crear(T entidad);
 
-    void modificar(Entidad e);
+    void modificar(T entidad);
 
     void eliminar(int id);
 
-    List<Entidad> buscar(Map<String, String> campos);
+    List<T> buscar(Map<String, String> campos);
 
-    List<Entidad> consultarTodos();
+    T consultarUno(int id);
+
+    List<T> consultarTodos();
 }

@@ -59,12 +59,16 @@ public class RegistrarCompraVentaController {
             }
             // Obtener cantidad
             cantidad = comprobarCantidad(campos.get("cantidad"));
-            
+            Integer productoCantidad = comprobarCantidadConProducto(cantidad, producto);
+
             operacion.setNombreProducto(nombreProducto);
             operacion.setTipoOperacion(tipoOperacion);
             operacion.setPrecio(precio);
             operacion.setCantidad(cantidad);
-            
+
+            producto.setCantidad(productoCantidad);
+            productoDAO.modificar(producto);
+
             modelo.crear(operacion);
             vista.mostrarMensaje("Se ha registrado la operación correctamente.");
             return 1;
@@ -92,7 +96,7 @@ public class RegistrarCompraVentaController {
         Integer cantidad = null;
         try {
             cantidad = Integer.valueOf(cantidadString);
-            if (cantidad < 0) {
+            if (cantidad <= 0) {
                 throw new NumberFormatException();
             }
         } catch (NumberFormatException e) {
@@ -100,6 +104,15 @@ public class RegistrarCompraVentaController {
             throw new OperacionInvalidaException();
         }
         return cantidad;
+    }
+
+    private Integer comprobarCantidadConProducto(Integer cantidad, Producto producto) throws OperacionInvalidaException {
+        Integer nuevaCantidad = null;
+        Integer productoCantidad = producto.getCantidad();
+        if (cantidad < 0 && productoCantidad < Math.abs(cantidad)) {
+            throw new OperacionInvalidaException();
+        }
+        return cantidad + productoCantidad;
     }
 }
 

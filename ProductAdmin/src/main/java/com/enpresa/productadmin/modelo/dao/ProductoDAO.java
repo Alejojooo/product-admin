@@ -96,6 +96,7 @@ public class ProductoDAO implements DAO<Producto> {
         return productos;
     }
 
+    @Override
     public Producto consultarUno(int id) {
         Producto producto = new Producto();
         String sql = "{CALL dbo.pConsultarProducto(?)}";

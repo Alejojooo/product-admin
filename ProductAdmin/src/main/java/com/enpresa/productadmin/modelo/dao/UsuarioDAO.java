@@ -100,6 +100,7 @@ public class UsuarioDAO implements DAO<Usuario> {
         return usuarios;
     }
     
+    @Override
     public Usuario consultarUno(int id) {
         Usuario usuario = new Usuario();
         String sql = "{CALL dbo.pConsultarUsuario(?)}";
