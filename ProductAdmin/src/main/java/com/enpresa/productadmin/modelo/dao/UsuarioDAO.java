@@ -73,7 +73,31 @@ public class UsuarioDAO implements DAO<Usuario> {
     
     @Override
     public List<Usuario> buscar(Map<String, String> campos) {
-        return null;
+        List<Usuario> usuarios = new ArrayList<>();
+        String sql = "{CALL dbo.pBuscarUsuario(?, ?, ?, ?, ?)}";
+
+        try (Connection c = new Conexion().establecerConexion(); CallableStatement cs = c.prepareCall(sql)) {
+            cs.setString(1, campos.get("id"));
+            cs.setString(2, campos.get("usuario"));
+            cs.setNString(3, campos.get("nombres"));
+            cs.setNString(4, campos.get("apellidos"));
+            cs.setString(5, campos.get("rol"));
+
+            ResultSet rs = cs.executeQuery();
+            while (rs.next()) {
+                Usuario usuario = new Usuario();
+                usuario.setId(rs.getInt(1));
+                usuario.setUsuario(rs.getString(2));
+                usuario.setNombres(rs.getNString(3));
+                usuario.setApellidos(rs.getNString(4));
+                usuario.setRol(Rol.valueOf(rs.getNString(5)));
+
+                usuarios.add(usuario);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return usuarios;
     }
     
     public Usuario consultarUno(int id) {

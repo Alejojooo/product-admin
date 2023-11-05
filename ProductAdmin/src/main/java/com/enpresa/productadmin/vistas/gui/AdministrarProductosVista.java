@@ -1,6 +1,6 @@
 package com.enpresa.productadmin.vistas.gui;
 
-import com.enpresa.productadmin.vistas.VistaGraficaDeRegistros;
+import com.enpresa.productadmin.vistas.VistaGraficaConRegistros;
 import java.awt.event.ActionEvent;
 import java.util.HashMap;
 import java.util.List;
@@ -11,7 +11,7 @@ import java.util.function.Function;
  *
  * @author Oscar
  */
-public class AdministrarProductosVista extends VistaGraficaDeRegistros {
+public class AdministrarProductosVista extends VistaGraficaConRegistros {
 
     /**
      * Creates new form AdministrarProductos

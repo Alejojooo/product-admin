@@ -80,20 +80,41 @@ public class ProductoDAO implements DAO<Producto> {
 
             ResultSet rs = cs.executeQuery();
             while (rs.next()) {
-                Producto productoEncontrado = new Producto();
-                productoEncontrado.setId(rs.getInt(1));
-                productoEncontrado.setNombre(rs.getNString(2));
-                productoEncontrado.setCantidad(rs.getInt(3));
-                productoEncontrado.setPrecioCompra(rs.getBigDecimal(4));
-                productoEncontrado.setPrecioVenta(rs.getBigDecimal(5));
-                productoEncontrado.setDescripcion(rs.getNString(6));
-                
-                productos.add(productoEncontrado);
+                Producto producto = new Producto();
+                producto.setId(rs.getInt(1));
+                producto.setNombre(rs.getNString(2));
+                producto.setCantidad(rs.getInt(3));
+                producto.setPrecioCompra(rs.getBigDecimal(4));
+                producto.setPrecioVenta(rs.getBigDecimal(5));
+                producto.setDescripcion(rs.getNString(6));
+
+                productos.add(producto);
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return productos;
+    }
+
+    public Producto consultarUno(int id) {
+        Producto producto = new Producto();
+        String sql = "{CALL dbo.pConsultarProducto(?)}";
+
+        try (Connection c = new Conexion().establecerConexion(); CallableStatement cs = c.prepareCall(sql)) {
+            cs.setInt(1, id);
+            ResultSet rs = cs.executeQuery();
+            if (rs.next()) {
+                producto.setId(rs.getInt(1));
+                producto.setNombre(rs.getNString(2));
+                producto.setCantidad(rs.getInt(3));
+                producto.setPrecioCompra(rs.getBigDecimal(4));
+                producto.setPrecioVenta(rs.getBigDecimal(5));
+                producto.setDescripcion(rs.getNString(6));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return producto;
     }
 
     @Override
@@ -111,7 +132,7 @@ public class ProductoDAO implements DAO<Producto> {
                 producto.setPrecioCompra(rs.getBigDecimal(4));
                 producto.setPrecioVenta(rs.getBigDecimal(5));
                 producto.setDescripcion(rs.getNString(6));
-                
+
                 productos.add(producto);
             }
         } catch (SQLException e) {

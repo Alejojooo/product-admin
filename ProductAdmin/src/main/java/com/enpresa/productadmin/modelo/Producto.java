@@ -65,4 +65,14 @@ public class Producto {
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
     }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append(String.format("[%d] ", id));
+        sb.append(nombre);
+        return sb.toString();
+    }
+    
+    
 }

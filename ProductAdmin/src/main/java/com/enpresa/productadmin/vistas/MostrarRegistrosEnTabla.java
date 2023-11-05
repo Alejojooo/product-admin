@@ -7,7 +7,7 @@ import javax.swing.JTable;
  *
  * @author Alejo
  */
-public interface MostrarRegistros {
+public interface MostrarRegistrosEnTabla {
 
     void mostrarRegistrosEnTabla(JTable tabla, List<String[]> registros);
 }

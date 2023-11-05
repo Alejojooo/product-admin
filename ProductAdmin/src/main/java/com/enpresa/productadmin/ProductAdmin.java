@@ -4,13 +4,16 @@ import com.enpresa.productadmin.controlador.AdministrarProductosController;
 import com.enpresa.productadmin.controlador.AdministrarUsuariosController;
 import com.enpresa.productadmin.controlador.InicioDeSesionController;
 import com.enpresa.productadmin.controlador.MenuPrincipalController;
+import com.enpresa.productadmin.controlador.RegistrarCompraVentaController;
 import com.enpresa.productadmin.modelo.dao.ProductoDAO;
 import com.enpresa.productadmin.modelo.dao.UsuarioDAO;
 import com.enpresa.productadmin.modelo.Usuario;
+import com.enpresa.productadmin.modelo.dao.OperacionDAO;
 import com.enpresa.productadmin.vistas.gui.AdministrarProductosVista;
 import com.enpresa.productadmin.vistas.gui.AdministrarUsuariosVista;
 import com.enpresa.productadmin.vistas.gui.IniciarSesionVista;
 import com.enpresa.productadmin.vistas.gui.MenuPrincipalVista;
+import com.enpresa.productadmin.vistas.gui.RegistrarCompraVentaVista;
 
 /**
  *
@@ -43,7 +46,9 @@ public class ProductAdmin {
     }
 
     public static void goToRegistrarCompraVenta() {
-        
+        OperacionDAO modelo = new OperacionDAO();
+        RegistrarCompraVentaVista vista = new RegistrarCompraVentaVista();
+        RegistrarCompraVentaController controller = new RegistrarCompraVentaController(modelo, vista);
     }
 
     public static void goToAdministrarUsuarios() {

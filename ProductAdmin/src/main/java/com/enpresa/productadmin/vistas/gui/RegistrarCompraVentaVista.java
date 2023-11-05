@@ -1,16 +1,21 @@
 package com.enpresa.productadmin.vistas.gui;
 
-import com.enpresa.productadmin.vistas.VistaGraficaConNotificador;
+import com.enpresa.productadmin.modelo.Producto;
+import com.enpresa.productadmin.utils.Mapper;
+import com.enpresa.productadmin.vistas.VistaGraficaConRegistros;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javax.swing.ButtonGroup;
 
 /**
  *
  * @author Oscar
  */
-public class RegistrarCompraVentaVista extends VistaGraficaConNotificador {
+public class RegistrarCompraVentaVista extends VistaGraficaConRegistros {
 
     private final ButtonGroup buttonGroup;
 
@@ -133,7 +138,6 @@ public class RegistrarCompraVentaVista extends VistaGraficaConNotificador {
         btnConfirmar.setBounds(228, 290, 100, 27);
     }// </editor-fold>//GEN-END:initComponents
 
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBuscar;
     private javax.swing.JButton btnConfirmar;
@@ -155,17 +159,33 @@ public class RegistrarCompraVentaVista extends VistaGraficaConNotificador {
 
     public Map<String, String> getCampos() {
         Map<String, String> campos = new HashMap<>();
-        campos.put("producto", cBoxProducto.getSelectedItem().toString());
+        String productoComoString = (String) cBoxProducto.getSelectedItem();
+        Pattern patron = Pattern.compile("\\[(\\d+)\\]");
+        Matcher matcher = patron.matcher(productoComoString);
+        String idProducto = null;
+        if (matcher.find()) {
+            idProducto = matcher.group(1);
+        } else {
+            idProducto = "";
+        }
+
+        campos.put("idProducto", idProducto);
+        campos.put("tipoOperacion", buttonGroup.getSelection().toString());
+        campos.put("cantidad", txtCantidad.getText());
 
         return campos;
     }
 
     public Map<String, String> getCamposBusqueda() {
-        Map<String, String> campos = new HashMap<>();
-        campos.put("idProducto", txtId.getText());
-        campos.put("nombreProducto", txtNombre.getText());
+        Map<String, String> campos = Mapper.getMap(Producto.class);
+        campos.put("id", txtId.getText());
+        campos.put("nombre", txtNombre.getText());
 
         return campos;
+    }
+
+    public void mostrarRegistros(List<Producto> productos) {
+        mostrarRegistrosEnLista(cBoxProducto, productos);
     }
 
     public void mapearAccion(String accion, Function funcion) {

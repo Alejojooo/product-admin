@@ -41,8 +41,8 @@ CREATE TABLE tbOperacion (
 	idOperacion INT PRIMARY KEY IDENTITY(1, 1),
 	nombreProducto NVARCHAR(100) NOT NULL,
 	tipoOperacion VARCHAR(10) NOT NULL,
-	cantidad INT NOT NULL,
-	precio DECIMAL(10, 2) NOT NULL
+	precio DECIMAL(10, 2) NOT NULL,
+	cantidad INT NOT NULL
 )
 
 CREATE TABLE tbBitacoraTransacciones (
@@ -172,7 +172,7 @@ END
 GO
 
 CREATE PROCEDURE pBuscarUsuario
-	@IDUsuario INT,
+	@IDUsuario VARCHAR(MAX),
 	@Usuario VARCHAR(100),
 	@Nombres NVARCHAR(100),
 	@Apellidos NVARCHAR(100),
@@ -252,11 +252,11 @@ END
 GO
 
 CREATE PROCEDURE pBuscarProducto
-	@IDProducto VARCHAR(100),
+	@IDProducto VARCHAR(MAX),
 	@Nombre NVARCHAR(100),
-	@Cantidad VARCHAR(100),
-	@PrecioCompra VARCHAR(100),
-	@PrecioVenta VARCHAR(100),
+	@Cantidad VARCHAR(MAX),
+	@PrecioCompra VARCHAR(MAX),
+	@PrecioVenta VARCHAR(MAX),
 	@Descripcion NVARCHAR(250)
 AS BEGIN
 	SELECT *
@@ -270,14 +270,23 @@ AS BEGIN
 END
 GO
 
+CREATE PROCEDURE pConsultarProducto
+	@IDProducto INT
+AS BEGIN
+	SELECT *
+	FROM vProductos
+	WHERE [ID Producto] = @IDProducto
+END
+GO
+
 CREATE PROCEDURE pRegistrarOperacion
 	@NombreProducto NVARCHAR(100),
 	@TipoOperacion VARCHAR(10),
-	@Cantidad INT,
-	@Precio DECIMAL(10, 2)
+	@Precio DECIMAL(10, 2),
+	@Cantidad INT
 AS BEGIN
-	INSERT INTO tbOperacion (nombreProducto, tipoOperacion, cantidad, precio)
-	VALUES (@NombreProducto, @TipoOperacion, @Cantidad, @Precio)
+	INSERT INTO tbOperacion (nombreProducto, tipoOperacion, precio, cantidad)
+	VALUES (@NombreProducto, @TipoOperacion, @Precio, @Cantidad)
 END
 GO
 
