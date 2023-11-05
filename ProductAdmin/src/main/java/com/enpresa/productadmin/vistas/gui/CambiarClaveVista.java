@@ -1,14 +1,12 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
- */
 package com.enpresa.productadmin.vistas.gui;
+
+import com.enpresa.productadmin.vistas.VistaGraficaConNotificador;
 
 /**
  *
  * @author jmdub
  */
-public class CambiarClaveVista extends javax.swing.JPanel {
+public class CambiarClaveVista extends VistaGraficaConNotificador {
 
     /**
      * Creates new form CambiarPassword

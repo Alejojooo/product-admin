@@ -18,7 +18,6 @@ public class AdministrarProductosVista extends VistaGraficaConRegistros {
      */
     public AdministrarProductosVista() {
         initComponents();
-        mostrarVista("Administrar Productos");
     }
 
     /**

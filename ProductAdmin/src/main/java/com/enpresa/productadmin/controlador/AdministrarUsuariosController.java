@@ -24,6 +24,7 @@ public class AdministrarUsuariosController {
         this.modelo = modelo;
         this.vista = vista;
 
+        vista.mostrarVista("Administrar Usuarios");
         mostrarRegistros();
         mapearAcciones();
     }

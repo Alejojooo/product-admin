@@ -19,7 +19,6 @@ public class AdministrarUsuariosVista extends VistaGraficaConRegistros {
      */
     public AdministrarUsuariosVista() {
         initComponents();
-        mostrarVista("Administrar Usuarios");
     }
 
     /**
@@ -233,7 +232,8 @@ public class AdministrarUsuariosVista extends VistaGraficaConRegistros {
     }
 
     private void mostrarClaveNuevoUsuario(String clave) {
-        ClaveNuevoUsuarioVista claveNuevoUsuarioVista = new ClaveNuevoUsuarioVista(clave);
+        ClaveNuevoUsuarioVista claveNuevoUsuarioVista = new ClaveNuevoUsuarioVista();
+        claveNuevoUsuarioVista.mostrarVista(clave);
     }
 
     private void seleccionarUsuario() {

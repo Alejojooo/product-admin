@@ -21,6 +21,7 @@ public class AdministrarProductosController {
         this.modelo = modelo;
         this.vista = vista;
 
+        vista.mostrarVista("Administrar Productos");
         mostrarRegistros();
         mapearAcciones();
     }

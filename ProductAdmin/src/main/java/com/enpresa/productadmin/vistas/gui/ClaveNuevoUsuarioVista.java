@@ -9,15 +9,18 @@ import javax.swing.JFrame;
  */
 public class ClaveNuevoUsuarioVista extends VistaGrafica {
 
-
     /**
      * Creates new form ContraseñaNuevoUsuario
      *
      * @param clave
      */
-    public ClaveNuevoUsuarioVista(String clave) {
+    public ClaveNuevoUsuarioVista() {
         initComponents();
-        mostrarVista("Clave del nuevo usuario");
+    }
+
+    @Override
+    public void mostrarVista(String clave) {
+        super.mostrarVista("Clave del nuevo usuario");
         labelClave.setText(clave);
     }
 
