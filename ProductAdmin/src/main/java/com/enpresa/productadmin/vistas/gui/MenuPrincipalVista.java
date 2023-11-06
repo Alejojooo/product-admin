@@ -128,11 +128,6 @@ public class MenuPrincipalVista extends VistaGraficaConNotificador {
 
         btnSalir.setText("Salir de la Aplicación");
         btnSalir.setPreferredSize(new java.awt.Dimension(150, 30));
-        btnSalir.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSalirActionPerformed(evt);
-            }
-        });
 
         jTextArea1.setColumns(20);
         jTextArea1.setRows(5);
@@ -323,10 +318,6 @@ public class MenuPrincipalVista extends VistaGraficaConNotificador {
                     .addComponent(btnManualUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
     }// </editor-fold>//GEN-END:initComponents
-
-    private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
-        cerrarVista();
-    }//GEN-LAST:event_btnSalirActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAcercaDe;

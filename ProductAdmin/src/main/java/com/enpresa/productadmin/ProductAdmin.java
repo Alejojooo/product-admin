@@ -2,6 +2,7 @@ package com.enpresa.productadmin;
 
 import com.enpresa.productadmin.controlador.AdministrarProductosController;
 import com.enpresa.productadmin.controlador.AdministrarUsuariosController;
+import com.enpresa.productadmin.controlador.CambiarClaveController;
 import com.enpresa.productadmin.controlador.InicioDeSesionController;
 import com.enpresa.productadmin.controlador.MenuPrincipalController;
 import com.enpresa.productadmin.controlador.RegistrarCompraVentaController;
@@ -9,8 +10,10 @@ import com.enpresa.productadmin.modelo.dao.ProductoDAO;
 import com.enpresa.productadmin.modelo.dao.UsuarioDAO;
 import com.enpresa.productadmin.modelo.Usuario;
 import com.enpresa.productadmin.modelo.dao.OperacionDAO;
+import com.enpresa.productadmin.vistas.gui.AcercaDeVista;
 import com.enpresa.productadmin.vistas.gui.AdministrarProductosVista;
 import com.enpresa.productadmin.vistas.gui.AdministrarUsuariosVista;
+import com.enpresa.productadmin.vistas.gui.CambiarClaveVista;
 import com.enpresa.productadmin.vistas.gui.IniciarSesionVista;
 import com.enpresa.productadmin.vistas.gui.MenuPrincipalVista;
 import com.enpresa.productadmin.vistas.gui.RegistrarCompraVentaVista;
@@ -27,11 +30,16 @@ public class ProductAdmin {
         goToIniciarSesion();
     }
     
-    // Podría hacer los métodos públicos y estáticos también
     public static void goToIniciarSesion() {
         UsuarioDAO modelo = new UsuarioDAO();
         IniciarSesionVista vista = new IniciarSesionVista();
         InicioDeSesionController controller = new InicioDeSesionController(modelo, vista);
+    }
+    
+    public static void goToCambiarClave() {
+        UsuarioDAO modelo = new UsuarioDAO();
+        CambiarClaveVista vista = new CambiarClaveVista();
+        CambiarClaveController controller = new CambiarClaveController(modelo, vista);
     }
     
     public static void goToMenuPrincipal() {
@@ -74,6 +82,7 @@ public class ProductAdmin {
     }
 
     public static void goToAcercaDe() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        AcercaDeVista vista = new AcercaDeVista();
+        vista.mostrarVista("Acerca de");
     }
 }

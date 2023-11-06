@@ -3,7 +3,6 @@ package com.enpresa.productadmin.controlador;
 import com.enpresa.productadmin.ProductAdmin;
 import com.enpresa.productadmin.vistas.gui.MenuPrincipalVista;
 import java.awt.event.ActionEvent;
-import javax.swing.JFrame;
 
 /**
  *
@@ -22,7 +21,21 @@ public class MenuPrincipalController {
     }
 
     private void addActionListeners() {
-        //Productos
+        // Panel lateral
+        vista.getBtnCambiarClave().addActionListener((ActionEvent e) -> {
+            ProductAdmin.goToCambiarClave();
+        });
+        
+        vista.getBtnCerrarSesion().addActionListener((ActionEvent e) -> {
+            ProductAdmin.usuarioActivo = null;
+            ProductAdmin.goToIniciarSesion();
+        });
+        
+        vista.getBtnSalir().addActionListener((ActionEvent e) -> {
+            vista.cerrarVista();
+        });
+        
+        // Productos
         vista.getBtnAdministrarProductos().addActionListener((ActionEvent e) -> {
             ProductAdmin.goToAdministrarProductos();
         });
@@ -31,7 +44,7 @@ public class MenuPrincipalController {
             ProductAdmin.goToRegistrarCompraVenta();
         });
         
-        //Usuarios
+        // Usuarios
         vista.getBtnAdministrarUsuarios().addActionListener((ActionEvent e) -> {
             ProductAdmin.goToAdministrarUsuarios();
         });
@@ -44,7 +57,7 @@ public class MenuPrincipalController {
             ProductAdmin.goToConsultarBitacoraAcceso();
         });
         
-        //Reportes
+        // Reportes
         vista.getBtnReporteInventario().addActionListener((ActionEvent e) -> {
             ProductAdmin.goToReporteInventario();
         });
@@ -53,7 +66,7 @@ public class MenuPrincipalController {
             ProductAdmin.goToReporteGastosGanacias();
         });
         
-        //Ayuda
+        // Ayuda
         vista.getBtnAcercaDe().addActionListener((ActionEvent e) -> {
             ProductAdmin.goToAcercaDe();
         });

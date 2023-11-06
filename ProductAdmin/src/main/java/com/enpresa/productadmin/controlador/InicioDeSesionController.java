@@ -17,6 +17,9 @@ public class InicioDeSesionController {
     public InicioDeSesionController(UsuarioDAO modelo, IniciarSesionVista vista) {
         this.modelo = modelo;
         this.vista = vista;
+        
+        vista.mostrarVista("Inicio de sesión");
+        mapearAcciones();
     }
 
     private void mapearAcciones() {
