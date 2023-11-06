@@ -12,19 +12,12 @@ import javax.swing.JFrame;
 public class MenuPrincipalController {
 
     private final MenuPrincipalVista vista;
-    private final JFrame frame;
 
     public MenuPrincipalController(MenuPrincipalVista vista) {
         this.vista = vista;
         this.vista.getLabelUsuario().setText(ProductAdmin.usuarioActivo.getNombres());
 
-        frame = new JFrame();
-        frame.setContentPane(vista);
-        frame.pack();
-        frame.setResizable(false);
-        frame.setVisible(true);
-        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        frame.setLocationRelativeTo(null);
+        vista.mostrarVista("Menú Principal");
         addActionListeners();
     }
 

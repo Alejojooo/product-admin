@@ -25,7 +25,7 @@ public class RegistrarCompraVentaController {
     }
 
     private void mapearAcciones() {
-        vista.mapearAccion("Agregar", (e) -> crearOperacion());
+        vista.mapearAccion("Confirmar", (e) -> crearOperacion());
         vista.mapearAccion("Buscar", (e) -> buscarProducto());
     }
 

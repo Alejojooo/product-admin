@@ -1,12 +1,17 @@
 package com.enpresa.productadmin.vistas.gui;
 
+import com.enpresa.productadmin.vistas.MapearAccion;
 import com.enpresa.productadmin.vistas.VistaGraficaConNotificador;
+import java.awt.event.ActionEvent;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.function.Function;
 
 /**
  *
  * @author jmdub
  */
-public class CambiarClaveVista extends VistaGraficaConNotificador {
+public class CambiarClaveVista extends VistaGraficaConNotificador implements MapearAccion {
 
     /**
      * Creates new form CambiarPassword
@@ -25,11 +30,11 @@ public class CambiarClaveVista extends VistaGraficaConNotificador {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        txtPassActual = new javax.swing.JTextField();
+        txtClaveActual = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
-        txtPassNueva = new javax.swing.JTextField();
+        txtClaveNueva = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        txtPassNueva2 = new javax.swing.JTextField();
+        txtClaveConfirmacion = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         btnConfirmar = new javax.swing.JButton();
 
@@ -40,17 +45,17 @@ public class CambiarClaveVista extends VistaGraficaConNotificador {
         jLabel1.setText("Contraseña actual:");
         jLabel1.setPreferredSize(new java.awt.Dimension(111, 21));
 
-        txtPassActual.setPreferredSize(new java.awt.Dimension(200, 27));
+        txtClaveActual.setPreferredSize(new java.awt.Dimension(200, 27));
 
         jLabel2.setText("Nueva contraseña:");
         jLabel2.setPreferredSize(new java.awt.Dimension(111, 21));
 
-        txtPassNueva.setPreferredSize(new java.awt.Dimension(200, 27));
+        txtClaveNueva.setPreferredSize(new java.awt.Dimension(200, 27));
 
         jLabel3.setText("Confirmar contraseña:");
         jLabel3.setPreferredSize(new java.awt.Dimension(131, 21));
 
-        txtPassNueva2.setPreferredSize(new java.awt.Dimension(200, 27));
+        txtClaveConfirmacion.setPreferredSize(new java.awt.Dimension(200, 27));
 
         jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel5.setText("<html> <p>Las contraseñas deben tener como mínimo:  <br>     - 10 caracteres de longitud.  <br>     - Un número.  <br>     - Un carácter especial (!@#$, entre otros).</p> </html>");
@@ -74,16 +79,16 @@ public class CambiarClaveVista extends VistaGraficaConNotificador {
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtPassActual, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtClaveActual, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(15, 15, 15)
                         .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(txtPassNueva, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtClaveNueva, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(105, 105, 105)
                         .addComponent(btnConfirmar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtPassNueva2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(txtClaveConfirmacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -93,7 +98,7 @@ public class CambiarClaveVista extends VistaGraficaConNotificador {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(6, 6, 6)
-                        .addComponent(txtPassActual, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtClaveActual, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
@@ -103,15 +108,14 @@ public class CambiarClaveVista extends VistaGraficaConNotificador {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(4, 4, 4)
-                        .addComponent(txtPassNueva, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(txtClaveNueva, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(btnConfirmar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(6, 6, 6)
-                .addComponent(txtPassNueva2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(txtClaveConfirmacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
     }// </editor-fold>//GEN-END:initComponents
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnConfirmar;
@@ -119,8 +123,31 @@ public class CambiarClaveVista extends VistaGraficaConNotificador {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JTextField txtPassActual;
-    private javax.swing.JTextField txtPassNueva;
-    private javax.swing.JTextField txtPassNueva2;
+    private javax.swing.JTextField txtClaveActual;
+    private javax.swing.JTextField txtClaveConfirmacion;
+    private javax.swing.JTextField txtClaveNueva;
     // End of variables declaration//GEN-END:variables
+
+    public Map<String, String> getCampos() {
+        Map<String, String> campos = new HashMap<>();
+        campos.put("claveActual", txtClaveActual.getText());
+        campos.put("claveNueva", txtClaveNueva.getText());
+        campos.put("claveConfirmacion", txtClaveConfirmacion.getText());
+
+        return campos;
+    }
+
+    @Override
+    public void mapearAccion(String accion, Function funcion) {
+        switch (accion) {
+            case "Confirmar" -> {
+                btnConfirmar.addActionListener((ActionEvent e) -> {
+                    funcion.apply(null);
+                });
+            }
+            default -> {
+                mostrarError("Operacion no soportada.");
+            }
+        }
+    }
 }

@@ -4,6 +4,7 @@
  */
 package com.enpresa.productadmin.vistas.gui;
 
+import com.enpresa.productadmin.vistas.VistaGraficaConNotificador;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 
@@ -11,7 +12,7 @@ import javax.swing.JLabel;
  *
  * @author jmdub
  */
-public class MenuPrincipalVista extends javax.swing.JPanel {
+public class MenuPrincipalVista extends VistaGraficaConNotificador {
 
     /**
      * Creates new form MenuPrincipal
@@ -324,9 +325,8 @@ public class MenuPrincipalVista extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
-        // TODO add your handling code here:
+        cerrarVista();
     }//GEN-LAST:event_btnSalirActionPerformed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAcercaDe;

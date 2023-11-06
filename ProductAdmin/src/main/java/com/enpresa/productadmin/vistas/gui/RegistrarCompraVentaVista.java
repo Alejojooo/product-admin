@@ -191,7 +191,7 @@ public class RegistrarCompraVentaVista extends VistaGraficaConRegistros implemen
     @Override
     public void mapearAccion(String accion, Function funcion) {
         switch (accion) {
-            case "Agregar" -> {
+            case "Confirmar" -> {
                 btnConfirmar.addActionListener((ActionEvent e) -> {
                     funcion.apply(null);
                 });

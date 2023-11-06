@@ -1,42 +1,23 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
- */
 package com.enpresa.productadmin.vistas.gui;
 
-import javax.swing.JButton;
+import com.enpresa.productadmin.vistas.MapearAccion;
+import com.enpresa.productadmin.vistas.VistaGraficaConNotificador;
+import java.awt.event.ActionEvent;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.function.Function;
 
 /**
  *
  * @author jmdub
  */
-public class IniciarSesionVista extends javax.swing.JPanel {
+public class IniciarSesionVista extends VistaGraficaConNotificador implements MapearAccion {
 
     /**
      * Creates new form IniciarSesion
      */
     public IniciarSesionVista() {
         initComponents();
-    }
-
-    public String getUsuario() {
-        return txtUsuario.getText();
-    }
-
-    public String getClave() {
-        return txtClave.getText();
-    }
-
-    public void setUsuario(String usuario) {
-        this.txtUsuario.setText(usuario);
-    }
-
-    public void setClave(String clave) {
-        this.txtClave.setText(clave);
-    }
-
-    public JButton getBtnIniciarSesion() {
-        return btnIniciarSesion;
     }
 
     /**
@@ -127,4 +108,23 @@ public class IniciarSesionVista extends javax.swing.JPanel {
     private javax.swing.JTextField txtClave;
     private javax.swing.JTextField txtUsuario;
     // End of variables declaration//GEN-END:variables
+
+    public Map<String, String> getCampos() {
+        Map<String, String> campos = new HashMap<>();
+        campos.put("usuario", txtUsuario.getText());
+        campos.put("clave", txtClave.getText());
+        
+        return campos;
+    }
+    
+    @Override
+    public void mapearAccion(String accion, Function funcion) {
+        switch (accion) {
+            case "Iniciar Sesion" -> {
+                btnIniciarSesion.addActionListener((ActionEvent e) -> {
+                    funcion.apply(null);
+                });
+            }
+        }
+    }
 }

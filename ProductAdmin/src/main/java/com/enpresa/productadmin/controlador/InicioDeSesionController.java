@@ -3,9 +3,7 @@ package com.enpresa.productadmin.controlador;
 import com.enpresa.productadmin.ProductAdmin;
 import com.enpresa.productadmin.modelo.dao.UsuarioDAO;
 import com.enpresa.productadmin.vistas.gui.IniciarSesionVista;
-import java.awt.event.ActionEvent;
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
+import java.util.Map;
 
 /**
  *
@@ -15,37 +13,28 @@ public class InicioDeSesionController {
 
     private final UsuarioDAO modelo;
     private final IniciarSesionVista vista;
-    private final JFrame frame;
 
     public InicioDeSesionController(UsuarioDAO modelo, IniciarSesionVista vista) {
         this.modelo = modelo;
         this.vista = vista;
+    }
+
+    private void mapearAcciones() {
+        vista.mapearAccion("Iniciar Sesion", (e) -> login());
+    }
+
+    private int login() {
+        Map<String, String> campos = vista.getCampos();
         
-        frame = new JFrame();
-        frame.setContentPane(vista);
-        frame.pack();
-        frame.setResizable(false);
-        frame.setVisible(true);
-        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        frame.setLocationRelativeTo(null);
-        addActionListeners();
-    }
-
-    private void addActionListeners() {
-        vista.getBtnIniciarSesion().addActionListener((ActionEvent e) -> {
-            login();
-        });
-    }
-
-    private void login() {
-        int id = modelo.login(vista.getUsuario(), vista.getClave());
+        int id = modelo.login(campos.get("usuario"), campos.get("clave"));
         if (id < 1) {
-            JOptionPane.showMessageDialog(frame, "Usuario o contraseña incorrectos", "Error", JOptionPane.ERROR_MESSAGE);
-            return;
+            vista.mostrarError("Usuario o contraseña incorrectos");
+            return -1;
         }
-        JOptionPane.showMessageDialog(frame, "Inicio de sesión correcto.", "Aviso", JOptionPane.INFORMATION_MESSAGE);
-        frame.dispose();
+        vista.mostrarMensaje("Inicio de sesión correcto.");
+        vista.cerrarVista();
         ProductAdmin.usuarioActivo = modelo.consultarUno(id);
         ProductAdmin.goToMenuPrincipal();
+        return 1;
     }
 }

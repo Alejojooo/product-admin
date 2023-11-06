@@ -1,15 +1,12 @@
 package com.enpresa.productadmin.vistas.gui;
 
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
- */
+import com.enpresa.productadmin.vistas.VistaGrafica;
 
 /**
  *
  * @author jmdub
  */
-public class AcercaDeVista extends javax.swing.JPanel {
+public class AcercaDeVista extends VistaGrafica {
 
     /**
      * Creates new form AcercaDe
@@ -63,7 +60,6 @@ public class AcercaDeVista extends javax.swing.JPanel {
                 .addGap(31, 31, 31))
         );
     }// </editor-fold>//GEN-END:initComponents
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;

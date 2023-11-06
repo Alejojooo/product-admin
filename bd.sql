@@ -94,14 +94,14 @@ GO
 
 
 -- FUNCIONES
-CREATE FUNCTION fHash (@String VARCHAR(MAX))
+CREATE FUNCTION fHash (@String NVARCHAR(MAX))
 RETURNS BINARY(64)
 AS BEGIN
 	RETURN HASHBYTES('SHA2_256', @String)
 END
 GO
 
-CREATE FUNCTION fLogin (@Usuario VARCHAR(100), @Clave VARCHAR(MAX))
+CREATE FUNCTION fLogin (@Usuario VARCHAR(100), @Clave NVARCHAR(MAX))
 RETURNS INT
 AS BEGIN
 	DECLARE @IDUsuario INT
@@ -114,8 +114,8 @@ AS BEGIN
 END
 GO
 
-CREATE FUNCTION fComprobarClave (@IDUsuario INT, @Clave VARCHAR(MAX))
-RETURNS INT
+CREATE FUNCTION fComprobarClave (@IDUsuario INT, @Clave NVARCHAR(MAX))
+RETURNS BIT
 AS BEGIN
 	DECLARE @ReturnState INT
 	DECLARE @ClaveBD BINARY(64)
@@ -199,15 +199,11 @@ GO
 
 CREATE PROCEDURE pCambiarClave
 	@IDUsuario INT,
-	@ClaveVieja VARCHAR(MAX),
-	@ClaveNueva VARCHAR(MAX)
+	@ClaveNueva NVARCHAR(MAX)
 AS BEGIN
-	IF (SELECT dbo.fComprobarClave(@IDUsuario, @ClaveVieja)) > 0
-	BEGIN
-		UPDATE tbUsuario SET
-			clave = dbo.fHash(@ClaveNueva)
-		WHERE idUsuario = @IDUsuario
-	END
+	UPDATE tbUsuario SET
+		clave = dbo.fHash(@ClaveNueva)
+	WHERE idUsuario = @IDUsuario
 END
 GO
 
