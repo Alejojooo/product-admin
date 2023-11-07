@@ -145,12 +145,12 @@ public class UsuarioDAO implements DAO<Usuario> {
     }
 
     public int login(String usuario, String clave) {
-        String sql = "SELECT dbo.fLogin(?, ?)";
+        String sql = "{CALL dbo.pLogin(?, ?)}";
 
-        try (Connection c = new Conexion().establecerConexion(); PreparedStatement ps = c.prepareCall(sql)) {
-            ps.setString(1, usuario);
-            ps.setNString(2, clave);
-            ResultSet rs = ps.executeQuery();
+        try (Connection c = new Conexion().establecerConexion(); CallableStatement cs = c.prepareCall(sql)) {
+            cs.setString(1, usuario);
+            cs.setNString(2, clave);
+            ResultSet rs = cs.executeQuery();
             if (rs.next()) {
                 return rs.getInt(1);
             }
