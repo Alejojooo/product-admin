@@ -85,18 +85,31 @@ public class BitacoraAccesoVista extends VistaGraficaConRegistros implements Ent
 
         tbBitacoraA.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
-                "ID", "Fecha", "Hora", "Usuario"
+                "Fecha", "Hora", "Usuario"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         tbBitacoraA.setToolTipText("");
+        tbBitacoraA.setColumnSelectionAllowed(true);
         tbBitacoraA.setPreferredSize(new java.awt.Dimension(578, 448));
+        tbBitacoraA.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(tbBitacoraA);
+        tbBitacoraA.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        if (tbBitacoraA.getColumnModel().getColumnCount() > 0) {
+            tbBitacoraA.getColumnModel().getColumn(0).setResizable(false);
+            tbBitacoraA.getColumnModel().getColumn(1).setResizable(false);
+            tbBitacoraA.getColumnModel().getColumn(2).setResizable(false);
+        }
 
         add(jScrollPane1);
         jScrollPane1.setBounds(16, 41, 578, 448);
@@ -104,9 +117,10 @@ public class BitacoraAccesoVista extends VistaGraficaConRegistros implements Ent
         paFiltrar.setBorder(javax.swing.BorderFactory.createTitledBorder("¿Filtrar?"));
         paFiltrar.setLayout(null);
 
+        txtFechaFinal.setEnabled(false);
         txtFechaFinal.setPreferredSize(new java.awt.Dimension(30, 22));
         paFiltrar.add(txtFechaFinal);
-        txtFechaFinal.setBounds(70, 105, 100, 22);
+        txtFechaFinal.setBounds(70, 105, 100, 27);
 
         jLabel1.setText("De:");
         paFiltrar.add(jLabel1);
@@ -120,6 +134,7 @@ public class BitacoraAccesoVista extends VistaGraficaConRegistros implements Ent
         paFiltrar.add(jLabel7);
         jLabel7.setBounds(235, 65, 17, 16);
 
+        txtFechaInicial.setEnabled(false);
         txtFechaInicial.setPreferredSize(new java.awt.Dimension(30, 22));
         paFiltrar.add(txtFechaInicial);
         txtFechaInicial.setBounds(71, 62, 100, 27);
@@ -128,10 +143,12 @@ public class BitacoraAccesoVista extends VistaGraficaConRegistros implements Ent
         paFiltrar.add(jLabel8);
         jLabel8.setBounds(234, 108, 33, 16);
 
+        txtHoraInicial.setEnabled(false);
         txtHoraInicial.setPreferredSize(new java.awt.Dimension(50, 22));
         paFiltrar.add(txtHoraInicial);
         txtHoraInicial.setBounds(288, 62, 50, 27);
 
+        txtHoraFinal.setEnabled(false);
         txtHoraFinal.setPreferredSize(new java.awt.Dimension(50, 22));
         paFiltrar.add(txtHoraFinal);
         txtHoraFinal.setBounds(288, 105, 50, 27);
@@ -150,6 +167,7 @@ public class BitacoraAccesoVista extends VistaGraficaConRegistros implements Ent
         paFiltrar.add(cBoxUsuario);
         cBoxUsuario.setBounds(51, 176, 63, 20);
 
+        txtUsuario.setEnabled(false);
         txtUsuario.setPreferredSize(new java.awt.Dimension(150, 22));
         paFiltrar.add(txtUsuario);
         txtUsuario.setBounds(153, 174, 150, 27);

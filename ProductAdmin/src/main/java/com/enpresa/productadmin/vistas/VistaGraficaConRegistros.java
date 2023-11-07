@@ -16,6 +16,9 @@ public class VistaGraficaConRegistros extends VistaGraficaConNotificador impleme
     public void mostrarRegistrosEnTabla(JTable tabla, List<? extends DTO> registros) {
         DefaultTableModel modelo = (DefaultTableModel) tabla.getModel();
         modelo.setNumRows(0);
+        if (registros == null) {
+            return;
+        }
         for (DTO registro : registros) {
             modelo.addRow(registro.getAttributeValues());
         }
@@ -26,6 +29,9 @@ public class VistaGraficaConRegistros extends VistaGraficaConNotificador impleme
         lista.removeAllItems();
         String opcionNula = "---";
         lista.addItem(opcionNula);
+        if (registros == null) {
+            return;
+        }
         for (var registro : registros) {
             lista.addItem(registro.toString());
         }

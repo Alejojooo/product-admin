@@ -6,7 +6,6 @@ package com.enpresa.productadmin.modelo.dto;
  */
 public class RegistroTransaccionDTO extends DTO {
 
-    private String id;
     private String fecha;
     private String hora;
     private String objeto;
@@ -15,21 +14,12 @@ public class RegistroTransaccionDTO extends DTO {
     private String modulo;
 
     public RegistroTransaccionDTO() {
-        this.id = "";
         this.fecha = "";
         this.hora = "";
         this.objeto = "";
         this.usuario = "";
         this.accion = "";
         this.modulo = "";
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
     }
 
     public String getFecha() {

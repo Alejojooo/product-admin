@@ -11,7 +11,7 @@ import java.util.regex.Pattern;
  *
  * @author jmdub
  */
-public class CambiarClaveController {
+public class CambiarClaveController implements Controller {
 
     private final UsuarioDAO modelo;
     private final CambiarClaveVista vista;
@@ -19,7 +19,10 @@ public class CambiarClaveController {
     public CambiarClaveController(UsuarioDAO modelo, CambiarClaveVista vista) {
         this.modelo = modelo;
         this.vista = vista;
+    }
 
+    @Override
+    public void start() {
         vista.mostrarVista("Cambiar clave de usuario");
         mapearAcciones();
     }
@@ -30,15 +33,11 @@ public class CambiarClaveController {
 
     private int cambiarClave() {
         ClaveDTO campos = vista.obtenerCampos();
-
-        String claveActual;
-        String claveNueva;
-
         try {
-            claveActual = comprobarClaveActual(campos.getClaveActual());
-            claveNueva = comprobarClaveNueva(campos.getClaveNueva());
+            comprobarClaveActual(campos.getClaveActual());
+            String claveNueva = comprobarClaveNueva(campos.getClaveNueva());
             comprobarClavesIguales(claveNueva, campos.getClaveConfirmacion());
-            
+
             modelo.cambiarClave(ProductAdmin.usuarioActivo.getId(), claveNueva);
             vista.mostrarMensaje("Se ha cambiado la contraseña");
             return 1;

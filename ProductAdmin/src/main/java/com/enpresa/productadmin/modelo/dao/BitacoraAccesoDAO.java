@@ -1,7 +1,6 @@
 package com.enpresa.productadmin.modelo.dao;
 
 import com.enpresa.productadmin.modelo.RegistroAcceso;
-import com.enpresa.productadmin.modelo.dto.DTO;
 import com.enpresa.productadmin.modelo.dto.RegistroAccesoBusquedaDTO;
 import com.enpresa.productadmin.modelo.dto.RegistroAccesoDTO;
 import com.enpresa.productadmin.utils.Conexion;
@@ -9,6 +8,7 @@ import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,7 +36,7 @@ public class BitacoraAccesoDAO implements DAO<RegistroAcceso, RegistroAccesoBusq
     @Override
     public List<RegistroAccesoDTO> buscar(RegistroAccesoBusquedaDTO campos) {
         List<RegistroAccesoDTO> registros = new ArrayList<>();
-        String sql = "{CALL dbo.pBuscarRegistroTransaccion(?, ?, ?, ?, ?)}";
+        String sql = "{CALL dbo.pBuscarRegistroAcceso(?, ?, ?, ?, ?)}";
 
         try (Connection c = new Conexion().establecerConexion(); CallableStatement cs = c.prepareCall(sql)) {
             cs.setString(1, campos.getFechaInicial());
@@ -66,7 +66,23 @@ public class BitacoraAccesoDAO implements DAO<RegistroAcceso, RegistroAccesoBusq
     }
 
     @Override
-    public List<RegistroAccesoBusquedaDTO> consultarTodos() {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public List<RegistroAccesoDTO> consultarTodos() {
+        List<RegistroAccesoDTO> registros = new ArrayList<>();
+        String sql = "SELECT * FROM vBitacoraAcceso";
+
+        try (Connection c = new Conexion().establecerConexion(); Statement st = c.createStatement()) {
+            ResultSet rs = st.executeQuery(sql);
+            while (rs.next()) {
+                RegistroAccesoDTO registro = new RegistroAccesoDTO();
+                registro.setFecha(rs.getString(1));
+                registro.setHora(rs.getString(2));
+                registro.setUsuario(rs.getString(3));
+
+                registros.add(registro);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return registros;
     }
 }

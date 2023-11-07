@@ -15,7 +15,7 @@ import java.util.List;
  *
  * @author jmdub
  */
-public class RegistrarCompraVentaController {
+public class RegistrarCompraVentaController implements Controller {
 
     private final OperacionDAO modelo;
     private final RegistrarCompraVentaVista vista;
@@ -23,7 +23,10 @@ public class RegistrarCompraVentaController {
     public RegistrarCompraVentaController(OperacionDAO modelo, RegistrarCompraVentaVista vista) {
         this.modelo = modelo;
         this.vista = vista;
-        
+    }
+    
+    @Override
+    public void start() {
         mapearAcciones();
     }
 

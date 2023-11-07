@@ -21,5 +21,5 @@ public interface DAO<E, D extends DTO> {
 
     E consultarUno(int id);
 
-    List<D> consultarTodos();
+    List<? extends DTO> consultarTodos();
 }

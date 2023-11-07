@@ -170,6 +170,7 @@ public class BitacoraTransaccionesVista extends VistaGraficaConRegistros impleme
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("¿Filtrar?"));
         jPanel1.setLayout(null);
 
+        txtFechaFinal.setEnabled(false);
         txtFechaFinal.setPreferredSize(new java.awt.Dimension(30, 22));
         jPanel1.add(txtFechaFinal);
         txtFechaFinal.setBounds(70, 105, 100, 27);
@@ -186,6 +187,7 @@ public class BitacoraTransaccionesVista extends VistaGraficaConRegistros impleme
         jPanel1.add(jLabel7);
         jLabel7.setBounds(235, 65, 17, 16);
 
+        txtFechaInicial.setEnabled(false);
         txtFechaInicial.setPreferredSize(new java.awt.Dimension(30, 22));
         jPanel1.add(txtFechaInicial);
         txtFechaInicial.setBounds(71, 62, 100, 27);
@@ -194,10 +196,12 @@ public class BitacoraTransaccionesVista extends VistaGraficaConRegistros impleme
         jPanel1.add(jLabel8);
         jLabel8.setBounds(234, 108, 33, 16);
 
+        txtHoraInicial.setEnabled(false);
         txtHoraInicial.setPreferredSize(new java.awt.Dimension(50, 22));
         jPanel1.add(txtHoraInicial);
         txtHoraInicial.setBounds(288, 62, 50, 27);
 
+        txtHoraFinal.setEnabled(false);
         txtHoraFinal.setPreferredSize(new java.awt.Dimension(50, 22));
         jPanel1.add(txtHoraFinal);
         txtHoraFinal.setBounds(288, 105, 50, 27);
@@ -213,11 +217,13 @@ public class BitacoraTransaccionesVista extends VistaGraficaConRegistros impleme
         cBoxHora.setBounds(234, 30, 100, 20);
 
         comboBoxModulo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Productos", "Usuarios" }));
+        comboBoxModulo.setEnabled(false);
         comboBoxModulo.setPreferredSize(new java.awt.Dimension(150, 22));
         jPanel1.add(comboBoxModulo);
         comboBoxModulo.setBounds(153, 305, 150, 27);
 
         comboBoxAccion.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Crear", "Modificar", "Eliminar" }));
+        comboBoxAccion.setEnabled(false);
         comboBoxAccion.setPreferredSize(new java.awt.Dimension(150, 22));
         jPanel1.add(comboBoxAccion);
         comboBoxAccion.setBounds(153, 262, 150, 27);
@@ -226,6 +232,7 @@ public class BitacoraTransaccionesVista extends VistaGraficaConRegistros impleme
         jPanel1.add(cBoxObjeto);
         cBoxObjeto.setBounds(51, 176, 59, 20);
 
+        txtUsuario.setEnabled(false);
         txtUsuario.setPreferredSize(new java.awt.Dimension(150, 22));
         jPanel1.add(txtUsuario);
         txtUsuario.setBounds(153, 219, 150, 27);
@@ -242,6 +249,7 @@ public class BitacoraTransaccionesVista extends VistaGraficaConRegistros impleme
         jPanel1.add(cBoxModulo);
         cBoxModulo.setBounds(51, 307, 65, 20);
 
+        txtObjeto.setEnabled(false);
         txtObjeto.setPreferredSize(new java.awt.Dimension(150, 22));
         jPanel1.add(txtObjeto);
         txtObjeto.setBounds(153, 174, 150, 27);

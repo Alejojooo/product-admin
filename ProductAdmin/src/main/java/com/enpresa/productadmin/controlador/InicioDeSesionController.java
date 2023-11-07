@@ -9,7 +9,7 @@ import java.util.Map;
  *
  * @author Alejo
  */
-public class InicioDeSesionController {
+public class InicioDeSesionController implements Controller{
 
     private final UsuarioDAO modelo;
     private final IniciarSesionVista vista;
@@ -17,8 +17,10 @@ public class InicioDeSesionController {
     public InicioDeSesionController(UsuarioDAO modelo, IniciarSesionVista vista) {
         this.modelo = modelo;
         this.vista = vista;
-        
-        vista.mostrarVista("Inicio de sesión");
+    }
+    
+    public void start() {
+        vista.mostrarVista("Inicio de Sesión");
         mapearAcciones();
     }
 

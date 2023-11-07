@@ -14,7 +14,7 @@ import java.util.regex.Pattern;
  *
  * @author jmdub
  */
-public class AdministrarUsuariosController {
+public class AdministrarUsuariosController implements Controller {
 
     private final UsuarioDAO modelo;
     private final AdministrarUsuariosVista vista;
@@ -22,9 +22,12 @@ public class AdministrarUsuariosController {
     public AdministrarUsuariosController(UsuarioDAO modelo, AdministrarUsuariosVista vista) {
         this.modelo = modelo;
         this.vista = vista;
+    }
 
+    @Override
+    public void start() {
         vista.mostrarVista("Administrar Usuarios");
-        mostrarRegistros();
+        vista.mostrarRegistros(modelo.consultarTodos());
         mapearAcciones();
     }
 
@@ -34,17 +37,6 @@ public class AdministrarUsuariosController {
         vista.mapearAccion("Modificar", (e) -> modificarUsuario());
         vista.mapearAccion("Eliminar", (e) -> eliminarUsuario());
         vista.mapearAccion("Buscar", (e) -> buscarUsuario());
-    }
-
-    private void mostrarRegistros(List<UsuarioDTO> usuarios) {
-        if (usuarios == null) {
-            usuarios = modelo.consultarTodos();
-        }
-        vista.mostrarRegistros(usuarios);
-    }
-
-    private void mostrarRegistros() {
-        mostrarRegistros(null);
     }
 
     private String generarClaveNuevoUsuario() {
@@ -77,7 +69,7 @@ public class AdministrarUsuariosController {
 
             modelo.crear(usuario);
             vista.mostrarMensaje("Se ha creado un nuevo usuario.");
-            mostrarRegistros();
+            vista.mostrarRegistros(modelo.consultarTodos());
             return clave;
         } catch (UsuarioInvalidoException e) {
             return null;
@@ -103,7 +95,7 @@ public class AdministrarUsuariosController {
 
             modelo.modificar(usuario);
             vista.mostrarMensaje("Se ha modificado el usuario.");
-            mostrarRegistros();
+            vista.mostrarRegistros(modelo.consultarTodos());
             return 1;
         } catch (UsuarioInvalidoException e) {
             return -1;
@@ -123,7 +115,7 @@ public class AdministrarUsuariosController {
 
             modelo.eliminar(id);
             vista.mostrarMensaje("Se ha modificado el usuario.");
-            mostrarRegistros();
+            vista.mostrarRegistros(modelo.consultarTodos());
             return 1;
         } catch (UsuarioInvalidoException e) {
             return -1;
@@ -133,7 +125,7 @@ public class AdministrarUsuariosController {
     private int buscarUsuario() {
         UsuarioDTO campos = vista.obtenerCampos();
         List<UsuarioDTO> usuarios = modelo.buscar(campos);
-        mostrarRegistros(usuarios);
+        vista.mostrarRegistros(usuarios);
         return 1;
     }
 

@@ -1,6 +1,7 @@
 package com.enpresa.productadmin.modelo.dao;
 
 import com.enpresa.productadmin.modelo.RegistroTransaccion;
+import com.enpresa.productadmin.modelo.dto.RegistroAccesoDTO;
 import com.enpresa.productadmin.modelo.dto.RegistroTransaccionBusquedaDTO;
 import com.enpresa.productadmin.modelo.dto.RegistroTransaccionDTO;
 import com.enpresa.productadmin.utils.Conexion;
@@ -8,6 +9,7 @@ import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -71,7 +73,26 @@ public class BitacoraTransaccionesDAO implements DAO<RegistroTransaccion, Regist
     }
 
     @Override
-    public List<RegistroTransaccionBusquedaDTO> consultarTodos() {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public List<RegistroTransaccionDTO> consultarTodos() {
+        List<RegistroTransaccionDTO> registros = new ArrayList<>();
+        String sql = "SELECT * FROM vBitacoraTransacciones";
+
+        try (Connection c = new Conexion().establecerConexion(); Statement st = c.createStatement()) {
+            ResultSet rs = st.executeQuery(sql);
+            while (rs.next()) {
+                RegistroTransaccionDTO registro = new RegistroTransaccionDTO();
+                registro.setFecha(rs.getString(1));
+                registro.setHora(rs.getString(2));
+                registro.setObjeto(rs.getNString(3));
+                registro.setUsuario(rs.getString(4));
+                registro.setAccion(rs.getString(5));
+                registro.setModulo(rs.getString(6));
+
+                registros.add(registro);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return registros;
     }
 }

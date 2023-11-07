@@ -11,7 +11,7 @@ import java.util.List;
  *
  * @author Alejo
  */
-public class AdministrarProductosController {
+public class AdministrarProductosController implements Controller {
 
     private final ProductoDAO modelo;
     private final AdministrarProductosVista vista;
@@ -19,9 +19,12 @@ public class AdministrarProductosController {
     public AdministrarProductosController(ProductoDAO modelo, AdministrarProductosVista vista) {
         this.modelo = modelo;
         this.vista = vista;
+    }
 
+    @Override
+    public void start() {
         vista.mostrarVista("Administrar Productos");
-        mostrarRegistros();
+        vista.mostrarRegistros(modelo.consultarTodos());
         mapearAcciones();
     }
 
@@ -31,17 +34,6 @@ public class AdministrarProductosController {
         vista.mapearAccion("Modificar", (e) -> modificarProducto());
         vista.mapearAccion("Eliminar", (e) -> eliminarProducto());
         vista.mapearAccion("Buscar", (e) -> buscarProducto());
-    }
-
-    private void mostrarRegistros(List<ProductoDTO> productos) {
-        if (productos == null) {
-            productos = modelo.consultarTodos();
-        }
-        vista.mostrarRegistros(productos);
-    }
-
-    private void mostrarRegistros() {
-        vista.mostrarRegistros(null);
     }
 
     /* --- Métodos para CRUD --- */
@@ -57,7 +49,7 @@ public class AdministrarProductosController {
 
             modelo.crear(producto);
             vista.mostrarMensaje("Se ha creado un nuevo producto.");
-            mostrarRegistros();
+            vista.mostrarRegistros(modelo.consultarTodos());
             return 1;
         } catch (ProductoInvalidoException e) {
             return -1;
@@ -84,7 +76,7 @@ public class AdministrarProductosController {
 
             modelo.modificar(producto);
             vista.mostrarMensaje("Se ha modificado el producto.");
-            mostrarRegistros();
+            vista.mostrarRegistros(modelo.consultarTodos());
             return 1;
         } catch (ProductoInvalidoException e) {
             return -1;
@@ -104,7 +96,7 @@ public class AdministrarProductosController {
 
             modelo.eliminar(id);
             vista.mostrarMensaje("Se ha eliminado el producto.");
-            mostrarRegistros();
+            vista.mostrarRegistros(modelo.consultarTodos());
             return 1;
         } catch (ProductoInvalidoException e) {
             return -1;
@@ -114,7 +106,7 @@ public class AdministrarProductosController {
     private int buscarProducto() {
         ProductoDTO campos = vista.obtenerCampos();
         List<ProductoDTO> productos = modelo.buscar(campos);
-        mostrarRegistros(productos);
+        vista.mostrarRegistros(productos);
         return 1;
     }
 
