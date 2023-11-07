@@ -298,12 +298,12 @@ GO
 CREATE PROCEDURE pBuscarRegistroTransaccion
 	@FechaInicial VARCHAR(20),
 	@FechaFinal VARCHAR(20),
-	@HoraInicial NVARCHAR(10),
-	@HoraFinal NVARCHAR(10),
+	@HoraInicial VARCHAR(10),
+	@HoraFinal VARCHAR(10),
 	@Objeto NVARCHAR(MAX),
 	@Usuario VARCHAR(MAX),
 	@Accion VARCHAR(20),
-	@Modulo NVARCHAR(20)
+	@Modulo VARCHAR(20)
 AS BEGIN
 	SELECT *
 	FROM vBitacoraTransacciones
