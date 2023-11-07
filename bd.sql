@@ -241,7 +241,7 @@ AS BEGIN
 						(SELECT usuario
 						FROM tbUsuario
 						WHERE idUsuario = @IDUsuario))
-				SELECT @IDUsuario
+				RETURN @IDUsuario
 			COMMIT TRAN
 		END TRY
 		BEGIN CATCH
@@ -476,10 +476,71 @@ GO
 
 
 
+-- ADMIN ACCOUNT
+EXEC pCrearUsuario 'admin', 'admin', N'admin', N'admin', 'Administrador'
+GO
+
+
+
+
+
 -- TRIGGERS
+CREATE TRIGGER tBitacoraCrearUsuario
+ON tbUsuario
+AFTER INSERT
+AS
+BEGIN
+	INSERT INTO tbBitacoraTransacciones(fecha, hora, objeto, usuario, accion, modulo)
+	SELECT CAST(GETDATE() AS DATE),
+		   CAST(GETDATE() AS TIME),
+		   usuario,
+		   dbo.fObtenerUsuarioActivo(),
+		   'Crear',
+		   'Usuario'
+	FROM INSERTED
+END
+GO
+
+CREATE TRIGGER tBitacoraModificarUsuario
+ON tbUsuario
+AFTER UPDATE
+AS
+BEGIN
+	INSERT INTO tbBitacoraTransacciones(fecha, hora, objeto, usuario, accion, modulo)
+	SELECT CAST(GETDATE() AS DATE),
+		   CAST(GETDATE() AS TIME),
+		   usuario,
+		   dbo.fObtenerUsuarioActivo(),
+		   'Modificar',
+		   'Usuarios'
+	FROM INSERTED
+END
+GO
+
+CREATE TRIGGER tBitacoraEliminarUsuario
+ON tbUsuario
+AFTER DELETE
+AS
+BEGIN
+	DECLARE @IDUsuario INT
+	SET @IDUsuario = (SELECT @IDUsuario FROM DELETED)
+
+	INSERT INTO tbBitacoraTransacciones(fecha, hora, objeto, usuario, accion, modulo)
+	SELECT CAST(GETDATE() AS DATE),
+		   CAST(GETDATE() AS TIME),
+		   usuario,
+		   dbo.fObtenerUsuarioActivo(),
+		   'Eliminar',
+		   'Usuarios'
+	FROM DELETED
+END
+GO
+
+
+
 CREATE TRIGGER tBitacoraCrearProducto
 ON tbProducto
-INSTEAD OF INSERT
+AFTER INSERT
 AS
 BEGIN
 	INSERT INTO tbBitacoraTransacciones(fecha, hora, objeto, usuario, accion, modulo)
@@ -490,16 +551,12 @@ BEGIN
 		   'Crear',
 		   'Productos'
 	FROM INSERTED
-
-	INSERT INTO tbProducto (nombre, cantidad, precioCompra, precioVenta, descripcion)
-	SELECT nombre, cantidad, precioCompra, precioVenta, descripcion
-	FROM INSERTED
 END
 GO
 
 CREATE TRIGGER tBitacoraModificarProducto
 ON tbProducto
-INSTEAD OF UPDATE
+AFTER UPDATE
 AS
 BEGIN
 	INSERT INTO tbBitacoraTransacciones(fecha, hora, objeto, usuario, accion, modulo)
@@ -510,21 +567,12 @@ BEGIN
 		   'Modificar',
 		   'Productos'
 	FROM INSERTED
-
-	UPDATE tbProducto SET
-		nombre = i.nombre,
-		cantidad = i.cantidad,
-		precioCompra = i.precioCompra,
-		precioVenta = i.precioVenta,
-		descripcion = i.descripcion
-	FROM INSERTED AS i
-	WHERE tbProducto.idProducto = i.idProducto
 END
 GO
 
 CREATE TRIGGER tBitacoraEliminarProducto
 ON tbProducto
-INSTEAD OF DELETE
+AFTER DELETE
 AS
 BEGIN
 	DECLARE @IDProducto INT
@@ -538,9 +586,6 @@ BEGIN
 		   'Eliminar',
 		   'Productos'
 	FROM DELETED
-
-	DELETE FROM tbProducto
-	WHERE idProducto = @IDProducto
 END
 GO
 
@@ -549,10 +594,8 @@ GO
 
 
 -- INSERT VALUES
-EXEC pCrearUsuario 'admin', 'admin', N'admin', N'admin', 'Administrador'
 EXEC pLogin 'admin', 'admin'
 EXEC pCrearProducto N'Cubo Rubik', 42, 5.00, 25.00, N'Cubo de Rubik'
 EXEC pCrearProducto N'Pelota', 100, 5.00, 25.00, N'Pelota antiestrés'
 EXEC pCrearProducto N'Pulsera', 0, 1.00, 3.00, ''
-
-SELECT * FROM vBitacoraTransacciones
+GO
