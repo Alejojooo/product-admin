@@ -22,6 +22,8 @@ public class RegistrarCompraVentaController {
     public RegistrarCompraVentaController(OperacionDAO modelo, RegistrarCompraVentaVista vista) {
         this.modelo = modelo;
         this.vista = vista;
+        
+        mapearAcciones();
     }
 
     private void mapearAcciones() {

@@ -2,6 +2,7 @@ package com.enpresa.productadmin.utils;
 
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
@@ -14,10 +15,9 @@ public class Mapper {
     public static Map<String, String> getMap(Class clase) {
         Map<String, String> mapRepresentation = new HashMap<>();
 
-        String[] atributos = (String[]) Arrays.stream(clase.getDeclaredFields())
+        List<String> atributos = Arrays.stream(clase.getDeclaredFields())
                 .map(field -> field.getName())
-                .collect(Collectors.toList())
-                .toArray();
+                .collect(Collectors.toList());
         for (String atributo : atributos) {
             mapRepresentation.put(atributo, "");
         }

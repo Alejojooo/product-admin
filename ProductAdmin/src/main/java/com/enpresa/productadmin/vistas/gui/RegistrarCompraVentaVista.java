@@ -26,8 +26,9 @@ public class RegistrarCompraVentaVista extends VistaGraficaConRegistros implemen
      */
     public RegistrarCompraVentaVista() {
         this.buttonGroup = new ButtonGroup();
-        rbtnCompra.doClick();
         initComponents();
+
+        rbtnCompra.doClick();
         mostrarVista("Registrar Compra/Venta");
     }
 
@@ -76,7 +77,7 @@ public class RegistrarCompraVentaVista extends VistaGraficaConRegistros implemen
         txtId.setBounds(16, 44, 150, 27);
 
         cBoxProducto.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        cBoxProducto.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cBoxProducto.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "---" }));
         jPanel1.add(cBoxProducto);
         cBoxProducto.setBounds(182, 44, 150, 27);
 
@@ -93,7 +94,6 @@ public class RegistrarCompraVentaVista extends VistaGraficaConRegistros implemen
         txtNombre.setBounds(16, 108, 150, 27);
 
         btnBuscar.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        btnBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/buscar.png"))); // NOI18N
         btnBuscar.setText("Buscar");
         jPanel1.add(btnBuscar);
         btnBuscar.setBounds(207, 108, 100, 27);
@@ -180,7 +180,7 @@ public class RegistrarCompraVentaVista extends VistaGraficaConRegistros implemen
         Map<String, String> campos = Mapper.getMap(Producto.class);
         campos.put("id", txtId.getText());
         campos.put("nombre", txtNombre.getText());
-
+        
         return campos;
     }
 
