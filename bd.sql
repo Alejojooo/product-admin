@@ -49,10 +49,10 @@ CREATE TABLE tbBitacoraTransacciones (
 	idBitacoraTransacciones INT PRIMARY KEY IDENTITY(1, 1),
 	fecha DATE NOT NULL,
 	hora TIME NOT NULL,
-	objeto NVARCHAR(100) NOT NULL,
+	objeto NVARCHAR(250) NOT NULL,
 	usuario VARCHAR(100) NOT NULL,
 	accion VARCHAR(20) NOT NULL,
-	modulo VARCHAR(20) NOT NULL,
+	modulo VARCHAR(20) NOT NULL
 )
 
 CREATE TABLE tbBitacoraAcceso (
@@ -60,6 +60,13 @@ CREATE TABLE tbBitacoraAcceso (
 	fecha DATE NOT NULL,
 	hora TIME NOT NULL,
 	usuario VARCHAR(100) NOT NULL
+)
+GO
+
+CREATE TABLE tbUsuarioActivo (
+	idUsuarioActivo INT NOT NULL,
+	CONSTRAINT FK_idUsuarioActivo FOREIGN KEY (idUsuarioActivo)
+	REFERENCES tbUsuario(idUsuario)
 )
 GO
 
@@ -89,45 +96,23 @@ AS
 	FROM tbProducto
 GO
 
-
-
-
-
--- FUNCIONES
-CREATE FUNCTION fHash (@String NVARCHAR(MAX))
-RETURNS BINARY(64)
-AS BEGIN
-	RETURN HASHBYTES('SHA2_256', @String)
-END
+CREATE VIEW vBitacoraTransacciones
+AS
+	SELECT fecha AS [Fecha],
+		   hora AS [Hora],
+		   objeto AS [Objeto],
+		   usuario AS [Usuario],
+		   accion AS [Acción],
+		   modulo AS [Módulo]
+	FROM tbBitacoraTransacciones
 GO
 
-CREATE FUNCTION fLogin (@Usuario VARCHAR(100), @Clave NVARCHAR(MAX))
-RETURNS INT
-AS BEGIN
-	DECLARE @IDUsuario INT
-	SET @IDUsuario = (SELECT idUsuario
-					  FROM tbUsuario
-					  WHERE usuario = @Usuario
-					  AND clave = dbo.fHash(@Clave))
-	IF @IDUsuario IS NULL SET @IDUsuario = 0
-	RETURN @IDUsuario
-END
-GO
-
-CREATE FUNCTION fComprobarClave (@IDUsuario INT, @Clave NVARCHAR(MAX))
-RETURNS BIT
-AS BEGIN
-	DECLARE @ReturnState INT
-	DECLARE @ClaveBD BINARY(64)
-	SET @ClaveBD = (SELECT clave
-					FROM tbUsuario
-					WHERE idUsuario = @IDUsuario)
-	IF @ClaveBD = dbo.fHash(@Clave)
-		SET @ReturnState = 1
-	ELSE
-		SET @ReturnState = 0
-	RETURN @ReturnState
-END
+CREATE VIEW vBitacoraAcceso
+AS
+	SELECT fecha AS [Fecha],
+		   hora AS [Hora],
+		   usuario AS [Usuario]
+	FROM tbBitacoraAcceso
 GO
 
 
@@ -206,6 +191,28 @@ AS BEGIN
 	WHERE idUsuario = @IDUsuario
 END
 GO
+
+CREATE PROCEDURE pLogin
+	@Usuario VARCHAR(100),
+	@Clave NVARCHAR(MAX)
+AS BEGIN
+	DECLARE @IDUsuario INT
+	DECLARE @Login BIT
+	SET @IDUsuario = dbo.fLogin(@Usuario, @Clave)
+	IF @Login = 0 SELECT 0
+	ELSE BEGIN
+		INSERT INTO tbBitacoraAcceso (fecha, hora, usuario)
+		VALUES (CAST(GETDATE() AS DATE),
+				CAST(GETDATE() AS TIME),
+				(SELECT usuario
+				FROM tbUsuario
+				WHERE idUsuario = @IDUsuario))
+		SELECT @IDUsuario
+	END
+END
+GO
+
+
 
 
 
@@ -290,8 +297,123 @@ GO
 
 
 
--- TRIGGERS
+-- FUNCIONES
+CREATE FUNCTION fHash (@String NVARCHAR(MAX))
+RETURNS BINARY(64)
+AS BEGIN
+	RETURN HASHBYTES('SHA2_256', @String)
+END
+GO
 
+CREATE FUNCTION fLogin (@Usuario VARCHAR(100), @Clave NVARCHAR(MAX))
+RETURNS INT
+AS BEGIN
+	DECLARE @IDUsuario INT
+	SET @IDUsuario = (SELECT idUsuario
+					  FROM tbUsuario
+					  WHERE usuario = @Usuario
+					  AND clave = dbo.fHash(@Clave))
+	IF @IDUsuario IS NULL SET @IDUsuario = 0
+	RETURN @IDUsuario
+END
+GO
+
+CREATE FUNCTION fComprobarClave (@IDUsuario INT, @Clave NVARCHAR(MAX))
+RETURNS BIT
+AS BEGIN
+	DECLARE @ReturnState INT
+	DECLARE @ClaveBD BINARY(64)
+	SET @ClaveBD = (SELECT clave
+					FROM tbUsuario
+					WHERE idUsuario = @IDUsuario)
+	IF @ClaveBD = dbo.fHash(@Clave)
+		SET @ReturnState = 1
+	ELSE
+		SET @ReturnState = 0
+	RETURN @ReturnState
+END
+GO
+
+
+
+
+
+-- TRIGGERS
+CREATE TRIGGER tBitacoraCrearProducto
+ON tbProducto
+INSTEAD OF INSERT
+AS
+BEGIN
+	INSERT INTO tbBitacoraTransacciones(fecha, hora, objeto, usuario, accion, modulo)
+	SELECT CAST(GETDATE() AS DATE),
+		   CAST(GETDATE() AS TIME),
+		   '[' + CAST(idProducto AS VARCHAR) + '] ' + nombre,
+		   (SELECT usuario
+		    FROM tbBitacoraAcceso
+		    WHERE idBitacoraAcceso = (SELECT MAX(idBitacoraAcceso)
+									  FROM tbBitacoraAcceso)),
+		   'Crear',
+		   'Productos'
+	FROM INSERTED
+
+	INSERT INTO tbProducto (nombre, cantidad, precioCompra, precioVenta, descripcion)
+	SELECT nombre, cantidad, precioCompra, precioVenta, descripcion
+	FROM INSERTED
+END
+GO
+
+CREATE TRIGGER tBitacoraModificarProducto
+ON tbProducto
+INSTEAD OF UPDATE
+AS
+BEGIN
+	INSERT INTO tbBitacoraTransacciones(fecha, hora, objeto, usuario, accion, modulo)
+	SELECT CAST(GETDATE() AS DATE),
+		   CAST(GETDATE() AS TIME),
+		   '[' + CAST(idProducto AS VARCHAR) + '] ' + nombre,
+		   (SELECT usuario
+		    FROM tbBitacoraAcceso
+		    WHERE idBitacoraAcceso = (SELECT MAX(idBitacoraAcceso)
+									  FROM tbBitacoraAcceso)),
+		   'Modificar',
+		   'Productos'
+	FROM INSERTED
+
+	UPDATE tbProducto SET
+		nombre = i.nombre,
+		cantidad = i.cantidad,
+		precioCompra = i.precioCompra,
+		precioVenta = i.precioVenta,
+		descripcion = i.descripcion
+	FROM INSERTED AS i
+	WHERE tbProducto.idProducto = i.idProducto
+END
+GO
+
+CREATE TRIGGER tBitacoraEliminarProducto
+ON tbProducto
+INSTEAD OF DELETE
+AS
+BEGIN
+	DECLARE @IDProducto INT
+	SET @IDProducto = (SELECT idProducto FROM DELETED)
+
+	INSERT INTO tbBitacoraTransacciones(fecha, hora, objeto, usuario, accion, modulo)
+	SELECT CAST(GETDATE() AS DATE),
+		   CAST(GETDATE() AS TIME),
+		   '[' + CAST(idProducto AS VARCHAR) + '] ' + nombre,
+		   (SELECT usuario
+		    FROM tbBitacoraAcceso
+		    WHERE idBitacoraAcceso = (SELECT MAX(idBitacoraAcceso)
+									  FROM tbBitacoraAcceso)),
+		   'Eliminar',
+		   'Productos'
+	FROM DELETED
+
+	DELETE FROM tbProducto
+	WHERE idProducto = @IDProducto
+END
+GO
 
 
 
@@ -311,9 +433,18 @@ BEGIN CATCH
 		ROLLBACK TRANSACTION TranUsuarios
 		PRINT 'Error detectado al momento de ingresar usuarios.'
 	END
+	SELECT
+		ERROR_NUMBER() AS ErrorNumber,
+		ERROR_SEVERITY() AS ErrorSeverity,
+		ERROR_STATE() AS ErrorState,
+		ERROR_PROCEDURE() AS ErrorProcedure,
+		ERROR_LINE() AS ErrorLine,
+		ERROR_MESSAGE() AS ErrorMessage
 END CATCH
 
 
+
+EXEC pLogin 'admin', 'admin'
 BEGIN TRY
 	BEGIN TRANSACTION TranProductos
 		INSERT INTO tbProducto (nombre, cantidad, precioCompra, precioVenta, descripcion)
@@ -331,4 +462,11 @@ BEGIN CATCH
 		ROLLBACK TRANSACTION TranProductos
 		PRINT 'Error detectado al momento de ingresar productos.'
 	END
+	SELECT
+		ERROR_NUMBER() AS ErrorNumber,
+		ERROR_SEVERITY() AS ErrorSeverity,
+		ERROR_STATE() AS ErrorState,
+		ERROR_PROCEDURE() AS ErrorProcedure,
+		ERROR_LINE() AS ErrorLine,
+		ERROR_MESSAGE() AS ErrorMessage
 END CATCH
