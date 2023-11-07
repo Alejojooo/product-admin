@@ -1,23 +1,18 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.enpresa.productadmin.modelo.dao;
 
 import com.enpresa.productadmin.modelo.Operacion;
-import com.enpresa.productadmin.modelo.dto.DTO;
+import com.enpresa.productadmin.modelo.dto.OperacionDTO;
 import com.enpresa.productadmin.utils.Conexion;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
-import java.util.Map;
 
 /**
  *
  * @author Alejo
  */
-public class OperacionDAO implements DAO<Operacion> {
+public class OperacionDAO implements DAO<Operacion, OperacionDTO> {
 
     @Override
     public void crear(Operacion operacion) {
@@ -36,7 +31,7 @@ public class OperacionDAO implements DAO<Operacion> {
     }
 
     @Override
-    public void modificar(Operacion e) {
+    public void modificar(Operacion entidad) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
@@ -46,7 +41,7 @@ public class OperacionDAO implements DAO<Operacion> {
     }
 
     @Override
-    public List<DTO> buscar(Map<String, String> campos) {
+    public List<OperacionDTO> buscar(OperacionDTO dto) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
@@ -56,7 +51,7 @@ public class OperacionDAO implements DAO<Operacion> {
     }
 
     @Override
-    public List<Operacion> consultarTodos() {
+    public List<OperacionDTO> consultarTodos() {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 }

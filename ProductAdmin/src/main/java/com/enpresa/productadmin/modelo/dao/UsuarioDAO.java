@@ -18,7 +18,7 @@ import java.util.Map;
  *
  * @author Alejo
  */
-public class UsuarioDAO implements DAO<Usuario> {
+public class UsuarioDAO implements DAO<Usuario, UsuarioDTO> {
 
     @Override
     public void crear(Usuario usuario) {
@@ -73,16 +73,16 @@ public class UsuarioDAO implements DAO<Usuario> {
     }
 
     @Override
-    public List<UsuarioDTO> buscar(Map<String, String> campos) {
+    public List<UsuarioDTO> buscar(UsuarioDTO dto) {
         List<UsuarioDTO> usuarios = new ArrayList<>();
         String sql = "{CALL dbo.pBuscarUsuario(?, ?, ?, ?, ?)}";
 
         try (Connection c = new Conexion().establecerConexion(); CallableStatement cs = c.prepareCall(sql)) {
-            cs.setString(1, campos.get("id"));
-            cs.setString(2, campos.get("usuario"));
-            cs.setNString(3, campos.get("nombres"));
-            cs.setNString(4, campos.get("apellidos"));
-            cs.setString(5, campos.get("rol"));
+            cs.setString(1, dto.getId());
+            cs.setString(2, dto.getUsuario());
+            cs.setNString(3, dto.getNombres());
+            cs.setNString(4, dto.getApellidos());
+            cs.setString(5, dto.getRol());
 
             ResultSet rs = cs.executeQuery();
             while (rs.next()) {
@@ -123,19 +123,18 @@ public class UsuarioDAO implements DAO<Usuario> {
     }
 
     @Override
-    public List<Usuario> consultarTodos() {
-        List<Usuario> usuarios = new ArrayList<>();
+    public List<UsuarioDTO> consultarTodos() {
+        List<UsuarioDTO> usuarios = new ArrayList<>();
         String sql = "SELECT * FROM vUsuarios";
 
         try (Connection c = new Conexion().establecerConexion(); Statement st = c.createStatement(); ResultSet rs = st.executeQuery(sql)) {
-            Usuario usuario;
             while (rs.next()) {
-                usuario = new Usuario();
-                usuario.setId(rs.getInt(1));
+                UsuarioDTO usuario = new UsuarioDTO();
+                usuario.setId(rs.getString(1));
                 usuario.setUsuario(rs.getString(2));
                 usuario.setNombres(rs.getNString(3));
                 usuario.setApellidos(rs.getNString(4));
-                usuario.setRol(Rol.valueOf(rs.getString(5)));
+                usuario.setRol(rs.getString(5));
                 usuarios.add(usuario);
             }
         } catch (SQLException e) {

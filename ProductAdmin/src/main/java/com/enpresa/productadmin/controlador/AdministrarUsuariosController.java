@@ -3,11 +3,10 @@ package com.enpresa.productadmin.controlador;
 import com.enpresa.productadmin.modelo.dao.UsuarioDAO;
 import com.enpresa.productadmin.modelo.Rol;
 import com.enpresa.productadmin.modelo.Usuario;
+import com.enpresa.productadmin.modelo.dto.UsuarioDTO;
 import com.enpresa.productadmin.vistas.gui.AdministrarUsuariosVista;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
 import java.util.Random;
 import java.util.regex.Pattern;
 
@@ -37,30 +36,15 @@ public class AdministrarUsuariosController {
         vista.mapearAccion("Buscar", (e) -> buscarUsuario());
     }
 
-    private void mostrarRegistros(List<Usuario> usuarios) {
+    private void mostrarRegistros(List<UsuarioDTO> usuarios) {
         if (usuarios == null) {
             usuarios = modelo.consultarTodos();
         }
-        vista.mostrarRegistros(getRegistros(usuarios));
+        vista.mostrarRegistros(usuarios);
     }
 
     private void mostrarRegistros() {
         mostrarRegistros(null);
-    }
-
-    private List<String[]> getRegistros(List<Usuario> usuarios) {
-        List<String[]> registros = new ArrayList<>();
-        for (Usuario usuario : usuarios) {
-            String[] registro = {
-                String.valueOf(usuario.getId()),
-                usuario.getUsuario(),
-                usuario.getNombres(),
-                usuario.getApellidos(),
-                usuario.getRol().toString()
-            };
-            registros.add(registro);
-        }
-        return registros;
     }
 
     private String generarClaveNuevoUsuario() {
@@ -81,73 +65,74 @@ public class AdministrarUsuariosController {
 
     /* --- Métodos para CRUD --- */
     private String crearUsuario() {
-        Map<String, String> campos = vista.getCampos();
+        UsuarioDTO campos = vista.obtenerCampos();
         Usuario usuario = new Usuario();
         String clave = generarClaveNuevoUsuario();
         try {
-            usuario.setUsuario(comprobarUsuario(campos.get("usuario")));
-            usuario.setNombres(comprobarNombres(campos.get("nombres")));
+            usuario.setUsuario(comprobarUsuario(campos.getUsuario()));
+            usuario.setNombres(comprobarNombres(campos.getNombres()));
             usuario.setClave(clave);
-            usuario.setApellidos(comprobarApellidos(campos.get("apellidos")));
-            usuario.setRol(comprobarRol(campos.get("rol")));
+            usuario.setApellidos(comprobarApellidos(campos.getApellidos()));
+            usuario.setRol(comprobarRol(campos.getRol()));
+
+            modelo.crear(usuario);
+            vista.mostrarMensaje("Se ha creado un nuevo usuario.");
+            mostrarRegistros();
+            return clave;
         } catch (UsuarioInvalidoException e) {
             return null;
         }
-        modelo.crear(usuario);
-        vista.mostrarMensaje("Se ha creado un nuevo usuario.");
-        mostrarRegistros();
-        return clave;
     }
 
     private int modificarUsuario() {
-        Map<String, String> campos = vista.getCampos();
+        UsuarioDTO campos = vista.obtenerCampos();
         Usuario usuario = new Usuario();
         Integer id;
         try {
-            id = comprobarId(campos.get("id"));
+            id = comprobarId(campos.getId());
             usuario.setId(id);
-            usuario.setUsuario(comprobarUsuario(campos.get("usuario")));
-            usuario.setNombres(comprobarNombres(campos.get("nombres")));
-            usuario.setApellidos(comprobarApellidos(campos.get("apellidos")));
-            usuario.setRol(comprobarRol(campos.get("rol")));
+            usuario.setUsuario(comprobarUsuario(campos.getUsuario()));
+            usuario.setNombres(comprobarNombres(campos.getNombres()));
+            usuario.setApellidos(comprobarApellidos(campos.getApellidos()));
+            usuario.setRol(comprobarRol(campos.getRol()));
+
+            boolean modificar = vista.mostrarConfirmacion(String.format("¿Está seguro de modificar el usuario con ID [%d]?", id));
+            if (!modificar) {
+                return -1;
+            }
+
+            modelo.modificar(usuario);
+            vista.mostrarMensaje("Se ha modificado el usuario.");
+            mostrarRegistros();
+            return 1;
         } catch (UsuarioInvalidoException e) {
             return -1;
         }
-
-        boolean modificar = vista.mostrarConfirmacion(String.format("¿Está seguro de modificar el usuario con ID [%d]?", id));
-        if (!modificar) {
-            return -1;
-        }
-
-        modelo.modificar(usuario);
-        vista.mostrarMensaje("Se ha modificado el usuario.");
-        mostrarRegistros();
-        return 1;
     }
 
     private int eliminarUsuario() {
-        Map<String, String> campos = vista.getCampos();
+        UsuarioDTO campos = vista.obtenerCampos();
         Integer id;
         try {
-            id = comprobarId(campos.get("id"));
+            id = comprobarId(campos.getId());
+
+            boolean modificar = vista.mostrarConfirmacion(String.format("¿Está seguro de modificar el usuario con ID [%d]?", id));
+            if (!modificar) {
+                return -1;
+            }
+
+            modelo.eliminar(id);
+            vista.mostrarMensaje("Se ha modificado el usuario.");
+            mostrarRegistros();
+            return 1;
         } catch (UsuarioInvalidoException e) {
             return -1;
         }
-
-        boolean modificar = vista.mostrarConfirmacion(String.format("¿Está seguro de modificar el usuario con ID [%d]?", id));
-        if (!modificar) {
-            return -1;
-        }
-
-        modelo.eliminar(id);
-        vista.mostrarMensaje("Se ha modificado el usuario.");
-        mostrarRegistros();
-        return 1;
     }
 
     private int buscarUsuario() {
-        Map<String, String> campos = vista.getCampos();
-        List<Usuario> usuarios = modelo.buscar(campos);
+        UsuarioDTO campos = vista.obtenerCampos();
+        List<UsuarioDTO> usuarios = modelo.buscar(campos);
         mostrarRegistros(usuarios);
         return 1;
     }

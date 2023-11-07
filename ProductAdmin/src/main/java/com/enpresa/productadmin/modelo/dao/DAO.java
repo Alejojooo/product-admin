@@ -2,24 +2,24 @@ package com.enpresa.productadmin.modelo.dao;
 
 import com.enpresa.productadmin.modelo.dto.DTO;
 import java.util.List;
-import java.util.Map;
 
 /**
  *
  * @author Alejo
- * @param <T>
+ * @param <E>
+ * @param <D>
  */
-public interface DAO<T> {
+public interface DAO<E, D extends DTO> {
 
-    void crear(T entidad);
+    void crear(E entidad);
 
-    void modificar(T entidad);
+    void modificar(E entidad);
 
     void eliminar(int id);
 
-    List<? extends DTO> buscar(<? extends DTO> campos);
+    List<? extends DTO> buscar(D campos);
 
-    T consultarUno(int id);
+    E consultarUno(int id);
 
-    List<T> consultarTodos();
+    List<D> consultarTodos();
 }

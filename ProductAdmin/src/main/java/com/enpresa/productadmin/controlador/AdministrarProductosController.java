@@ -5,9 +5,7 @@ import com.enpresa.productadmin.modelo.Producto;
 import com.enpresa.productadmin.modelo.dto.ProductoDTO;
 import com.enpresa.productadmin.vistas.gui.AdministrarProductosVista;
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 /**
  *
@@ -39,98 +37,82 @@ public class AdministrarProductosController {
         if (productos == null) {
             productos = modelo.consultarTodos();
         }
-        vista.mostrarRegistros(getRegistros(productos));
-    }
-
-    private void mostrarRegistros() {
-        List<Producto> productos = modelo.consultarTodos();
         vista.mostrarRegistros(productos);
     }
 
-    private List<ProductoDTO> getRegistros(List<Producto> productos) {
-        List<String[]> registros = new ArrayList<>();
-        for (Producto producto : productos) {
-            String[] registro = {
-                String.valueOf(producto.getId()),
-                producto.getNombre(),
-                String.valueOf(producto.getCantidad()),
-                String.valueOf(producto.getPrecioCompra()),
-                String.valueOf(producto.getPrecioVenta()),
-                producto.getDescripcion()
-            };
-            registros.add(registro);
-        }
-        return registros;
+    private void mostrarRegistros() {
+        vista.mostrarRegistros(null);
     }
 
     /* --- Métodos para CRUD --- */
     private int crearProducto() {
-        Map<String, String> campos = vista.getCampos();
+        ProductoDTO campos = vista.obtenerCampos();
         Producto producto = new Producto();
         try {
-            producto.setNombre(comprobarNombre(campos.get("nombre")));
-            producto.setCantidad(comprobarCantidad(campos.get("cantidad")));
-            producto.setPrecioCompra(comprobarPrecio(campos.get("precioCompra")));
-            producto.setPrecioVenta(comprobarPrecio(campos.get("precioVenta")));
-            producto.setDescripcion(campos.get("descripcion"));
+            producto.setNombre(comprobarNombre(campos.getNombre()));
+            producto.setCantidad(comprobarCantidad(campos.getCantidad()));
+            producto.setPrecioCompra(comprobarPrecio(campos.getPrecioCompra()));
+            producto.setPrecioVenta(comprobarPrecio(campos.getPrecioVenta()));
+            producto.setDescripcion(campos.getDescripcion());
+
+            modelo.crear(producto);
+            vista.mostrarMensaje("Se ha creado un nuevo producto.");
+            mostrarRegistros();
+            return 1;
         } catch (ProductoInvalidoException e) {
             return -1;
         }
-        modelo.crear(producto);
-        vista.mostrarMensaje("Se ha creado un nuevo producto.");
-        mostrarRegistros();
-        return 1;
     }
 
     private int modificarProducto() {
-        Map<String, String> campos = vista.getCampos();
+        ProductoDTO campos = vista.obtenerCampos();
         Producto producto = new Producto();
         Integer id;
         try {
-            id = comprobarId(campos.get("id"));
+            id = comprobarId(campos.getId());
             producto.setId(id);
-            producto.setNombre(comprobarNombre(campos.get("nombre")));
-            producto.setCantidad(comprobarCantidad(campos.get("cantidad")));
-            producto.setPrecioCompra(comprobarPrecio(campos.get("precioCompra")));
-            producto.setPrecioVenta(comprobarPrecio(campos.get("precioVenta")));
-            producto.setDescripcion(campos.get("descripcion"));
+            producto.setNombre(comprobarNombre(campos.getNombre()));
+            producto.setCantidad(comprobarCantidad(campos.getCantidad()));
+            producto.setPrecioCompra(comprobarPrecio(campos.getPrecioCompra()));
+            producto.setPrecioVenta(comprobarPrecio(campos.getPrecioVenta()));
+            producto.setDescripcion(campos.getDescripcion());
+
+            boolean modificar = vista.mostrarConfirmacion(String.format("¿Está seguro de modificar el producto con ID [%d]?", id));
+            if (!modificar) {
+                return -1;
+            }
+
+            modelo.modificar(producto);
+            vista.mostrarMensaje("Se ha modificado el producto.");
+            mostrarRegistros();
+            return 1;
         } catch (ProductoInvalidoException e) {
             return -1;
         }
-
-        boolean modificar = vista.mostrarConfirmacion(String.format("¿Está seguro de modificar el producto con ID [%d]?", id));
-        if (!modificar) {
-            return -1;
-        }
-
-        modelo.modificar(producto);
-        vista.mostrarMensaje("Se ha modificado el producto.");
-        mostrarRegistros();
-        return 1;
     }
 
     private int eliminarProducto() {
-        Map<String, String> campos = vista.getCampos();
+        ProductoDTO campos = vista.obtenerCampos();
         Integer id;
         try {
-            id = comprobarId(campos.get("id"));
+            id = comprobarId(campos.getId());
+
+            boolean eliminar = vista.mostrarConfirmacion(String.format("¿Está seguro de eliminar el producto con ID [%d]?", id));
+            if (!eliminar) {
+                return -1;
+            }
+
+            modelo.eliminar(id);
+            vista.mostrarMensaje("Se ha eliminado el producto.");
+            mostrarRegistros();
+            return 1;
         } catch (ProductoInvalidoException e) {
             return -1;
         }
-
-        boolean eliminar = vista.mostrarConfirmacion(String.format("¿Está seguro de eliminar el producto con ID [%d]?", id));
-        if (!eliminar) {
-            return -1;
-        }
-
-        modelo.eliminar(id);
-        vista.mostrarMensaje("Se ha eliminado el producto.");
-        mostrarRegistros();
-        return 1;
     }
 
     private int buscarProducto() {
-        Map<String, String> campos = vista.getCampos();
+        ProductoDTO campos = vista.obtenerCampos();
         List<ProductoDTO> productos = modelo.buscar(campos);
         mostrarRegistros(productos);
         return 1;

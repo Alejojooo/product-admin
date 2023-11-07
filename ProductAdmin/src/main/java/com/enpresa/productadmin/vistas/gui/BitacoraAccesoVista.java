@@ -1,20 +1,56 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
- */
 package com.enpresa.productadmin.vistas.gui;
+
+import com.enpresa.productadmin.modelo.dto.DTO;
+import com.enpresa.productadmin.modelo.dto.RegistroAccesoBusquedaDTO;
+import com.enpresa.productadmin.vistas.EntradaUsuario;
+import com.enpresa.productadmin.vistas.MostrarRegistros;
+import com.enpresa.productadmin.vistas.VistaGraficaConRegistros;
+import java.awt.event.ActionEvent;
+import java.util.List;
+import javax.swing.JButton;
 
 /**
  *
  * @author Alejo
  */
-public class BitacoraAccesoVista extends javax.swing.JPanel {
+public class BitacoraAccesoVista extends VistaGraficaConRegistros implements EntradaUsuario, MostrarRegistros {
 
     /**
      * Creates new form BitacoraAcceso
      */
     public BitacoraAccesoVista() {
         initComponents();
+        agregarAlternadores();
+    }
+    
+    private void agregarAlternadores() {
+        cBoxFecha.addActionListener((ActionEvent e) -> {
+            boolean enabled = cBoxFecha.isSelected();
+            txtFechaInicial.setEnabled(enabled);
+            txtFechaFinal.setEnabled(enabled);
+
+            txtFechaInicial.setText("");
+            txtFechaFinal.setText("");
+        });
+
+        cBoxHora.addActionListener((ActionEvent e) -> {
+            boolean enabled = cBoxHora.isSelected();
+            txtHoraInicial.setEnabled(enabled);
+            txtHoraFinal.setEnabled(enabled);
+
+            txtHoraInicial.setText("");
+            txtHoraFinal.setText("");
+        });
+
+        cBoxUsuario.addActionListener((ActionEvent e) -> {
+            boolean enabled = cBoxUsuario.isSelected();
+            txtUsuario.setEnabled(enabled);
+            txtUsuario.setText("");
+        });
+    }
+
+    public JButton getBtnBuscar() {
+        return btnBuscar;
     }
 
     /**
@@ -29,26 +65,18 @@ public class BitacoraAccesoVista extends javax.swing.JPanel {
         jScrollPane1 = new javax.swing.JScrollPane();
         tbBitacoraA = new javax.swing.JTable();
         paFiltrar = new javax.swing.JPanel();
-        txtHastaDia = new javax.swing.JTextField();
+        txtFechaFinal = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
-        txtHastaMes = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        txtDeDia = new javax.swing.JTextField();
+        txtFechaInicial = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
-        txtDeMes = new javax.swing.JTextField();
-        txtDeHora = new javax.swing.JTextField();
-        txtDeAño = new javax.swing.JTextField();
-        txtHastaHora = new javax.swing.JTextField();
-        jLabel3 = new javax.swing.JLabel();
+        txtHoraInicial = new javax.swing.JTextField();
+        txtHoraFinal = new javax.swing.JTextField();
         jSeparator1 = new javax.swing.JSeparator();
-        jLabel4 = new javax.swing.JLabel();
         cBoxFecha = new javax.swing.JCheckBox();
-        txtHastaAño = new javax.swing.JTextField();
         cBoxHora = new javax.swing.JCheckBox();
-        jLabel5 = new javax.swing.JLabel();
         cBoxUsuario = new javax.swing.JCheckBox();
-        jLabel6 = new javax.swing.JLabel();
         txtUsuario = new javax.swing.JTextField();
         btnBuscar = new javax.swing.JButton();
 
@@ -76,17 +104,13 @@ public class BitacoraAccesoVista extends javax.swing.JPanel {
         paFiltrar.setBorder(javax.swing.BorderFactory.createTitledBorder("¿Filtrar?"));
         paFiltrar.setLayout(null);
 
-        txtHastaDia.setPreferredSize(new java.awt.Dimension(30, 22));
-        paFiltrar.add(txtHastaDia);
-        txtHastaDia.setBounds(70, 105, 30, 22);
+        txtFechaFinal.setPreferredSize(new java.awt.Dimension(30, 22));
+        paFiltrar.add(txtFechaFinal);
+        txtFechaFinal.setBounds(70, 105, 100, 22);
 
         jLabel1.setText("De:");
         paFiltrar.add(jLabel1);
         jLabel1.setBounds(17, 65, 17, 16);
-
-        txtHastaMes.setPreferredSize(new java.awt.Dimension(30, 22));
-        paFiltrar.add(txtHastaMes);
-        txtHastaMes.setBounds(106, 105, 30, 22);
 
         jLabel2.setText("Hasta:");
         paFiltrar.add(jLabel2);
@@ -96,63 +120,35 @@ public class BitacoraAccesoVista extends javax.swing.JPanel {
         paFiltrar.add(jLabel7);
         jLabel7.setBounds(235, 65, 17, 16);
 
-        txtDeDia.setPreferredSize(new java.awt.Dimension(30, 22));
-        paFiltrar.add(txtDeDia);
-        txtDeDia.setBounds(71, 62, 30, 27);
+        txtFechaInicial.setPreferredSize(new java.awt.Dimension(30, 22));
+        paFiltrar.add(txtFechaInicial);
+        txtFechaInicial.setBounds(71, 62, 100, 27);
 
         jLabel8.setText("Hasta:");
         paFiltrar.add(jLabel8);
         jLabel8.setBounds(234, 108, 33, 16);
 
-        txtDeMes.setPreferredSize(new java.awt.Dimension(30, 22));
-        paFiltrar.add(txtDeMes);
-        txtDeMes.setBounds(107, 62, 30, 27);
+        txtHoraInicial.setPreferredSize(new java.awt.Dimension(50, 22));
+        paFiltrar.add(txtHoraInicial);
+        txtHoraInicial.setBounds(288, 62, 50, 27);
 
-        txtDeHora.setPreferredSize(new java.awt.Dimension(50, 22));
-        paFiltrar.add(txtDeHora);
-        txtDeHora.setBounds(288, 62, 50, 27);
-
-        txtDeAño.setPreferredSize(new java.awt.Dimension(50, 22));
-        paFiltrar.add(txtDeAño);
-        txtDeAño.setBounds(143, 62, 50, 27);
-
-        txtHastaHora.setPreferredSize(new java.awt.Dimension(50, 22));
-        paFiltrar.add(txtHastaHora);
-        txtHastaHora.setBounds(288, 105, 50, 27);
-
-        jLabel3.setText("/");
-        paFiltrar.add(jLabel3);
-        jLabel3.setBounds(101, 65, 5, 16);
+        txtHoraFinal.setPreferredSize(new java.awt.Dimension(50, 22));
+        paFiltrar.add(txtHoraFinal);
+        txtHoraFinal.setBounds(288, 105, 50, 27);
         paFiltrar.add(jSeparator1);
         jSeparator1.setBounds(21, 147, 314, 10);
-
-        jLabel4.setText("/");
-        paFiltrar.add(jLabel4);
-        jLabel4.setBounds(137, 65, 5, 16);
 
         cBoxFecha.setText("Fecha");
         paFiltrar.add(cBoxFecha);
         cBoxFecha.setBounds(17, 30, 54, 20);
 
-        txtHastaAño.setPreferredSize(new java.awt.Dimension(50, 22));
-        paFiltrar.add(txtHastaAño);
-        txtHastaAño.setBounds(142, 105, 50, 22);
-
         cBoxHora.setText("Hora");
         paFiltrar.add(cBoxHora);
         cBoxHora.setBounds(234, 30, 49, 20);
 
-        jLabel5.setText("/");
-        paFiltrar.add(jLabel5);
-        jLabel5.setBounds(100, 108, 5, 16);
-
         cBoxUsuario.setText("Usuario");
         paFiltrar.add(cBoxUsuario);
         cBoxUsuario.setBounds(51, 176, 63, 20);
-
-        jLabel6.setText("/");
-        paFiltrar.add(jLabel6);
-        jLabel6.setBounds(136, 108, 5, 16);
 
         txtUsuario.setPreferredSize(new java.awt.Dimension(150, 22));
         paFiltrar.add(txtUsuario);
@@ -167,7 +163,6 @@ public class BitacoraAccesoVista extends javax.swing.JPanel {
         paFiltrar.setBounds(610, 41, 354, 448);
     }// </editor-fold>//GEN-END:initComponents
 
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBuscar;
     private javax.swing.JCheckBox cBoxFecha;
@@ -175,24 +170,35 @@ public class BitacoraAccesoVista extends javax.swing.JPanel {
     private javax.swing.JCheckBox cBoxUsuario;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JPanel paFiltrar;
     private javax.swing.JTable tbBitacoraA;
-    private javax.swing.JTextField txtDeAño;
-    private javax.swing.JTextField txtDeDia;
-    private javax.swing.JTextField txtDeHora;
-    private javax.swing.JTextField txtDeMes;
-    private javax.swing.JTextField txtHastaAño;
-    private javax.swing.JTextField txtHastaDia;
-    private javax.swing.JTextField txtHastaHora;
-    private javax.swing.JTextField txtHastaMes;
+    private javax.swing.JTextField txtFechaFinal;
+    private javax.swing.JTextField txtFechaInicial;
+    private javax.swing.JTextField txtHoraFinal;
+    private javax.swing.JTextField txtHoraInicial;
     private javax.swing.JTextField txtUsuario;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public RegistroAccesoBusquedaDTO obtenerCampos() {
+        RegistroAccesoBusquedaDTO campos = new RegistroAccesoBusquedaDTO();
+        
+        campos.setFechaInicial(txtFechaInicial.getText());
+        campos.setFechaFinal(txtFechaFinal.getText());
+        campos.setHoraInicial(txtHoraInicial.getText());
+        campos.setHoraFinal(txtHoraFinal.getText());
+        campos.setUsuario(txtUsuario.getText());
+
+        return campos;
+    }
+
+    @Override
+    public void mostrarRegistros(List<? extends DTO> registros) {
+        mostrarRegistrosEnTabla(tbBitacoraA, registros);
+    }
+
 }

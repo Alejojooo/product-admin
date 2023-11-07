@@ -1,8 +1,11 @@
 package com.enpresa.productadmin.vistas.gui;
 
 import com.enpresa.productadmin.modelo.Rol;
+import com.enpresa.productadmin.modelo.dto.DTO;
 import com.enpresa.productadmin.modelo.dto.UsuarioDTO;
+import com.enpresa.productadmin.vistas.EntradaUsuario;
 import com.enpresa.productadmin.vistas.MapearAccion;
+import com.enpresa.productadmin.vistas.MostrarRegistros;
 import com.enpresa.productadmin.vistas.VistaGraficaConRegistros;
 import java.awt.event.ActionEvent;
 import java.util.HashMap;
@@ -14,7 +17,7 @@ import java.util.function.Function;
  *
  * @author Oscar
  */
-public class AdministrarUsuariosVista extends VistaGraficaConRegistros implements MapearAccion {
+public class AdministrarUsuariosVista extends VistaGraficaConRegistros implements MapearAccion, EntradaUsuario, MostrarRegistros {
 
     /**
      * Creates new form AdministrarProductos
@@ -181,18 +184,20 @@ public class AdministrarUsuariosVista extends VistaGraficaConRegistros implement
     private javax.swing.JTextField txtUsuario;
     // End of variables declaration//GEN-END:variables
 
-    public Map<String, String> getCampos() {
-        Map<String, String> campos = new HashMap<>();
-        campos.put("id", txtId.getText());
-        campos.put("usuario", txtUsuario.getText());
-        campos.put("nombres", txtNombres.getText());
-        campos.put("apellidos", txtApellidos.getText());
-        campos.put("rol", (String) cBoxRol.getSelectedItem());
-
-        return campos;
+    @Override
+    public UsuarioDTO obtenerCampos() {
+        UsuarioDTO usuario = new UsuarioDTO();
+        usuario.setId(txtId.getText());
+        usuario.setUsuario(txtUsuario.getText());
+        usuario.setNombres(txtNombres.getText());
+        usuario.setApellidos(txtApellidos.getText());
+        usuario.setRol((String) cBoxRol.getSelectedItem());
+        
+        return usuario;
     }
 
-    public void mostrarRegistros(List<UsuarioDTO> usuarios) {
+    @Override
+    public void mostrarRegistros(List<? extends DTO> usuarios) {
         mostrarRegistrosEnTabla(tbUsuarios, usuarios);
     }
 

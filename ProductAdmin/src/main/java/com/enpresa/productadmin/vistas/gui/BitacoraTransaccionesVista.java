@@ -1,6 +1,9 @@
 package com.enpresa.productadmin.vistas.gui;
 
-import com.enpresa.productadmin.modelo.dto.RegistroTransaccionDTO;
+import com.enpresa.productadmin.modelo.dto.DTO;
+import com.enpresa.productadmin.modelo.dto.RegistroTransaccionBusquedaDTO;
+import com.enpresa.productadmin.vistas.EntradaUsuario;
+import com.enpresa.productadmin.vistas.MostrarRegistros;
 import com.enpresa.productadmin.vistas.VistaGraficaConRegistros;
 import java.awt.event.ActionEvent;
 import java.util.List;
@@ -10,16 +13,17 @@ import javax.swing.JButton;
  *
  * @author Alejo
  */
-public class BitacoraTransaccionesVista extends VistaGraficaConRegistros {
+public class BitacoraTransaccionesVista extends VistaGraficaConRegistros implements EntradaUsuario, MostrarRegistros {
 
     /**
      * Creates new form BitacoraAcceso
      */
     public BitacoraTransaccionesVista() {
         initComponents();
+        agregarAlternadores();
     }
 
-    private void togglers() {
+    private void agregarAlternadores() {
         cBoxFecha.addActionListener((ActionEvent e) -> {
             boolean enabled = cBoxFecha.isSelected();
             txtFechaInicial.setEnabled(enabled);
@@ -45,18 +49,18 @@ public class BitacoraTransaccionesVista extends VistaGraficaConRegistros {
         });
 
         cBoxUsuario.addActionListener((ActionEvent e) -> {
-            boolean enabled = cBoxObjeto.isSelected();
+            boolean enabled = cBoxUsuario.isSelected();
             txtUsuario.setEnabled(enabled);
             txtUsuario.setText("");
         });
 
         cBoxAccion.addActionListener((ActionEvent e) -> {
-            boolean enabled = cBoxObjeto.isSelected();
+            boolean enabled = cBoxAccion.isSelected();
             comboBoxAccion.setEnabled(enabled);
         });
 
         cBoxModulo.addActionListener((ActionEvent e) -> {
-            boolean enabled = cBoxObjeto.isSelected();
+            boolean enabled = cBoxModulo.isSelected();
             comboBoxModulo.setEnabled(enabled);
         });
     }
@@ -65,45 +69,31 @@ public class BitacoraTransaccionesVista extends VistaGraficaConRegistros {
         return btnBuscar;
     }
 
-    public String getFechaInicial() {
-        return txtFechaInicial.getText();
-    }
-
-    public String getHoraInicial() {
-        return txtHoraInicial.getText();
-    }
-
-    public String getFechaFinal() {
-        return txtFechaFinal.getText();
-    }
-
-    public String getHoraFinal() {
-        return txtHoraFinal.getText();
-    }
-
-    public String getObjeto() {
-        return txtObjeto.getText();
-    }
-
-    public String getUsuario() {
-        return txtUsuario.getText();
-    }
-
-    public String getAcción() {
+    @Override
+    public RegistroTransaccionBusquedaDTO obtenerCampos() {
+        RegistroTransaccionBusquedaDTO campos = new RegistroTransaccionBusquedaDTO();
+        campos.setFechaInicial(txtFechaInicial.getText());
+        campos.setFechaFinal(txtFechaFinal.getText());
+        campos.setHoraInicial(txtHoraInicial.getText());
+        campos.setHoraFinal(txtHoraFinal.getText());
+        campos.setObjeto(txtObjeto.getText());
+        campos.setUsuario(txtUsuario.getText());
         if (comboBoxAccion.isEnabled()) {
-            return comboBoxAccion.getSelectedItem().toString();
+            campos.setAccion(comboBoxAccion.getSelectedItem().toString());
+        } else {
+            campos.setAccion("");
         }
-        return "";
+        if (comboBoxModulo.isEnabled()) {
+            campos.setModulo(comboBoxModulo.getSelectedItem().toString());
+        } else {
+            campos.setModulo("");
+        }
+
+        return campos;
     }
 
-    public String getModulo() {
-        if (comboBoxModulo.isEnabled()) {
-            return comboBoxModulo.getSelectedItem().toString();
-        }
-        return "";
-    }
-    
-    public void mostrarRegistros(List<RegistroTransaccionDTO> registros) {
+    @Override
+    public void mostrarRegistros(List<? extends DTO> registros) {
         mostrarRegistrosEnTabla(tbBitacoraTrans, registros);
     }
 
@@ -290,4 +280,5 @@ public class BitacoraTransaccionesVista extends VistaGraficaConRegistros {
     private javax.swing.JTextField txtObjeto;
     private javax.swing.JTextField txtUsuario;
     // End of variables declaration//GEN-END:variables
+
 }

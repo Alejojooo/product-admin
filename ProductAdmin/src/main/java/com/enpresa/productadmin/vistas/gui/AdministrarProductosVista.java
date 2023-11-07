@@ -1,19 +1,20 @@
 package com.enpresa.productadmin.vistas.gui;
 
+import com.enpresa.productadmin.modelo.dto.DTO;
 import com.enpresa.productadmin.modelo.dto.ProductoDTO;
+import com.enpresa.productadmin.vistas.EntradaUsuario;
 import com.enpresa.productadmin.vistas.MapearAccion;
+import com.enpresa.productadmin.vistas.MostrarRegistros;
 import com.enpresa.productadmin.vistas.VistaGraficaConRegistros;
 import java.awt.event.ActionEvent;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.function.Function;
 
 /**
  *
  * @author Oscar
  */
-public class AdministrarProductosVista extends VistaGraficaConRegistros implements MapearAccion {
+public class AdministrarProductosVista extends VistaGraficaConRegistros implements MapearAccion, EntradaUsuario, MostrarRegistros {
 
     /**
      * Creates new form AdministrarProductos
@@ -200,20 +201,22 @@ public class AdministrarProductosVista extends VistaGraficaConRegistros implemen
     private javax.swing.JTextField txtPrecioVenta;
     // End of variables declaration//GEN-END:variables
 
-    public Map<String, String> getCampos() {
-        Map<String, String> campos = new HashMap<>();
-        campos.put("id", txtId.getText());
-        campos.put("nombre", txtNombre.getText());
-        campos.put("cantidad", txtCantidad.getText());
-        campos.put("precioCompra", txtPrecioCompra.getText());
-        campos.put("precioVenta", txtPrecioVenta.getText());
-        campos.put("descripcion", txtDescripcion.getText());
+    @Override
+    public ProductoDTO obtenerCampos() {
+        ProductoDTO producto = new ProductoDTO();
+        producto.setId(txtId.getText());
+        producto.setNombre(txtNombre.getText());
+        producto.setCantidad(txtCantidad.getText());
+        producto.setPrecioCompra(txtPrecioCompra.getText());
+        producto.setPrecioVenta(txtPrecioVenta.getText());
+        producto.setDescripcion(txtDescripcion.getText());
 
-        return campos;
+        return producto;
     }
 
-    public void mostrarRegistros(List<ProductoDTO> productos) {
-        mostrarRegistrosEnTabla(tbProductos, productos);
+    @Override
+    public void mostrarRegistros(List<? extends DTO> registros) {
+        mostrarRegistrosEnTabla(tbProductos, registros);
     }
 
     @Override
@@ -276,4 +279,5 @@ public class AdministrarProductosVista extends VistaGraficaConRegistros implemen
         txtPrecioVenta.setText("");
         txtDescripcion.setText("");
     }
+
 }

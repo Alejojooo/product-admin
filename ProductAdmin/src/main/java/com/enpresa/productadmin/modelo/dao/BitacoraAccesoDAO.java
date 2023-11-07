@@ -1,8 +1,9 @@
 package com.enpresa.productadmin.modelo.dao;
 
-import com.enpresa.productadmin.modelo.RegistroTransaccion;
-import com.enpresa.productadmin.modelo.dto.RegistroTransaccionBusquedaDTO;
-import com.enpresa.productadmin.modelo.dto.RegistroTransaccionDTO;
+import com.enpresa.productadmin.modelo.RegistroAcceso;
+import com.enpresa.productadmin.modelo.dto.DTO;
+import com.enpresa.productadmin.modelo.dto.RegistroAccesoBusquedaDTO;
+import com.enpresa.productadmin.modelo.dto.RegistroAccesoDTO;
 import com.enpresa.productadmin.utils.Conexion;
 import java.sql.CallableStatement;
 import java.sql.Connection;
@@ -15,15 +16,15 @@ import java.util.List;
  *
  * @author Alejo
  */
-public class BitacoraTransaccionesDAO implements DAO<RegistroTransaccion, RegistroTransaccionBusquedaDTO> {
+public class BitacoraAccesoDAO implements DAO<RegistroAcceso, RegistroAccesoBusquedaDTO> {
 
     @Override
-    public void crear(RegistroTransaccion entidad) {
+    public void crear(RegistroAcceso entidad) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
     @Override
-    public void modificar(RegistroTransaccion entidad) {
+    public void modificar(RegistroAcceso entidad) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
@@ -33,29 +34,23 @@ public class BitacoraTransaccionesDAO implements DAO<RegistroTransaccion, Regist
     }
 
     @Override
-    public List<RegistroTransaccionDTO> buscar(RegistroTransaccionBusquedaDTO campos) {
-        List<RegistroTransaccionDTO> registros = new ArrayList<>();
-        String sql = "{CALL dbo.pBuscarRegistroTransaccion(?, ?, ?, ?, ?, ?, ?, ?)}";
+    public List<RegistroAccesoDTO> buscar(RegistroAccesoBusquedaDTO campos) {
+        List<RegistroAccesoDTO> registros = new ArrayList<>();
+        String sql = "{CALL dbo.pBuscarRegistroTransaccion(?, ?, ?, ?, ?)}";
 
         try (Connection c = new Conexion().establecerConexion(); CallableStatement cs = c.prepareCall(sql)) {
             cs.setString(1, campos.getFechaInicial());
             cs.setString(2, campos.getFechaFinal());
             cs.setString(3, campos.getHoraInicial());
             cs.setString(4, campos.getHoraFinal());
-            cs.setNString(5, campos.getObjeto());
-            cs.setString(6, campos.getUsuario());
-            cs.setString(7, campos.getAccion());
-            cs.setString(8, campos.getModulo());
+            cs.setString(5, campos.getUsuario());
 
             ResultSet rs = cs.executeQuery();
             while (rs.next()) {
-                RegistroTransaccionDTO registro = new RegistroTransaccionDTO();
+                RegistroAccesoDTO registro = new RegistroAccesoDTO();
                 registro.setFecha(rs.getString(1));
                 registro.setHora(rs.getString(2));
-                registro.setObjeto(rs.getNString(3));
-                registro.setUsuario(rs.getString(4));
-                registro.setAccion(rs.getString(5));
-                registro.setModulo(rs.getString(6));
+                registro.setUsuario(rs.getString(3));
 
                 registros.add(registro);
             }
@@ -66,12 +61,12 @@ public class BitacoraTransaccionesDAO implements DAO<RegistroTransaccion, Regist
     }
 
     @Override
-    public RegistroTransaccion consultarUno(int id) {
+    public RegistroAcceso consultarUno(int id) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
     @Override
-    public List<RegistroTransaccionBusquedaDTO> consultarTodos() {
+    public List<RegistroAccesoBusquedaDTO> consultarTodos() {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 }

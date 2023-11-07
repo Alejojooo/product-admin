@@ -2,8 +2,8 @@ package com.enpresa.productadmin.controlador;
 
 import com.enpresa.productadmin.ProductAdmin;
 import com.enpresa.productadmin.modelo.dao.UsuarioDAO;
+import com.enpresa.productadmin.modelo.dto.ClaveDTO;
 import com.enpresa.productadmin.vistas.gui.CambiarClaveVista;
-import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -29,15 +29,15 @@ public class CambiarClaveController {
     }
 
     private int cambiarClave() {
-        Map<String, String> campos = vista.getCampos();
+        ClaveDTO campos = vista.obtenerCampos();
 
         String claveActual;
         String claveNueva;
 
         try {
-            claveActual = comprobarClaveActual(campos.get("claveActual"));
-            claveNueva = comprobarClaveNueva(campos.get("claveNueva"));
-            comprobarClavesIguales(claveNueva, campos.get("claveConfirmacion"));
+            claveActual = comprobarClaveActual(campos.getClaveActual());
+            claveNueva = comprobarClaveNueva(campos.getClaveNueva());
+            comprobarClavesIguales(claveNueva, campos.getClaveConfirmacion());
             
             modelo.cambiarClave(ProductAdmin.usuarioActivo.getId(), claveNueva);
             vista.mostrarMensaje("Se ha cambiado la contraseña");

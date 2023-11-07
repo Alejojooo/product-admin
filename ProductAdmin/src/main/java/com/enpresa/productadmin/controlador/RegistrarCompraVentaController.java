@@ -5,10 +5,11 @@ import com.enpresa.productadmin.modelo.Producto;
 import com.enpresa.productadmin.modelo.TipoOperacion;
 import com.enpresa.productadmin.modelo.dao.OperacionDAO;
 import com.enpresa.productadmin.modelo.dao.ProductoDAO;
+import com.enpresa.productadmin.modelo.dto.OperacionDTO;
+import com.enpresa.productadmin.modelo.dto.ProductoDTO;
 import com.enpresa.productadmin.vistas.gui.RegistrarCompraVentaVista;
 import java.math.BigDecimal;
 import java.util.List;
-import java.util.Map;
 
 /**
  *
@@ -32,15 +33,15 @@ public class RegistrarCompraVentaController {
     }
 
     private int buscarProducto() {
-        Map<String, String> camposBusqueda = vista.getCamposBusqueda();
+        ProductoDTO camposBusqueda = vista.obtenerCamposBusqueda();
         ProductoDAO productoDAO = new ProductoDAO();
-        List<Producto> productos = productoDAO.buscar(camposBusqueda);
+        List<ProductoDTO> productos = productoDAO.buscar(camposBusqueda);
         vista.mostrarRegistros(productos);
         return 1;
     }
 
     private int crearOperacion() {
-        Map<String, String> campos = vista.getCampos(); // idProducto, tipoOperacion, cantidad
+        OperacionDTO campos = vista.obtenerCampos(); // idProducto, tipoOperacion, cantidad
 
         String nombreProducto;
         TipoOperacion tipoOperacion;
@@ -50,14 +51,14 @@ public class RegistrarCompraVentaController {
         Operacion operacion = new Operacion();
         try {
             // Obtener nombreProducto
-            Integer idProducto = comprobarIdProducto(campos.get("id"));
+            Integer idProducto = comprobarIdProducto(campos.getIdProducto());
 
             ProductoDAO productoDAO = new ProductoDAO();
             Producto producto = productoDAO.consultarUno(idProducto);
             nombreProducto = producto.getNombre();
 
             // Obtener tipoOperacion
-            tipoOperacion = TipoOperacion.valueOf(campos.get("tipoOperacion"));
+            tipoOperacion = TipoOperacion.valueOf(campos.getTipoOperacion());
 
             // Obtener precio
             if (tipoOperacion == TipoOperacion.Compra) {
@@ -66,7 +67,7 @@ public class RegistrarCompraVentaController {
                 precio = producto.getPrecioVenta();
             }
             // Obtener cantidad
-            cantidad = comprobarCantidad(campos.get("cantidad"));
+            cantidad = comprobarCantidad(campos.getCantidad());
             Integer productoCantidad = comprobarCantidadConProducto(cantidad, producto);
 
             operacion.setNombreProducto(nombreProducto);

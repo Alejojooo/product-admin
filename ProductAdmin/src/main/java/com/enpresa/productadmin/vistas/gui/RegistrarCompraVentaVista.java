@@ -1,11 +1,15 @@
 package com.enpresa.productadmin.vistas.gui;
 
 import com.enpresa.productadmin.modelo.Producto;
+import com.enpresa.productadmin.modelo.dto.DTO;
+import com.enpresa.productadmin.modelo.dto.OperacionDTO;
+import com.enpresa.productadmin.modelo.dto.ProductoDTO;
 import com.enpresa.productadmin.utils.Mapper;
+import com.enpresa.productadmin.vistas.EntradaUsuario;
 import com.enpresa.productadmin.vistas.MapearAccion;
+import com.enpresa.productadmin.vistas.MostrarRegistros;
 import com.enpresa.productadmin.vistas.VistaGraficaConRegistros;
 import java.awt.event.ActionEvent;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
@@ -17,7 +21,7 @@ import javax.swing.ButtonGroup;
  *
  * @author Oscar
  */
-public class RegistrarCompraVentaVista extends VistaGraficaConRegistros implements MapearAccion {
+public class RegistrarCompraVentaVista extends VistaGraficaConRegistros implements MapearAccion, EntradaUsuario, MostrarRegistros {
 
     private final ButtonGroup buttonGroup;
 
@@ -159,8 +163,10 @@ public class RegistrarCompraVentaVista extends VistaGraficaConRegistros implemen
     private javax.swing.JTextField txtTotal;
     // End of variables declaration//GEN-END:variables
 
-    public Map<String, String> getCampos() {
-        Map<String, String> campos = new HashMap<>();
+    @Override
+    public OperacionDTO obtenerCampos() {
+        OperacionDTO producto = new OperacionDTO();
+
         String productoComoString = (String) cBoxProducto.getSelectedItem();
         Pattern patron = Pattern.compile("\\[(\\d+)\\]");
         Matcher matcher = patron.matcher(productoComoString);
@@ -169,23 +175,24 @@ public class RegistrarCompraVentaVista extends VistaGraficaConRegistros implemen
             idProducto = matcher.group(1);
         }
 
-        campos.put("idProducto", idProducto);
-        campos.put("tipoOperacion", buttonGroup.getSelection().toString());
-        campos.put("cantidad", txtCantidad.getText());
+        producto.setIdProducto(idProducto);
+        producto.setTipoOperacion(buttonGroup.getSelection().toString());
+        producto.setCantidad(txtCantidad.getText());
 
-        return campos;
+        return producto;
     }
 
-    public Map<String, String> getCamposBusqueda() {
-        Map<String, String> campos = Mapper.getMap(Producto.class);
-        campos.put("id", txtId.getText());
-        campos.put("nombre", txtNombre.getText());
-        
-        return campos;
+    public ProductoDTO obtenerCamposBusqueda() {
+        ProductoDTO producto = new ProductoDTO();
+        producto.setId(txtId.getText());
+        producto.setNombre(txtNombre.getText());
+
+        return producto;
     }
 
-    public void mostrarRegistros(List<Producto> productos) {
-        mostrarRegistrosEnLista(cBoxProducto, productos);
+    @Override
+    public void mostrarRegistros(List<? extends DTO> registros) {
+        mostrarRegistrosEnLista(cBoxProducto, registros);
     }
 
     @Override

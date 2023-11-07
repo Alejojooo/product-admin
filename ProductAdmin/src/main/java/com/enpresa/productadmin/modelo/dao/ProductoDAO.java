@@ -10,13 +10,12 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 /**
  *
  * @author Alejo
  */
-public class ProductoDAO implements DAO<Producto> {
+public class ProductoDAO implements DAO<Producto, ProductoDTO> {
 
     @Override
     public void crear(Producto producto) {
@@ -67,17 +66,17 @@ public class ProductoDAO implements DAO<Producto> {
     }
 
     @Override
-    public List<ProductoDTO> buscar(Map<String, String> campos) {
+    public List<ProductoDTO> buscar(ProductoDTO dto) {
         List<ProductoDTO> productos = new ArrayList<>();
         String sql = "{CALL dbo.pBuscarProducto(?, ?, ?, ?, ?, ?)}";
 
         try (Connection c = new Conexion().establecerConexion(); CallableStatement cs = c.prepareCall(sql)) {
-            cs.setString(1, campos.get("id"));
-            cs.setNString(2, campos.get("nombre"));
-            cs.setString(3, campos.get("cantidad"));
-            cs.setString(4, campos.get("precioCompra"));
-            cs.setString(5, campos.get("precioVenta"));
-            cs.setNString(6, campos.get("descripcion"));
+            cs.setString(1, dto.getId());
+            cs.setNString(2, dto.getNombre());
+            cs.setString(3, dto.getCantidad());
+            cs.setString(4, dto.getPrecioCompra());
+            cs.setString(5, dto.getPrecioVenta());
+            cs.setNString(6, dto.getDescripcion());
 
             ResultSet rs = cs.executeQuery();
             while (rs.next()) {
@@ -119,19 +118,19 @@ public class ProductoDAO implements DAO<Producto> {
     }
 
     @Override
-    public List<Producto> consultarTodos() {
-        List<Producto> productos = new ArrayList<>();
+    public List<ProductoDTO> consultarTodos() {
+        List<ProductoDTO> productos = new ArrayList<>();
         String sql = "SELECT * FROM vProductos";
 
         try (Connection c = new Conexion().establecerConexion(); Statement st = c.createStatement()) {
             ResultSet rs = st.executeQuery(sql);
             while (rs.next()) {
-                Producto producto = new Producto();
-                producto.setId(rs.getInt(1));
+                ProductoDTO producto = new ProductoDTO();
+                producto.setId(rs.getString(1));
                 producto.setNombre(rs.getNString(2));
-                producto.setCantidad(rs.getInt(3));
-                producto.setPrecioCompra(rs.getBigDecimal(4));
-                producto.setPrecioVenta(rs.getBigDecimal(5));
+                producto.setCantidad(rs.getString(3));
+                producto.setPrecioCompra(rs.getString(4));
+                producto.setPrecioVenta(rs.getString(5));
                 producto.setDescripcion(rs.getNString(6));
 
                 productos.add(producto);

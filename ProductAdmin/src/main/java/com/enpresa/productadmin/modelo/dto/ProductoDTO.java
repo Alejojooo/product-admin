@@ -69,5 +69,13 @@ public class ProductoDTO extends DTO {
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
     }
+    
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append(String.format("[%s] ", id));
+        sb.append(nombre);
+        return sb.toString();
+    }
 
 }

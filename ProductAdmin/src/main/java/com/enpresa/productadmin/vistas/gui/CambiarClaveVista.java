@@ -1,17 +1,17 @@
 package com.enpresa.productadmin.vistas.gui;
 
+import com.enpresa.productadmin.modelo.dto.ClaveDTO;
+import com.enpresa.productadmin.vistas.EntradaUsuario;
 import com.enpresa.productadmin.vistas.MapearAccion;
 import com.enpresa.productadmin.vistas.VistaGraficaConNotificador;
 import java.awt.event.ActionEvent;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.function.Function;
 
 /**
  *
  * @author jmdub
  */
-public class CambiarClaveVista extends VistaGraficaConNotificador implements MapearAccion {
+public class CambiarClaveVista extends VistaGraficaConNotificador implements MapearAccion, EntradaUsuario {
 
     /**
      * Creates new form CambiarPassword
@@ -128,11 +128,12 @@ public class CambiarClaveVista extends VistaGraficaConNotificador implements Map
     private javax.swing.JTextField txtClaveNueva;
     // End of variables declaration//GEN-END:variables
 
-    public Map<String, String> getCampos() {
-        Map<String, String> campos = new HashMap<>();
-        campos.put("claveActual", txtClaveActual.getText());
-        campos.put("claveNueva", txtClaveNueva.getText());
-        campos.put("claveConfirmacion", txtClaveConfirmacion.getText());
+    @Override
+    public ClaveDTO obtenerCampos() {
+        ClaveDTO campos = new ClaveDTO();
+        campos.setClaveActual(txtClaveActual.getText());
+        campos.setClaveNueva(txtClaveNueva.getText());
+        campos.setClaveConfirmacion(txtClaveConfirmacion.getText());
 
         return campos;
     }
@@ -150,4 +151,5 @@ public class CambiarClaveVista extends VistaGraficaConNotificador implements Map
             }
         }
     }
+
 }

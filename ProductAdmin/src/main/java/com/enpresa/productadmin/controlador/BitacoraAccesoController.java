@@ -1,33 +1,46 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.enpresa.productadmin.controlador;
 
+import com.enpresa.productadmin.modelo.dao.BitacoraAccesoDAO;
+import com.enpresa.productadmin.modelo.dto.RegistroAccesoBusquedaDTO;
+import com.enpresa.productadmin.modelo.dto.RegistroAccesoDTO;
 import com.enpresa.productadmin.vistas.gui.BitacoraAccesoVista;
 import java.awt.event.ActionEvent;
-import javax.swing.JFrame;
+import java.util.List;
+
 /**
  *
  * @author jmdub
  */
-public class BitacoraAccesoController {
-    private final BitacoraAccesoVista vista;
-    private final JFrame frame;
+public class BitacoraAccesoController extends ComprobadorTemporal {
 
-    public BitacoraAccesoController(BitacoraAccesoVista vista) {
+    private final BitacoraAccesoDAO modelo;
+    private final BitacoraAccesoVista vista;
+
+    public BitacoraAccesoController(BitacoraAccesoDAO modelo, BitacoraAccesoVista vista) {
+        this.modelo = modelo;
         this.vista = vista;
 
-        frame = new JFrame();
-        frame.setContentPane(vista);
-        frame.pack();
-        frame.setResizable(false);
-        frame.setVisible(true);
-        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        frame.setLocationRelativeTo(null);
-        addActionListeners();
+        vista.mostrarVista("Bitácora de Acceso");
+        mapearAcciones();
     }
 
-    private void addActionListeners() {
+    private void mapearAcciones() {
+        vista.getBtnBuscar().addActionListener((ActionEvent e) -> {
+            filtrarRegistros();
+        });
+    }
+
+    private int filtrarRegistros() {
+        RegistroAccesoBusquedaDTO campos = vista.obtenerCampos();
+        try {
+            comprobarFechas(campos.getFechaInicial(), campos.getFechaFinal());
+            comprobarHoras(campos.getHoraInicial(), campos.getHoraFinal());
+
+            List<RegistroAccesoDTO> registros = modelo.buscar(campos);
+            vista.mostrarRegistros(registros);
+            return 1;
+        } catch (BusquedaInvalidaException e) {
+            return -1;
+        }
     }
 }

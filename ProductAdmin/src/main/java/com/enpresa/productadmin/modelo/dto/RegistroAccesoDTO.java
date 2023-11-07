@@ -4,24 +4,18 @@ package com.enpresa.productadmin.modelo.dto;
  *
  * @author Alejo
  */
-public class RegistroTransaccionDTO extends DTO {
+public class RegistroAccesoDTO extends DTO {
 
     private String id;
     private String fecha;
     private String hora;
-    private String objeto;
     private String usuario;
-    private String accion;
-    private String modulo;
 
-    public RegistroTransaccionDTO() {
+    public RegistroAccesoDTO() {
         this.id = "";
         this.fecha = "";
         this.hora = "";
-        this.objeto = "";
         this.usuario = "";
-        this.accion = "";
-        this.modulo = "";
     }
 
     public String getId() {
@@ -48,35 +42,11 @@ public class RegistroTransaccionDTO extends DTO {
         this.hora = hora;
     }
 
-    public String getObjeto() {
-        return objeto;
-    }
-
-    public void setObjeto(String objeto) {
-        this.objeto = objeto;
-    }
-
     public String getUsuario() {
         return usuario;
     }
 
     public void setUsuario(String usuario) {
         this.usuario = usuario;
-    }
-
-    public String getAccion() {
-        return accion;
-    }
-
-    public void setAccion(String accion) {
-        this.accion = accion;
-    }
-
-    public String getModulo() {
-        return modulo;
-    }
-
-    public void setModulo(String modulo) {
-        this.modulo = modulo;
     }
 }
