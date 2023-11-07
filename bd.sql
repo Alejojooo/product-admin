@@ -489,51 +489,78 @@ CREATE TRIGGER tBitacoraCrearUsuario
 ON tbUsuario
 AFTER INSERT
 AS
-BEGIN
-	INSERT INTO tbBitacoraTransacciones(fecha, hora, objeto, usuario, accion, modulo)
-	SELECT CAST(GETDATE() AS DATE),
-		   CAST(GETDATE() AS TIME),
-		   usuario,
-		   dbo.fObtenerUsuarioActivo(),
-		   'Crear',
-		   'Usuario'
-	FROM INSERTED
-END
+BEGIN TRY
+	BEGIN TRAN
+		INSERT INTO tbBitacoraTransacciones(fecha, hora, objeto, usuario, accion, modulo)
+		SELECT CAST(GETDATE() AS DATE),
+			CAST(GETDATE() AS TIME),
+			usuario,
+			dbo.fObtenerUsuarioActivo(),
+			'Crear',
+			'Usuario'
+		FROM INSERTED
+	COMMIT TRAN
+END TRY
+BEGIN CATCH
+	IF (@@TRANCOUNT > 0)
+	BEGIN
+		ROLLBACK TRAN 
+		PRINT 'Error detectado al momento de agregar un registro de bitácora de transacciones.'
+	END
+END CATCH
 GO
 
 CREATE TRIGGER tBitacoraModificarUsuario
 ON tbUsuario
 AFTER UPDATE
 AS
-BEGIN
-	INSERT INTO tbBitacoraTransacciones(fecha, hora, objeto, usuario, accion, modulo)
-	SELECT CAST(GETDATE() AS DATE),
-		   CAST(GETDATE() AS TIME),
-		   usuario,
-		   dbo.fObtenerUsuarioActivo(),
-		   'Modificar',
-		   'Usuarios'
-	FROM INSERTED
-END
+BEGIN TRY
+	BEGIN TRAN
+		INSERT INTO tbBitacoraTransacciones(fecha, hora, objeto, usuario, accion, modulo)
+		SELECT CAST(GETDATE() AS DATE),
+			   CAST(GETDATE() AS TIME),
+			   usuario,
+			   dbo.fObtenerUsuarioActivo(),
+			   'Modificar',
+			   'Usuarios'
+		FROM INSERTED
+	COMMIT TRAN
+END TRY
+BEGIN CATCH
+	IF (@@TRANCOUNT > 0)
+	BEGIN
+		ROLLBACK TRAN 
+		PRINT 'Error detectado al momento de modificar un registro de bitácora de transacciones.'
+	END
+END CATCH
 GO
 
 CREATE TRIGGER tBitacoraEliminarUsuario
 ON tbUsuario
 AFTER DELETE
 AS
-BEGIN
-	DECLARE @IDUsuario INT
-	SET @IDUsuario = (SELECT @IDUsuario FROM DELETED)
-
-	INSERT INTO tbBitacoraTransacciones(fecha, hora, objeto, usuario, accion, modulo)
-	SELECT CAST(GETDATE() AS DATE),
-		   CAST(GETDATE() AS TIME),
-		   usuario,
-		   dbo.fObtenerUsuarioActivo(),
-		   'Eliminar',
-		   'Usuarios'
-	FROM DELETED
-END
+BEGIN TRY
+	BEGIN TRAN
+		DECLARE @IDUsuario INT
+		SET @IDUsuario = (SELECT @IDUsuario FROM DELETED)
+	
+		INSERT INTO tbBitacoraTransacciones(fecha, hora, objeto, usuario, accion, modulo)
+		SELECT CAST(GETDATE() AS DATE),
+			   CAST(GETDATE() AS TIME),
+			   usuario,
+			   dbo.fObtenerUsuarioActivo(),
+			   'Eliminar',
+			   'Usuarios'
+		FROM DELETED
+	COMMIT TRAN
+END TRY
+BEGIN CATCH
+	IF (@@TRANCOUNT > 0)
+	BEGIN
+		ROLLBACK TRAN 
+		PRINT 'Error detectado al momento de eliminar un registro de bitácora de transacciones.'
+	END
+END CATCH
 GO
 
 
@@ -542,52 +569,80 @@ CREATE TRIGGER tBitacoraCrearProducto
 ON tbProducto
 AFTER INSERT
 AS
-BEGIN
-	INSERT INTO tbBitacoraTransacciones(fecha, hora, objeto, usuario, accion, modulo)
-	SELECT CAST(GETDATE() AS DATE),
-		   CAST(GETDATE() AS TIME),
-		   nombre,
-		   dbo.fObtenerUsuarioActivo(),
-		   'Crear',
-		   'Productos'
-	FROM INSERTED
-END
+BEGIN TRY 
+	BEGIN TRAN
+		INSERT INTO tbBitacoraTransacciones(fecha, hora, objeto, usuario, accion, modulo)
+		SELECT CAST(GETDATE() AS DATE),
+			   CAST(GETDATE() AS TIME),
+			   nombre,
+			   dbo.fObtenerUsuarioActivo(),
+			   'Crear',
+			   'Productos'
+		FROM INSERTED
+	COMMIT TRAN
+END TRY
+BEGIN CATCH
+	IF (@@TRANCOUNT > 0)
+	BEGIN
+		ROLLBACK TRAN 
+		PRINT 'Error detectado al momento de agregar un registro de bitácora de transacciones.'
+	END
+END CATCH
 GO
 
 CREATE TRIGGER tBitacoraModificarProducto
 ON tbProducto
 AFTER UPDATE
 AS
-BEGIN
-	INSERT INTO tbBitacoraTransacciones(fecha, hora, objeto, usuario, accion, modulo)
-	SELECT CAST(GETDATE() AS DATE),
-		   CAST(GETDATE() AS TIME),
-		   nombre,
-		   dbo.fObtenerUsuarioActivo(),
-		   'Modificar',
-		   'Productos'
-	FROM INSERTED
-END
+BEGIN TRY
+	BEGIN TRAN
+		INSERT INTO tbBitacoraTransacciones(fecha, hora, objeto, usuario, accion, modulo)
+		SELECT CAST(GETDATE() AS DATE),
+			   CAST(GETDATE() AS TIME),
+			   nombre,
+			dbo.fObtenerUsuarioActivo(),
+			'Modificar',
+			'Productos'
+		FROM INSERTED
+	COMMIT TRAN
+END TRY
+BEGIN CATCH
+	IF (@@TRANCOUNT > 0)
+	BEGIN
+		ROLLBACK TRAN 
+		PRINT 'Error detectado al momento de modificar un registro de bitácora de transacciones.'
+	END
+END CATCH
 GO
 
 CREATE TRIGGER tBitacoraEliminarProducto
 ON tbProducto
 AFTER DELETE
 AS
-BEGIN
-	DECLARE @IDProducto INT
-	SET @IDProducto = (SELECT idProducto FROM DELETED)
-
-	INSERT INTO tbBitacoraTransacciones(fecha, hora, objeto, usuario, accion, modulo)
-	SELECT CAST(GETDATE() AS DATE),
-		   CAST(GETDATE() AS TIME),
-		   nombre,
-		   dbo.fObtenerUsuarioActivo(),
-		   'Eliminar',
-		   'Productos'
-	FROM DELETED
-END
+BEGIN TRY
+	BEGIN TRAN
+		DECLARE @IDProducto INT
+		SET @IDProducto = (SELECT idProducto FROM DELETED)
+	
+		INSERT INTO tbBitacoraTransacciones(fecha, hora, objeto, usuario, accion, modulo)
+		SELECT CAST(GETDATE() AS DATE),
+			   CAST(GETDATE() AS TIME),
+			   nombre,
+			   dbo.fObtenerUsuarioActivo(),
+			   'Eliminar',
+			   'Productos'
+		FROM DELETED
+	COMMIT TRAN
+END TRY
+BEGIN CATCH
+	IF (@@TRANCOUNT > 0)
+	BEGIN
+		ROLLBACK TRAN 
+		PRINT 'Error detectado al momento de eliminar un registro de bitácora de transacciones.'
+	END
+END CATCH
 GO
+
 
 
 
