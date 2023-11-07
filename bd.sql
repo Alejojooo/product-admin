@@ -316,6 +316,21 @@ AS BEGIN
 END
 GO
 
+CREATE PROCEDURE pBuscarRegistroAcceso
+	@FechaInicial VARCHAR(20),
+	@FechaFinal VARCHAR(20),
+	@HoraInicial VARCHAR(10),
+	@HoraFinal VARCHAR(10),
+	@Usuario VARCHAR(MAX)
+AS BEGIN
+	SELECT *
+	FROM vBitacoraAcceso
+	WHERE [Fecha] BETWEEN @FechaInicial AND @FechaFinal
+	AND [Hora] BETWEEN @HoraInicial AND @HoraFinal
+	AND [Usuario] LIKE '%' + @Usuario + '%'
+END
+GO
+
 
 
 
