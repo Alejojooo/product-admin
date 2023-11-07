@@ -2,6 +2,7 @@ package com.enpresa.productadmin.modelo.dao;
 
 import com.enpresa.productadmin.modelo.Rol;
 import com.enpresa.productadmin.modelo.Usuario;
+import com.enpresa.productadmin.modelo.dto.UsuarioDTO;
 import com.enpresa.productadmin.utils.Conexion;
 import java.sql.CallableStatement;
 import java.sql.Connection;
@@ -72,8 +73,8 @@ public class UsuarioDAO implements DAO<Usuario> {
     }
 
     @Override
-    public List<Usuario> buscar(Map<String, String> campos) {
-        List<Usuario> usuarios = new ArrayList<>();
+    public List<UsuarioDTO> buscar(Map<String, String> campos) {
+        List<UsuarioDTO> usuarios = new ArrayList<>();
         String sql = "{CALL dbo.pBuscarUsuario(?, ?, ?, ?, ?)}";
 
         try (Connection c = new Conexion().establecerConexion(); CallableStatement cs = c.prepareCall(sql)) {
@@ -85,12 +86,12 @@ public class UsuarioDAO implements DAO<Usuario> {
 
             ResultSet rs = cs.executeQuery();
             while (rs.next()) {
-                Usuario usuario = new Usuario();
-                usuario.setId(rs.getInt(1));
+                UsuarioDTO usuario = new UsuarioDTO();
+                usuario.setId(rs.getString(1));
                 usuario.setUsuario(rs.getString(2));
                 usuario.setNombres(rs.getNString(3));
                 usuario.setApellidos(rs.getNString(4));
-                usuario.setRol(Rol.valueOf(rs.getNString(5)));
+                usuario.setRol(rs.getNString(5));
 
                 usuarios.add(usuario);
             }

@@ -1,5 +1,6 @@
 package com.enpresa.productadmin.modelo.dao;
 
+import com.enpresa.productadmin.modelo.dto.DTO;
 import java.util.List;
 import java.util.Map;
 
@@ -16,7 +17,7 @@ public interface DAO<T> {
 
     void eliminar(int id);
 
-    List<T> buscar(Map<String, String> campos);
+    List<? extends DTO> buscar(<? extends DTO> campos);
 
     T consultarUno(int id);
 

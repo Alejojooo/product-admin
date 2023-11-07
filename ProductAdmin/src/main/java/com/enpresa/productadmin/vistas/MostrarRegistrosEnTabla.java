@@ -1,5 +1,6 @@
 package com.enpresa.productadmin.vistas;
 
+import com.enpresa.productadmin.modelo.dto.DTO;
 import java.util.List;
 import javax.swing.JTable;
 
@@ -9,5 +10,5 @@ import javax.swing.JTable;
  */
 public interface MostrarRegistrosEnTabla {
 
-    void mostrarRegistrosEnTabla(JTable tabla, List<String[]> registros);
+    void mostrarRegistrosEnTabla(JTable tabla, List<? extends DTO> registros);
 }

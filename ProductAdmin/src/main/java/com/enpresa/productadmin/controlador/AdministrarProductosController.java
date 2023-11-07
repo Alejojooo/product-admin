@@ -2,6 +2,7 @@ package com.enpresa.productadmin.controlador;
 
 import com.enpresa.productadmin.modelo.dao.ProductoDAO;
 import com.enpresa.productadmin.modelo.Producto;
+import com.enpresa.productadmin.modelo.dto.ProductoDTO;
 import com.enpresa.productadmin.vistas.gui.AdministrarProductosVista;
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -34,7 +35,7 @@ public class AdministrarProductosController {
         vista.mapearAccion("Buscar", (e) -> buscarProducto());
     }
 
-    private void mostrarRegistros(List<Producto> productos) {
+    private void mostrarRegistros(List<ProductoDTO> productos) {
         if (productos == null) {
             productos = modelo.consultarTodos();
         }
@@ -42,10 +43,11 @@ public class AdministrarProductosController {
     }
 
     private void mostrarRegistros() {
-        mostrarRegistros(null);
+        List<Producto> productos = modelo.consultarTodos();
+        vista.mostrarRegistros(productos);
     }
 
-    private List<String[]> getRegistros(List<Producto> productos) {
+    private List<ProductoDTO> getRegistros(List<Producto> productos) {
         List<String[]> registros = new ArrayList<>();
         for (Producto producto : productos) {
             String[] registro = {
@@ -129,7 +131,7 @@ public class AdministrarProductosController {
 
     private int buscarProducto() {
         Map<String, String> campos = vista.getCampos();
-        List<Producto> productos = modelo.buscar(campos);
+        List<ProductoDTO> productos = modelo.buscar(campos);
         mostrarRegistros(productos);
         return 1;
     }
@@ -139,7 +141,7 @@ public class AdministrarProductosController {
         Integer id = null;
         try {
             id = Integer.valueOf(idString);
-            if (id < 0) {
+            if (id <= 0) {
                 throw new NumberFormatException();
             }
         } catch (NumberFormatException e) {

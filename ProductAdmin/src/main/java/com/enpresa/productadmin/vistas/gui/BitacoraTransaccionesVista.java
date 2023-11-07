@@ -1,20 +1,110 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
- */
 package com.enpresa.productadmin.vistas.gui;
+
+import com.enpresa.productadmin.modelo.dto.RegistroTransaccionDTO;
+import com.enpresa.productadmin.vistas.VistaGraficaConRegistros;
+import java.awt.event.ActionEvent;
+import java.util.List;
+import javax.swing.JButton;
 
 /**
  *
  * @author Alejo
  */
-public class BitacoraTransaccionesVista extends javax.swing.JPanel {
+public class BitacoraTransaccionesVista extends VistaGraficaConRegistros {
 
     /**
      * Creates new form BitacoraAcceso
      */
     public BitacoraTransaccionesVista() {
         initComponents();
+    }
+
+    private void togglers() {
+        cBoxFecha.addActionListener((ActionEvent e) -> {
+            boolean enabled = cBoxFecha.isSelected();
+            txtFechaInicial.setEnabled(enabled);
+            txtFechaFinal.setEnabled(enabled);
+
+            txtFechaInicial.setText("");
+            txtFechaFinal.setText("");
+        });
+
+        cBoxHora.addActionListener((ActionEvent e) -> {
+            boolean enabled = cBoxHora.isSelected();
+            txtHoraInicial.setEnabled(enabled);
+            txtHoraFinal.setEnabled(enabled);
+
+            txtHoraInicial.setText("");
+            txtHoraFinal.setText("");
+        });
+
+        cBoxObjeto.addActionListener((ActionEvent e) -> {
+            boolean enabled = cBoxObjeto.isSelected();
+            txtObjeto.setEnabled(enabled);
+            txtObjeto.setText("");
+        });
+
+        cBoxUsuario.addActionListener((ActionEvent e) -> {
+            boolean enabled = cBoxObjeto.isSelected();
+            txtUsuario.setEnabled(enabled);
+            txtUsuario.setText("");
+        });
+
+        cBoxAccion.addActionListener((ActionEvent e) -> {
+            boolean enabled = cBoxObjeto.isSelected();
+            comboBoxAccion.setEnabled(enabled);
+        });
+
+        cBoxModulo.addActionListener((ActionEvent e) -> {
+            boolean enabled = cBoxObjeto.isSelected();
+            comboBoxModulo.setEnabled(enabled);
+        });
+    }
+
+    public JButton getBtnBuscar() {
+        return btnBuscar;
+    }
+
+    public String getFechaInicial() {
+        return txtFechaInicial.getText();
+    }
+
+    public String getHoraInicial() {
+        return txtHoraInicial.getText();
+    }
+
+    public String getFechaFinal() {
+        return txtFechaFinal.getText();
+    }
+
+    public String getHoraFinal() {
+        return txtHoraFinal.getText();
+    }
+
+    public String getObjeto() {
+        return txtObjeto.getText();
+    }
+
+    public String getUsuario() {
+        return txtUsuario.getText();
+    }
+
+    public String getAcción() {
+        if (comboBoxAccion.isEnabled()) {
+            return comboBoxAccion.getSelectedItem().toString();
+        }
+        return "";
+    }
+
+    public String getModulo() {
+        if (comboBoxModulo.isEnabled()) {
+            return comboBoxModulo.getSelectedItem().toString();
+        }
+        return "";
+    }
+    
+    public void mostrarRegistros(List<RegistroTransaccionDTO> registros) {
+        mostrarRegistrosEnTabla(tbBitacoraTrans, registros);
     }
 
     /**
@@ -29,27 +119,19 @@ public class BitacoraTransaccionesVista extends javax.swing.JPanel {
         jScrollPane1 = new javax.swing.JScrollPane();
         tbBitacoraTrans = new javax.swing.JTable();
         jPanel1 = new javax.swing.JPanel();
-        txtHastaDia = new javax.swing.JTextField();
+        txtFechaFinal = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
-        txtHastaMes = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        txtDeDia = new javax.swing.JTextField();
+        txtFechaInicial = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
-        txtDeMes = new javax.swing.JTextField();
-        txtDeHora = new javax.swing.JTextField();
-        txtDeAño = new javax.swing.JTextField();
-        txtHastaHora = new javax.swing.JTextField();
-        jLabel3 = new javax.swing.JLabel();
+        txtHoraInicial = new javax.swing.JTextField();
+        txtHoraFinal = new javax.swing.JTextField();
         jSeparator1 = new javax.swing.JSeparator();
-        jLabel4 = new javax.swing.JLabel();
         cBoxFecha = new javax.swing.JCheckBox();
-        txtHastaAño = new javax.swing.JTextField();
         cBoxHora = new javax.swing.JCheckBox();
-        jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
         comboBoxModulo = new javax.swing.JComboBox<>();
-        comboBoxAcción = new javax.swing.JComboBox<>();
+        comboBoxAccion = new javax.swing.JComboBox<>();
         cBoxObjeto = new javax.swing.JCheckBox();
         txtUsuario = new javax.swing.JTextField();
         cBoxUsuario = new javax.swing.JCheckBox();
@@ -63,18 +145,34 @@ public class BitacoraTransaccionesVista extends javax.swing.JPanel {
 
         tbBitacoraTrans.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null}
+
             },
             new String [] {
-                "ID", "Fecha", "Hora", "Objeto", "Usuario", "Acción", "Módulo"
+                "Fecha", "Hora", "Objeto", "Usuario", "Acción", "Módulo"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         tbBitacoraTrans.setToolTipText("");
+        tbBitacoraTrans.setColumnSelectionAllowed(true);
         tbBitacoraTrans.setPreferredSize(new java.awt.Dimension(578, 448));
+        tbBitacoraTrans.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(tbBitacoraTrans);
+        tbBitacoraTrans.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        if (tbBitacoraTrans.getColumnModel().getColumnCount() > 0) {
+            tbBitacoraTrans.getColumnModel().getColumn(0).setResizable(false);
+            tbBitacoraTrans.getColumnModel().getColumn(1).setResizable(false);
+            tbBitacoraTrans.getColumnModel().getColumn(2).setResizable(false);
+            tbBitacoraTrans.getColumnModel().getColumn(3).setResizable(false);
+            tbBitacoraTrans.getColumnModel().getColumn(4).setResizable(false);
+            tbBitacoraTrans.getColumnModel().getColumn(5).setResizable(false);
+        }
 
         add(jScrollPane1);
         jScrollPane1.setBounds(16, 41, 578, 448);
@@ -82,17 +180,13 @@ public class BitacoraTransaccionesVista extends javax.swing.JPanel {
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("¿Filtrar?"));
         jPanel1.setLayout(null);
 
-        txtHastaDia.setPreferredSize(new java.awt.Dimension(30, 22));
-        jPanel1.add(txtHastaDia);
-        txtHastaDia.setBounds(70, 105, 30, 27);
+        txtFechaFinal.setPreferredSize(new java.awt.Dimension(30, 22));
+        jPanel1.add(txtFechaFinal);
+        txtFechaFinal.setBounds(70, 105, 100, 27);
 
         jLabel1.setText("De:");
         jPanel1.add(jLabel1);
         jLabel1.setBounds(17, 65, 17, 16);
-
-        txtHastaMes.setPreferredSize(new java.awt.Dimension(30, 22));
-        jPanel1.add(txtHastaMes);
-        txtHastaMes.setBounds(106, 105, 30, 27);
 
         jLabel2.setText("Hasta:");
         jPanel1.add(jLabel2);
@@ -102,69 +196,41 @@ public class BitacoraTransaccionesVista extends javax.swing.JPanel {
         jPanel1.add(jLabel7);
         jLabel7.setBounds(235, 65, 17, 16);
 
-        txtDeDia.setPreferredSize(new java.awt.Dimension(30, 22));
-        jPanel1.add(txtDeDia);
-        txtDeDia.setBounds(71, 62, 30, 27);
+        txtFechaInicial.setPreferredSize(new java.awt.Dimension(30, 22));
+        jPanel1.add(txtFechaInicial);
+        txtFechaInicial.setBounds(71, 62, 100, 27);
 
         jLabel8.setText("Hasta:");
         jPanel1.add(jLabel8);
         jLabel8.setBounds(234, 108, 33, 16);
 
-        txtDeMes.setPreferredSize(new java.awt.Dimension(30, 22));
-        jPanel1.add(txtDeMes);
-        txtDeMes.setBounds(107, 62, 30, 27);
+        txtHoraInicial.setPreferredSize(new java.awt.Dimension(50, 22));
+        jPanel1.add(txtHoraInicial);
+        txtHoraInicial.setBounds(288, 62, 50, 27);
 
-        txtDeHora.setPreferredSize(new java.awt.Dimension(50, 22));
-        jPanel1.add(txtDeHora);
-        txtDeHora.setBounds(288, 62, 50, 27);
-
-        txtDeAño.setPreferredSize(new java.awt.Dimension(50, 22));
-        jPanel1.add(txtDeAño);
-        txtDeAño.setBounds(143, 62, 50, 27);
-
-        txtHastaHora.setPreferredSize(new java.awt.Dimension(50, 22));
-        jPanel1.add(txtHastaHora);
-        txtHastaHora.setBounds(288, 105, 50, 27);
-
-        jLabel3.setText("/");
-        jPanel1.add(jLabel3);
-        jLabel3.setBounds(101, 65, 5, 16);
+        txtHoraFinal.setPreferredSize(new java.awt.Dimension(50, 22));
+        jPanel1.add(txtHoraFinal);
+        txtHoraFinal.setBounds(288, 105, 50, 27);
         jPanel1.add(jSeparator1);
         jSeparator1.setBounds(21, 147, 314, 10);
 
-        jLabel4.setText("/");
-        jPanel1.add(jLabel4);
-        jLabel4.setBounds(137, 65, 5, 16);
-
-        cBoxFecha.setText("Fecha");
+        cBoxFecha.setText("Fecha (yyyy-mm-dd)");
         jPanel1.add(cBoxFecha);
-        cBoxFecha.setBounds(17, 30, 54, 20);
+        cBoxFecha.setBounds(17, 30, 150, 20);
 
-        txtHastaAño.setPreferredSize(new java.awt.Dimension(50, 22));
-        jPanel1.add(txtHastaAño);
-        txtHastaAño.setBounds(142, 105, 50, 27);
-
-        cBoxHora.setText("Hora");
+        cBoxHora.setText("Hora (hh:mm)");
         jPanel1.add(cBoxHora);
-        cBoxHora.setBounds(234, 30, 49, 20);
+        cBoxHora.setBounds(234, 30, 100, 20);
 
-        jLabel5.setText("/");
-        jPanel1.add(jLabel5);
-        jLabel5.setBounds(100, 108, 5, 16);
-
-        jLabel6.setText("/");
-        jPanel1.add(jLabel6);
-        jLabel6.setBounds(136, 108, 5, 16);
-
-        comboBoxModulo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        comboBoxModulo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Productos", "Usuarios" }));
         comboBoxModulo.setPreferredSize(new java.awt.Dimension(150, 22));
         jPanel1.add(comboBoxModulo);
         comboBoxModulo.setBounds(153, 305, 150, 27);
 
-        comboBoxAcción.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        comboBoxAcción.setPreferredSize(new java.awt.Dimension(150, 22));
-        jPanel1.add(comboBoxAcción);
-        comboBoxAcción.setBounds(153, 262, 150, 27);
+        comboBoxAccion.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Crear", "Modificar", "Eliminar" }));
+        comboBoxAccion.setPreferredSize(new java.awt.Dimension(150, 22));
+        jPanel1.add(comboBoxAccion);
+        comboBoxAccion.setBounds(153, 262, 150, 27);
 
         cBoxObjeto.setText("Objeto");
         jPanel1.add(cBoxObjeto);
@@ -199,7 +265,6 @@ public class BitacoraTransaccionesVista extends javax.swing.JPanel {
         jPanel1.setBounds(610, 41, 354, 448);
     }// </editor-fold>//GEN-END:initComponents
 
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBuscar;
     private javax.swing.JCheckBox cBoxAccion;
@@ -208,28 +273,20 @@ public class BitacoraTransaccionesVista extends javax.swing.JPanel {
     private javax.swing.JCheckBox cBoxModulo;
     private javax.swing.JCheckBox cBoxObjeto;
     private javax.swing.JCheckBox cBoxUsuario;
-    private javax.swing.JComboBox<String> comboBoxAcción;
+    private javax.swing.JComboBox<String> comboBoxAccion;
     private javax.swing.JComboBox<String> comboBoxModulo;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTable tbBitacoraTrans;
-    private javax.swing.JTextField txtDeAño;
-    private javax.swing.JTextField txtDeDia;
-    private javax.swing.JTextField txtDeHora;
-    private javax.swing.JTextField txtDeMes;
-    private javax.swing.JTextField txtHastaAño;
-    private javax.swing.JTextField txtHastaDia;
-    private javax.swing.JTextField txtHastaHora;
-    private javax.swing.JTextField txtHastaMes;
+    private javax.swing.JTextField txtFechaFinal;
+    private javax.swing.JTextField txtFechaInicial;
+    private javax.swing.JTextField txtHoraFinal;
+    private javax.swing.JTextField txtHoraInicial;
     private javax.swing.JTextField txtObjeto;
     private javax.swing.JTextField txtUsuario;
     // End of variables declaration//GEN-END:variables

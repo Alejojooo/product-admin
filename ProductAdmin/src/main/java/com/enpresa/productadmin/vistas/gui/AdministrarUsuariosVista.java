@@ -1,6 +1,7 @@
 package com.enpresa.productadmin.vistas.gui;
 
 import com.enpresa.productadmin.modelo.Rol;
+import com.enpresa.productadmin.modelo.dto.UsuarioDTO;
 import com.enpresa.productadmin.vistas.MapearAccion;
 import com.enpresa.productadmin.vistas.VistaGraficaConRegistros;
 import java.awt.event.ActionEvent;
@@ -191,7 +192,7 @@ public class AdministrarUsuariosVista extends VistaGraficaConRegistros implement
         return campos;
     }
 
-    public void mostrarRegistros(List<String[]> usuarios) {
+    public void mostrarRegistros(List<UsuarioDTO> usuarios) {
         mostrarRegistrosEnTabla(tbUsuarios, usuarios);
     }
 

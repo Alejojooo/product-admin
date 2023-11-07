@@ -1,5 +1,6 @@
 package com.enpresa.productadmin.vistas;
 
+import com.enpresa.productadmin.modelo.dto.DTO;
 import java.util.List;
 import javax.swing.JComboBox;
 import javax.swing.JTable;
@@ -12,11 +13,11 @@ import javax.swing.table.DefaultTableModel;
 public class VistaGraficaConRegistros extends VistaGraficaConNotificador implements MostrarRegistrosEnTabla, MostrarRegistrosEnLista {
 
     @Override
-    public void mostrarRegistrosEnTabla(JTable tabla, List<String[]> registros) {
+    public void mostrarRegistrosEnTabla(JTable tabla, List<? extends DTO> registros) {
         DefaultTableModel modelo = (DefaultTableModel) tabla.getModel();
         modelo.setNumRows(0);
-        for (String[] registro : registros) {
-            modelo.addRow(registro);
+        for (DTO registro : registros) {
+            modelo.addRow(registro.getAttributeValues());
         }
     }
 

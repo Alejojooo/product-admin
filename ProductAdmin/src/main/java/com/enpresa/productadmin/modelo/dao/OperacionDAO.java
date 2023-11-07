@@ -5,6 +5,7 @@
 package com.enpresa.productadmin.modelo.dao;
 
 import com.enpresa.productadmin.modelo.Operacion;
+import com.enpresa.productadmin.modelo.dto.DTO;
 import com.enpresa.productadmin.utils.Conexion;
 import java.sql.CallableStatement;
 import java.sql.Connection;
@@ -45,7 +46,7 @@ public class OperacionDAO implements DAO<Operacion> {
     }
 
     @Override
-    public List<Operacion> buscar(Map<String, String> campos) {
+    public List<DTO> buscar(Map<String, String> campos) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 

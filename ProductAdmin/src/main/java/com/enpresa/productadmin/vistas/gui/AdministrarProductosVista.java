@@ -1,5 +1,6 @@
 package com.enpresa.productadmin.vistas.gui;
 
+import com.enpresa.productadmin.modelo.dto.ProductoDTO;
 import com.enpresa.productadmin.vistas.MapearAccion;
 import com.enpresa.productadmin.vistas.VistaGraficaConRegistros;
 import java.awt.event.ActionEvent;
@@ -211,7 +212,7 @@ public class AdministrarProductosVista extends VistaGraficaConRegistros implemen
         return campos;
     }
 
-    public void mostrarRegistros(List<String[]> productos) {
+    public void mostrarRegistros(List<ProductoDTO> productos) {
         mostrarRegistrosEnTabla(tbProductos, productos);
     }
 

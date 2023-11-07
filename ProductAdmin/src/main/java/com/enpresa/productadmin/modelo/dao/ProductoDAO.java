@@ -1,6 +1,7 @@
 package com.enpresa.productadmin.modelo.dao;
 
 import com.enpresa.productadmin.modelo.Producto;
+import com.enpresa.productadmin.modelo.dto.ProductoDTO;
 import com.enpresa.productadmin.utils.Conexion;
 import java.sql.CallableStatement;
 import java.sql.Connection;
@@ -66,8 +67,8 @@ public class ProductoDAO implements DAO<Producto> {
     }
 
     @Override
-    public List<Producto> buscar(Map<String, String> campos) {
-        List<Producto> productos = new ArrayList<>();
+    public List<ProductoDTO> buscar(Map<String, String> campos) {
+        List<ProductoDTO> productos = new ArrayList<>();
         String sql = "{CALL dbo.pBuscarProducto(?, ?, ?, ?, ?, ?)}";
 
         try (Connection c = new Conexion().establecerConexion(); CallableStatement cs = c.prepareCall(sql)) {
@@ -80,14 +81,13 @@ public class ProductoDAO implements DAO<Producto> {
 
             ResultSet rs = cs.executeQuery();
             while (rs.next()) {
-                Producto producto = new Producto();
-                producto.setId(rs.getInt(1));
-                producto.setNombre(rs.getNString(2));
-                producto.setCantidad(rs.getInt(3));
-                producto.setPrecioCompra(rs.getBigDecimal(4));
-                producto.setPrecioVenta(rs.getBigDecimal(5));
-                producto.setDescripcion(rs.getNString(6));
-
+                ProductoDTO producto = new ProductoDTO();
+                    producto.setId(rs.getString(1));
+                    producto.setNombre(rs.getNString(2));
+                    producto.setCantidad(rs.getString(3));
+                    producto.setPrecioCompra(rs.getString(4));
+                    producto.setPrecioVenta(rs.getString(5));
+                    producto.setDescripcion(rs.getNString(6));
                 productos.add(producto);
             }
         } catch (SQLException e) {

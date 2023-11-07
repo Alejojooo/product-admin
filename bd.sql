@@ -295,6 +295,29 @@ GO
 
 
 
+CREATE PROCEDURE pBuscarRegistroTransaccion
+	@FechaInicial VARCHAR(20),
+	@FechaFinal VARCHAR(20),
+	@HoraInicial NVARCHAR(10),
+	@HoraFinal NVARCHAR(10),
+	@Objeto NVARCHAR(MAX),
+	@Usuario VARCHAR(MAX),
+	@Accion VARCHAR(20),
+	@Modulo NVARCHAR(20)
+AS BEGIN
+	SELECT *
+	FROM vBitacoraTransacciones
+	WHERE [Fecha] BETWEEN @FechaInicial AND @FechaFinal
+	AND [Hora] BETWEEN @HoraInicial AND @HoraFinal
+	AND [Objeto] LIKE '%' + @Objeto + '%'
+	AND [Usuario] LIKE '%' + @Usuario + '%'
+	AND [Acción] LIKE '%' + @Accion + '%'
+	AND [Módulo] LIKE '%' + @Modulo + '%'
+END
+GO
+
+
+
 
 
 -- FUNCIONES

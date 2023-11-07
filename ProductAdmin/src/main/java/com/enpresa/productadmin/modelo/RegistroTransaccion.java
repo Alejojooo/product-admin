@@ -13,22 +13,11 @@ public class RegistroTransaccion {
     private LocalDate fecha;
     private LocalTime hora;
     private String objeto;
-    private Usuario usuario;
+    private String usuario;
     private Accion accion;
     private Modulo modulo;
 
     public RegistroTransaccion() {
-    }
-
-    public RegistroTransaccion(int id, LocalDate fecha, LocalTime hora,
-            String objeto, Usuario usuario, Accion accion, Modulo modulo) {
-        this.id = id;
-        this.fecha = fecha;
-        this.hora = hora;
-        this.objeto = objeto;
-        this.usuario = usuario;
-        this.accion = accion;
-        this.modulo = modulo;
     }
 
     public int getId() {
@@ -63,11 +52,11 @@ public class RegistroTransaccion {
         this.objeto = objeto;
     }
 
-    public Usuario getUsuario() {
+    public String getUsuario() {
         return usuario;
     }
 
-    public void setUsuario(Usuario usuario) {
+    public void setUsuario(String usuario) {
         this.usuario = usuario;
     }
 
