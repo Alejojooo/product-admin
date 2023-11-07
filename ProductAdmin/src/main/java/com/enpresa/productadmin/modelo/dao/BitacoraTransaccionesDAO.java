@@ -1,7 +1,6 @@
 package com.enpresa.productadmin.modelo.dao;
 
 import com.enpresa.productadmin.modelo.RegistroTransaccion;
-import com.enpresa.productadmin.modelo.dto.RegistroAccesoDTO;
 import com.enpresa.productadmin.modelo.dto.RegistroTransaccionBusquedaDTO;
 import com.enpresa.productadmin.modelo.dto.RegistroTransaccionDTO;
 import com.enpresa.productadmin.utils.Conexion;

@@ -30,32 +30,33 @@ public class CambiarClaveVista extends VistaGraficaConNotificador implements Map
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        txtClaveActual = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
-        txtClaveNueva = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        txtClaveConfirmacion = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         btnConfirmar = new javax.swing.JButton();
+        txtClaveConfirmacion = new javax.swing.JPasswordField();
+        txtClaveNueva = new javax.swing.JPasswordField();
+        txtClaveActual = new javax.swing.JPasswordField();
 
         setMaximumSize(new java.awt.Dimension(523, 236));
         setMinimumSize(new java.awt.Dimension(523, 236));
         setPreferredSize(new java.awt.Dimension(523, 236));
+        setLayout(null);
 
         jLabel1.setText("Contraseña actual:");
         jLabel1.setPreferredSize(new java.awt.Dimension(111, 21));
-
-        txtClaveActual.setPreferredSize(new java.awt.Dimension(200, 27));
+        add(jLabel1);
+        jLabel1.setBounds(16, 44, 111, 21);
 
         jLabel2.setText("Nueva contraseña:");
         jLabel2.setPreferredSize(new java.awt.Dimension(111, 21));
-
-        txtClaveNueva.setPreferredSize(new java.awt.Dimension(200, 27));
+        add(jLabel2);
+        jLabel2.setBounds(16, 108, 111, 21);
 
         jLabel3.setText("Confirmar contraseña:");
         jLabel3.setPreferredSize(new java.awt.Dimension(131, 21));
-
-        txtClaveConfirmacion.setPreferredSize(new java.awt.Dimension(200, 27));
+        add(jLabel3);
+        jLabel3.setBounds(16, 172, 131, 21);
 
         jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel5.setText("<html> <p>Las contraseñas deben tener como mínimo:  <br>     - 10 caracteres de longitud.  <br>     - Un número.  <br>     - Un carácter especial (!@#$, entre otros).</p> </html>");
@@ -65,56 +66,19 @@ public class CambiarClaveVista extends VistaGraficaConNotificador implements Map
         jLabel5.setMinimumSize(new java.awt.Dimension(275, 70));
         jLabel5.setPreferredSize(new java.awt.Dimension(275, 70));
         jLabel5.setVerticalTextPosition(javax.swing.SwingConstants.TOP);
+        add(jLabel5);
+        jLabel5.setBounds(232, 44, 275, 70);
 
         btnConfirmar.setText("Confirmar");
         btnConfirmar.setPreferredSize(new java.awt.Dimension(100, 30));
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(15, 15, 15)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtClaveActual, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(15, 15, 15)
-                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(txtClaveNueva, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(105, 105, 105)
-                        .addComponent(btnConfirmar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtClaveConfirmacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(15, 15, 15)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(6, 6, 6)
-                        .addComponent(txtClaveActual, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(5, 5, 5)
-                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(2, 2, 2)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(4, 4, 4)
-                        .addComponent(txtClaveNueva, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(btnConfirmar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(6, 6, 6)
-                .addComponent(txtClaveConfirmacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
+        add(btnConfirmar);
+        btnConfirmar.setBounds(320, 128, 100, 30);
+        add(txtClaveConfirmacion);
+        txtClaveConfirmacion.setBounds(16, 193, 200, 27);
+        add(txtClaveNueva);
+        txtClaveNueva.setBounds(16, 129, 200, 27);
+        add(txtClaveActual);
+        txtClaveActual.setBounds(16, 65, 200, 27);
     }// </editor-fold>//GEN-END:initComponents
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -123,19 +87,36 @@ public class CambiarClaveVista extends VistaGraficaConNotificador implements Map
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JTextField txtClaveActual;
-    private javax.swing.JTextField txtClaveConfirmacion;
-    private javax.swing.JTextField txtClaveNueva;
+    private javax.swing.JPasswordField txtClaveActual;
+    private javax.swing.JPasswordField txtClaveConfirmacion;
+    private javax.swing.JPasswordField txtClaveNueva;
     // End of variables declaration//GEN-END:variables
 
     @Override
     public ClaveDTO obtenerCampos() {
         ClaveDTO campos = new ClaveDTO();
-        campos.setClaveActual(txtClaveActual.getText());
-        campos.setClaveNueva(txtClaveNueva.getText());
-        campos.setClaveConfirmacion(txtClaveConfirmacion.getText());
+        
+        campos.setClaveActual(obtenerClave(txtClaveActual.getPassword()));
+        campos.setClaveNueva(obtenerClave(txtClaveNueva.getPassword()));
+        campos.setClaveConfirmacion(obtenerClave(txtClaveConfirmacion.getPassword()));
 
+        limpiarCampos();
         return campos;
+    }
+    
+    private String obtenerClave(char[] clave) {
+        String claveString = "";
+        for (int i = 0; i < clave.length; i++) {
+            claveString += clave[i];
+            clave[i] = 0;
+        }
+        return claveString;
+    }
+    
+    private void limpiarCampos() {
+        txtClaveActual.setText("");
+        txtClaveNueva.setText("");
+        txtClaveConfirmacion.setText("");
     }
 
     @Override

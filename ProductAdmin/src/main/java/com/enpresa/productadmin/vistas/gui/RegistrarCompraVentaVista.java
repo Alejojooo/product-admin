@@ -1,17 +1,14 @@
 package com.enpresa.productadmin.vistas.gui;
 
-import com.enpresa.productadmin.modelo.Producto;
 import com.enpresa.productadmin.modelo.dto.DTO;
 import com.enpresa.productadmin.modelo.dto.OperacionDTO;
 import com.enpresa.productadmin.modelo.dto.ProductoDTO;
-import com.enpresa.productadmin.utils.Mapper;
 import com.enpresa.productadmin.vistas.EntradaUsuario;
 import com.enpresa.productadmin.vistas.MapearAccion;
 import com.enpresa.productadmin.vistas.MostrarRegistros;
 import com.enpresa.productadmin.vistas.VistaGraficaConRegistros;
 import java.awt.event.ActionEvent;
 import java.util.List;
-import java.util.Map;
 import java.util.function.Function;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;

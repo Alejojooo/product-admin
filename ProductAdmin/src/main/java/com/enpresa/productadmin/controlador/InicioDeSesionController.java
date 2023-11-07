@@ -19,6 +19,7 @@ public class InicioDeSesionController implements Controller{
         this.vista = vista;
     }
     
+    @Override
     public void start() {
         vista.mostrarVista("Inicio de Sesión");
         mapearAcciones();
@@ -39,7 +40,7 @@ public class InicioDeSesionController implements Controller{
         vista.mostrarMensaje("Inicio de sesión correcto.");
         vista.cerrarVista();
         ProductAdmin.usuarioActivo = modelo.consultarUno(id);
-        ProductAdmin.goToMenuPrincipal();
+        ProductAdmin.goToMenuPrincipal(null);
         return 1;
     }
 }

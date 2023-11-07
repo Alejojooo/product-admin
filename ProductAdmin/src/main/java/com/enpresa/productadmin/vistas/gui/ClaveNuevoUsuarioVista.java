@@ -1,7 +1,6 @@
 package com.enpresa.productadmin.vistas.gui;
 
 import com.enpresa.productadmin.vistas.VistaGrafica;
-import javax.swing.JFrame;
 
 /**
  *

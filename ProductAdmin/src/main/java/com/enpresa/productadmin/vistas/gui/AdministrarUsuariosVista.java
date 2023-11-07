@@ -8,9 +8,7 @@ import com.enpresa.productadmin.vistas.MapearAccion;
 import com.enpresa.productadmin.vistas.MostrarRegistros;
 import com.enpresa.productadmin.vistas.VistaGraficaConRegistros;
 import java.awt.event.ActionEvent;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.function.Function;
 
 /**

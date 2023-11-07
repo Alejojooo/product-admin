@@ -12,7 +12,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 /**
  *
@@ -182,10 +181,8 @@ public class UsuarioDAO implements DAO<Usuario, UsuarioDTO> {
         try (Connection c = new Conexion().establecerConexion(); CallableStatement cs = c.prepareCall(sql)) {
             cs.setInt(1, idUsuario);
             cs.setNString(2, claveNueva);
-            ResultSet rs = cs.executeQuery();
-            if (rs.next()) {
-                return rs.getBoolean(1);
-            }
+            cs.execute();
+            return true;
         } catch (SQLException e) {
             e.printStackTrace();
         }

@@ -73,6 +73,13 @@ public class CambiarClaveController implements Controller {
         }
         return true;
     }
+    
+    private char[] declararClaveACero(char[] clave) {
+        for (int i = 0; i < clave.length; i++) {
+            clave[i] = 0;
+        }
+        return clave;
+    }
 }
 
 class ClaveInvalidaException extends Exception {

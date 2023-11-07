@@ -32,72 +32,44 @@ public class IniciarSesionVista extends VistaGraficaConNotificador implements Ma
         jLabel1 = new javax.swing.JLabel();
         txtUsuario = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
-        txtClave = new javax.swing.JTextField();
         btnIniciarSesion = new javax.swing.JButton();
+        txtClave = new javax.swing.JPasswordField();
 
         setBorder(javax.swing.BorderFactory.createTitledBorder(""));
         setAlignmentY(0.0F);
         setMaximumSize(new java.awt.Dimension(182, 212));
         setMinimumSize(new java.awt.Dimension(182, 212));
-        setPreferredSize(new java.awt.Dimension(182, 212));
+        setPreferredSize(new java.awt.Dimension(250, 300));
+        setLayout(null);
 
-        jLabel1.setText("Usuario");
+        jLabel1.setText("Usuario:");
         jLabel1.setMaximumSize(new java.awt.Dimension(49, 21));
         jLabel1.setMinimumSize(new java.awt.Dimension(49, 21));
         jLabel1.setPreferredSize(new java.awt.Dimension(49, 21));
+        add(jLabel1);
+        jLabel1.setBounds(50, 75, 49, 21);
 
         txtUsuario.setMaximumSize(new java.awt.Dimension(150, 27));
         txtUsuario.setMinimumSize(new java.awt.Dimension(150, 27));
         txtUsuario.setPreferredSize(new java.awt.Dimension(150, 27));
+        add(txtUsuario);
+        txtUsuario.setBounds(50, 96, 150, 27);
 
-        jLabel2.setText("Contraseña");
+        jLabel2.setText("Contraseña:");
         jLabel2.setMaximumSize(new java.awt.Dimension(72, 21));
         jLabel2.setMinimumSize(new java.awt.Dimension(72, 21));
         jLabel2.setPreferredSize(new java.awt.Dimension(72, 21));
-
-        txtClave.setMaximumSize(new java.awt.Dimension(150, 27));
-        txtClave.setMinimumSize(new java.awt.Dimension(150, 27));
-        txtClave.setPreferredSize(new java.awt.Dimension(150, 27));
+        add(jLabel2);
+        jLabel2.setBounds(50, 139, 72, 21);
 
         btnIniciarSesion.setText("Iniciar Sesión");
         btnIniciarSesion.setMaximumSize(new java.awt.Dimension(104, 27));
         btnIniciarSesion.setMinimumSize(new java.awt.Dimension(104, 27));
         btnIniciarSesion.setPreferredSize(new java.awt.Dimension(104, 27));
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(15, 15, 15)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(15, 15, 15)
-                .addComponent(txtUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(15, 15, 15)
-                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(15, 15, 15)
-                .addComponent(txtClave, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(34, 34, 34)
-                .addComponent(btnIniciarSesion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(19, 19, 19)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(6, 6, 6)
-                .addComponent(txtUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(6, 6, 6)
-                .addComponent(txtClave, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(btnIniciarSesion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
+        add(btnIniciarSesion);
+        btnIniciarSesion.setBounds(73, 203, 104, 27);
+        add(txtClave);
+        txtClave.setBounds(50, 160, 150, 27);
     }// </editor-fold>//GEN-END:initComponents
 
 
@@ -105,14 +77,14 @@ public class IniciarSesionVista extends VistaGraficaConNotificador implements Ma
     private javax.swing.JButton btnIniciarSesion;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JTextField txtClave;
+    private javax.swing.JPasswordField txtClave;
     private javax.swing.JTextField txtUsuario;
     // End of variables declaration//GEN-END:variables
 
     public Map<String, String> getCampos() {
         Map<String, String> campos = new HashMap<>();
         campos.put("usuario", txtUsuario.getText());
-        campos.put("clave", txtClave.getText());
+        campos.put("clave", obtenerClave(txtClave.getPassword()));
         
         return campos;
     }
@@ -126,5 +98,14 @@ public class IniciarSesionVista extends VistaGraficaConNotificador implements Ma
                 });
             }
         }
+    }
+    
+    private String obtenerClave(char[] clave) {
+        String claveString = "";
+        for (int i = 0; i < clave.length; i++) {
+            claveString += clave[i];
+            clave[i] = 0;
+        }
+        return claveString;
     }
 }
