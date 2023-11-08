@@ -37,10 +37,16 @@ CREATE TABLE tbProducto (
 	descripcion NVARCHAR(250)
 )
 
-CREATE TABLE tbOperacion (
-	idOperacion INT PRIMARY KEY IDENTITY(1, 1),
+CREATE TABLE tbCompra (
+	idCompra INT PRIMARY KEY IDENTITY(1, 1),
 	nombreProducto NVARCHAR(100) NOT NULL,
-	tipoOperacion VARCHAR(10) NOT NULL,
+	precio DECIMAL(10, 2) NOT NULL,
+	cantidad INT NOT NULL
+)
+
+CREATE TABLE tbVenta (
+	idVenta INT PRIMARY KEY IDENTITY(1, 1),
+	nombreProducto NVARCHAR(100) NOT NULL,
 	precio DECIMAL(10, 2) NOT NULL,
 	cantidad INT NOT NULL
 )
@@ -94,6 +100,24 @@ AS
 		   precioVenta AS [Precio Venta],
 		   descripcion AS [Descripción]
 	FROM tbProducto
+GO
+
+CREATE VIEW vCompras
+AS
+	SELECT nombreProducto AS [Nombre],
+		   precio AS [Precio],
+		   cantidad AS [Cantidad],
+		   precio * cantidad AS [Total]
+	FROM tbCompra
+GO
+
+CREATE VIEW vVentas
+AS
+	SELECT nombreProducto AS [Nombre],
+		   precio AS [Precio],
+		   cantidad AS [Cantidad],
+		   precio * cantidad AS [Total]
+	FROM tbVenta
 GO
 
 CREATE VIEW vBitacoraTransacciones
@@ -199,10 +223,10 @@ AS BEGIN
 	SELECT *
 	FROM vUsuarios
 	WHERE [ID Usuario] LIKE '%' + @IDUsuario + '%'
-	OR [Usuario] LIKE '%' + @Usuario + '%'
-	OR [Nombres] LIKE '%' + @Nombres + '%'
-	OR [Apellidos] LIKE '%' + @Apellidos + '%'
-	OR [Rol] LIKE '%' + @Rol + '%'
+	AND [Usuario] LIKE '%' + @Usuario + '%'
+	AND [Nombres] LIKE '%' + @Nombres + '%'
+	AND [Apellidos] LIKE '%' + @Apellidos + '%'
+	AND [Rol] LIKE '%' + @Rol + '%'
 END
 GO
 
@@ -366,8 +390,16 @@ CREATE PROCEDURE pRegistrarOperacion
 AS BEGIN
 	BEGIN TRY
 		BEGIN TRAN
-			INSERT INTO tbOperacion (nombreProducto, tipoOperacion, precio, cantidad)
-			VALUES (@NombreProducto, @TipoOperacion, @Precio, @Cantidad)
+			IF @TipoOperacion = 'Compra'
+			BEGIN
+				INSERT INTO tbCompra (nombreProducto, precio, cantidad)
+				VALUES (@NombreProducto, @Precio, @Cantidad)
+			END
+			ELSE
+			BEGIN
+				INSERT INTO tbVenta (nombreProducto, precio, cantidad)
+				VALUES (@NombreProducto, @Precio, @Cantidad)
+			END
 		COMMIT TRAN
 	END TRY
 	BEGIN CATCH
@@ -642,7 +674,6 @@ BEGIN CATCH
 	END
 END CATCH
 GO
-
 
 
 
