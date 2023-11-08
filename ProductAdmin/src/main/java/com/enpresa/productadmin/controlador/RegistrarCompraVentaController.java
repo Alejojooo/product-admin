@@ -44,7 +44,7 @@ public class RegistrarCompraVentaController implements Controller {
     }
 
     private int crearOperacion() {
-        OperacionDTO campos = vista.obtenerCampos(); // idProducto, tipoOperacion, cantidad
+        OperacionDTO campos = vista.obtenerCampos();
 
         String nombreProducto;
         TipoOperacion tipoOperacion;

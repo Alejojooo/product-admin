@@ -265,8 +265,8 @@ AS BEGIN
 						(SELECT usuario
 						FROM tbUsuario
 						WHERE idUsuario = @IDUsuario))
-				RETURN @IDUsuario
 			COMMIT TRAN
+			SELECT @IDUsuario
 		END TRY
 		BEGIN CATCH
 			IF (@@TRANCOUNT > 0)

@@ -3,17 +3,17 @@ package com.enpresa.productadmin.controlador;
 import com.enpresa.productadmin.modelo.TipoOperacion;
 import com.enpresa.productadmin.modelo.dao.OperacionDAO;
 import com.enpresa.productadmin.modelo.dto.OperacionReporteDTO;
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.math.BigDecimal;
-import java.time.LocalDate;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import javax.imageio.ImageIO;
 import javax.swing.JOptionPane;
+import net.sf.jasperreports.engine.JREmptyDataSource;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
@@ -38,36 +38,34 @@ public class ReporteGastosGanancias implements Controller {
     public void start() {
         String imagePath = "resources/logoEmpresa.jpg";
         String jasperFilePath = "resources/ProductAdmin_ReporteGastosGanancias.jasper";
-        String pdfPath = "reportes/GastosGanancias " + LocalDate.now().toString() + ".pdf";
+
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy HH_mm_ss");
+        String pdfPath = "reportes/GastosGanancias " + dateFormat.format(new Date()) + ".pdf";
 
         List<OperacionReporteDTO> registrosCompras = modelo.consultar(TipoOperacion.Compra);
         List<OperacionReporteDTO> registrosVentas = modelo.consultar(TipoOperacion.Venta);
-        try {
-            InputStream logoEmpresa;
-            try (InputStream jasperStream = new FileInputStream(jasperFilePath)) {
-                File imageFile = new File(imagePath);
-                logoEmpresa = (InputStream) ImageIO.createImageInputStream(imageFile);
+        try (InputStream jasperStream = new FileInputStream(jasperFilePath); InputStream logoEmpresa = new FileInputStream(imagePath);) {
 
-                JRBeanArrayDataSource dsGastos = new JRBeanArrayDataSource(registrosCompras.toArray());
-                JRBeanArrayDataSource dsGanancias = new JRBeanArrayDataSource(registrosVentas.toArray());
+            JRBeanArrayDataSource dsGastos = new JRBeanArrayDataSource(registrosCompras.toArray());
+            JRBeanArrayDataSource dsGanancias = new JRBeanArrayDataSource(registrosVentas.toArray());
 
-                BigDecimal subtotalGastos = calcularSubtotal(registrosCompras);
-                BigDecimal subtotalGanancias = calcularSubtotal(registrosVentas);
-                BigDecimal total = calcularTotal(subtotalGastos, subtotalGanancias);
+            BigDecimal subtotalGastos = calcularSubtotal(registrosCompras);
+            BigDecimal subtotalGanancias = calcularSubtotal(registrosVentas);
+            BigDecimal total = calcularTotal(subtotalGastos, subtotalGanancias);
 
-                Map<String, Object> parameters = new HashMap();
-                parameters.put("logoEmpresa", logoEmpresa);
-                parameters.put("dsGastos", dsGastos);
-                parameters.put("dsGanancias", dsGanancias);
-                parameters.put("subtotalGastos", subtotalGastos);
-                parameters.put("subtotalGanancias", subtotalGanancias);
-                parameters.put("total", total);
+            Map<String, Object> parameters = new HashMap();
+            parameters.put("logoEmpresa", logoEmpresa);
+            parameters.put("dsGastos", dsGastos);
+            parameters.put("dsGanancias", dsGanancias);
+            parameters.put("subtotalGastos", subtotalGastos);
+            parameters.put("subtotalGanancias", subtotalGanancias);
+            parameters.put("total", total);
+            
+            System.out.println(subtotalGastos + " " + subtotalGanancias + " " + total);
 
-                JasperReport reporte = (JasperReport) JRLoader.loadObject(jasperStream);
-                JasperPrint jasperPrint = JasperFillManager.fillReport(reporte, parameters);
-                JasperExportManager.exportReportToPdfFile(jasperPrint, pdfPath);
-            }
-            logoEmpresa.close();
+            JasperReport reporte = (JasperReport) JRLoader.loadObject(jasperStream);
+            JasperPrint jasperPrint = JasperFillManager.fillReport(reporte, parameters, new JREmptyDataSource());
+            JasperExportManager.exportReportToPdfFile(jasperPrint, pdfPath);
             JOptionPane.showMessageDialog(null, "Se ha creado un nuevo reporte en la carpeta reportes", "Reportes", JOptionPane.INFORMATION_MESSAGE);
         } catch (IOException | JRException e) {
             e.printStackTrace();
@@ -78,7 +76,7 @@ public class ReporteGastosGanancias implements Controller {
     private BigDecimal calcularSubtotal(List<OperacionReporteDTO> registros) {
         BigDecimal subtotal = BigDecimal.ZERO;
         for (OperacionReporteDTO registro : registros) {
-            subtotal.add(registro.getTotal());
+            subtotal = subtotal.add(registro.getTotal());
         }
         return subtotal;
     }

@@ -21,7 +21,7 @@ public class OperacionDAO implements DAO<Operacion, OperacionDTO> {
 
     @Override
     public void crear(Operacion operacion) {
-        String sql = "{CALL dbo.RegistrarOperacion(?, ?, ?, ?)}";
+        String sql = "{CALL dbo.pRegistrarOperacion(?, ?, ?, ?)}";
 
         try (Connection c = new Conexion().establecerConexion(); CallableStatement cs = c.prepareCall(sql)) {
             cs.setNString(1, operacion.getNombreProducto());

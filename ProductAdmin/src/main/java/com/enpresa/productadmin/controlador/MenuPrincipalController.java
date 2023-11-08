@@ -77,7 +77,7 @@ public class MenuPrincipalController implements Controller {
         });
 
         vista.getBtnReporteGastosGanacias().addActionListener((ActionEvent e) -> {
-            ProductAdmin.goToReporteGastosGanacias();
+            ProductAdmin.goToReporteGastosGanacias(vista);
         });
 
         // Ayuda

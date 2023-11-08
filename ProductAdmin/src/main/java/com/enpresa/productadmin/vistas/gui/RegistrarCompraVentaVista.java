@@ -13,6 +13,7 @@ import java.util.function.Function;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.swing.ButtonGroup;
+import javax.swing.JRadioButton;
 
 /**
  *
@@ -109,12 +110,14 @@ public class RegistrarCompraVentaVista extends VistaGraficaConRegistros implemen
         getButtonGroup().add(rbtnCompra);
         rbtnCompra.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
         rbtnCompra.setText("Compra");
+        rbtnCompra.setActionCommand("Compra");
         add(rbtnCompra);
         rbtnCompra.setBounds(36, 230, 67, 23);
 
         getButtonGroup().add(rbtnVenta);
         rbtnVenta.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
         rbtnVenta.setText("Venta");
+        rbtnVenta.setActionCommand("Venta");
         add(rbtnVenta);
         rbtnVenta.setBounds(119, 230, 54, 23);
 
@@ -171,9 +174,8 @@ public class RegistrarCompraVentaVista extends VistaGraficaConRegistros implemen
         if (matcher.find()) {
             idProducto = matcher.group(1);
         }
-
         producto.setIdProducto(idProducto);
-        producto.setTipoOperacion(buttonGroup.getSelection().toString());
+        producto.setTipoOperacion(buttonGroup.getSelection().getActionCommand());
         producto.setCantidad(txtCantidad.getText());
 
         return producto;

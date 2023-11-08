@@ -8,6 +8,7 @@ import com.enpresa.productadmin.controlador.CambiarClaveController;
 import com.enpresa.productadmin.controlador.InicioDeSesionController;
 import com.enpresa.productadmin.controlador.MenuPrincipalController;
 import com.enpresa.productadmin.controlador.RegistrarCompraVentaController;
+import com.enpresa.productadmin.controlador.ReporteGastosGanancias;
 import com.enpresa.productadmin.modelo.dao.ProductoDAO;
 import com.enpresa.productadmin.modelo.dao.UsuarioDAO;
 import com.enpresa.productadmin.modelo.Usuario;
@@ -120,8 +121,10 @@ public class ProductAdmin {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
-    public static void goToReporteGastosGanacias() {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public static void goToReporteGastosGanacias(VistaGrafica origin) {
+        OperacionDAO modelo = new OperacionDAO();
+        ReporteGastosGanancias controller = new ReporteGastosGanancias(modelo);
+        controller.start();
     }
 
     public static void goToAcercaDe(VistaGrafica origin) {

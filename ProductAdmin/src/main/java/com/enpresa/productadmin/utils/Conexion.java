@@ -10,15 +10,12 @@ import java.sql.SQLException;
  */
 public class Conexion {
 
-    Connection conexion = null;
-
-    String ip = "localhost";
-    String puerto = "1433";
-    String baseDatos = "bdProductAdmin";
-    String usuario = "productadmin";
-    String clave = "productadmin";
-
-    public Connection establecerConexion() {
+    public static Connection establecerConexion() {
+        String ip = "localhost";
+        String puerto = "1433";
+        String baseDatos = "bdProductAdmin";
+        String usuario = "productadmin";
+        String clave = "productadmin";
 
         try {
             StringBuilder sb = new StringBuilder();
@@ -26,11 +23,12 @@ public class Conexion {
             sb.append("databaseName=").append(baseDatos).append(";");
             sb.append("encrypt=true;trustServerCertificate=true");
 
-            conexion = DriverManager.getConnection(sb.toString(), usuario, clave);
+            Connection conexion = DriverManager.getConnection(sb.toString(), usuario, clave);
             System.out.println("Conexión hecha.");
+            return conexion;
         } catch (SQLException e) {
             e.printStackTrace();
+            return null;
         }
-        return conexion;
     }
 }
